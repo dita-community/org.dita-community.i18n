@@ -1,0 +1,20 @@
+<plugin id="org.dita-community.i18n">
+  <!-- This plugin provides general internationalization
+       facilities for locale-specific grouping, sorting, and
+       word breaking.
+      -->
+
+  <feature extension="package.support.name" value="Eliot Kimber"/>
+  <feature extension="package.support.email" value="ekimber@contrext.com"/>
+
+  <!-- Extend OT class path. -->
+  
+  <!-- NOTE: XSLT is used by reference from other plugins. This plugin does
+             not itself extend any other plugins.
+    -->
+  
+  <feature extension="dita.conductor.lib.import" file="lib/dita-community-i18n.jar"/>
+  <feature extension="dita.conductor.target.relative" value="build.xml" type="file"/>
+  
+      
+</plugin>

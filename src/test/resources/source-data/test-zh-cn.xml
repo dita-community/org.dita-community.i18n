@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data xml:lang="zh-CN">
+  <title>zh-CN words to be sorted</title>
+  <words>
+    <word sort-position="0" expected-sort-key="" expected-group="">请参阅</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">另见</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">图</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">表</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">下一主题</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">上一主题</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">父主题</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">需要修正</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">非正式版注释</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">选项</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">描述</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">可选</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">必需</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">跳过直观语法图</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">阅读语法图</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">更新开始</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">更新结束</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">索引</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">特别字符</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">数字</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">结尾注释</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">图片</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">语法</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">类型</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">值</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">注</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">提示</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">捷径</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">重要</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">注意</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">警告</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">危险</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">切记</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">限制</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">警告</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">内容</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">相关概念</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">相关任务</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">相关参考</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">相关信息</word>    
+    <word sort-position="0" expected-sort-key="" expected-group="">先决条件</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">先决条件</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">或</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">关于此任务</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">示例</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">下一步做什么</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">开始之前</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">过程</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">结果</word>    
+    <word sort-position="0" expected-sort-key="" expected-group="">版权</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">“</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">”</word>
+    <word sort-position="0" expected-sort-key="" expected-group="">：</word>
+  </words>
+</test-data>

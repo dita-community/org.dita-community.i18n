@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="org.dita-community.i18n">
+  
+  <property file=".build.properties" />
+  <property file="build.properties"/>
+  
+  <!-- Override this in your local .build.properties or build.properties file -->
+  <property name="dita-ot-dir" value="c:\DITA-OT"/>
+  
+  <property name="plugin.dir" value="${basedir}/plugin"/>
+  <property name="package.dir" value="${basedir}/build"/>
+  <property name="src" value="${basedir}/src"/>
+  <property name="test" value="${basedir}/test"/>
+  <property name="src.xslt" value="${src}/main/xsl"/>
+  <property name="lib.dir" value="${basedir}}/lib"/>
+  <property name="target.dir" value="${basedir}/target"/>
+
+  <!-- FIXME: Define the Java class path -->
+    
+  <target name="init">
+    <tstamp/>
+  </target>
+  
+  <target name="compile" depends="init" description="Compile the java code">
+    
+  </target>
+  
+  <target name="jar" depends="compile" description="Make the Java JAR files">
+    
+  </target>
+
+  <!-- FIXME: Need to compile the jar(s) -->
+  <target name="package" depends="jar"
+    description="Package the OT plugin for distribution"
+    >
+    <copy todir="${package.dir}">
+      <fileset dir="${plugin.dir}">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="deploy" depends="package" 
+    description="Deploy the plugin to a local OT instance">
+    
+  </target>
+  
+</project>
