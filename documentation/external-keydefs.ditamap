@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>External Resource Key Definitions</title>
+  <topicgroup>
+    <keydef keys="cc-cedict-project" scope="external" format="html"
+      href="http://www.mdbg.net/chindict/chindict.php?page=cedict"
+    >
+      <topicmeta>
+        <navtitle>www.mdbg.net/chindict/chindict.php?page=cedict</navtitle>
+      </topicmeta>
+    </keydef>
+  </topicgroup>
+</map>

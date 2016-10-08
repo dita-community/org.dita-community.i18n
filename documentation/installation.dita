@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="installation">
+  <title>Installation</title>
+  <body>
+    <p>For Open Toolkit 1.8.5:<ol id="ol_xxb_4px_nx">
+        <li>Expand the plugin Zip file into the Open Toolkit's <filepath>plugins/</filepath>
+          directory so that you have a new directory,
+          <filepath>org.dita-community.i18n</filepath>.</li>
+        <li>Run the Open Toolkit integrator.xml Ant
+          task:<codeblock>c:\DITA-OT> ant -f integrator.xml</codeblock></li>
+      </ol></p>
+    <p>For Open Toolkit 2.x:<ol id="ol_owc_tpx_nx">
+        <li>Run the <cmdname>dita</cmdname> command with the <parmname>-install</parmname>
+          parameter, specifying the location of the plugin Zip file, which can be downloaded locally
+          or retrieved directly from
+          GitHub:<codeblock>c:\DITA-OT> bin\dita -install http://github.com/dita-community/org.dita-community.i18n/release/latest/org.dita-community.i18n.zip</codeblock></li>
+      </ol></p>
+    <p>You can verify that the plugin is correctly installed by running the Ant target
+      "org.dita-community.i18n-test". You should get output like
+      this:<codeblock>c:\DITA-OT> ant org.dita-community.i18n-test
+Simplified Chinese Sort Test:
+...
+{FIXME: put real output here}</codeblock></p>
+  </body>
+</topic>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+ <title>DITA Community Internationalization Plugin</title>
+  <topicmeta>
+    <author>Eliot Kimber</author>
+    <copyright>
+      <copyryear year="2016"/>
+      <copyrholder>DITA Community Project</copyrholder>
+    </copyright>
+    <critdates>
+      <created date="2016-10-08"/>
+    </critdates>
+    <prodinfo>
+      <prodname>org.dita-community.i18n</prodname>
+    </prodinfo>
+  </topicmeta>
+  <mapref href="external-keydefs.ditamap"/>
+  <topicref href="dita_community_internationalization_plugin.dita" keys="root-topic">
+    <topicref href="installation.dita" keys="installation"/>
+  </topicref>
+</map>

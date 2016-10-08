@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="dita_community_internationalization_plugin">
+  <title>DITA Community Internationalization Plugin</title>
+  <body>
+    <p>The DITA Community internationalization plugin, <filepath>org.dita-community.i18n</filepath>,
+      provides a set of features for doing locale-specific sorting, grouping, and word breaking in
+      XSLT and Java code.</p>
+    <p>It has been designed to support the general tasks for index generation and glossary sorting
+      in DITA documents but can be used in any XSLT or Java program.</p>
+    <p>A key feature of this library is full support for grouping and sorting Simplified Chinese,
+      which is particularly challenging and cannot be correctly sorted using the default Java or ICU
+      collators. Simplified Chinese requires a dictionary and this plugin provides an open-source
+      dictionary-based solution for Simplified Chinese, based on the open-source CC-CEDICT
+      dictionary. See <xref keyref="cc-cedict-project"/>.</p>
+    <p>It provides the following services:</p>
+    <ul id="ul_zh4_1px_nx">
+      <li>
+        <p>A customizable collator for use with XSLT. Includes support for dictionary-based
+          Simplified Chinese grouping and sorting.</p>
+      </li>
+      <li>
+        <p>A general grouping service useful for grouping index terms, glossary entries, etc.</p>
+      </li>
+      <li>
+        <p>Access to the ICU word breaking facility in XSLT, useful for doing word breaking in
+          languages like Thai and Chinese that require a dictionary or writing-system-specific
+          rules.</p>
+      </li>
+    </ul>
+    <p>The plugin supports Open Toolkit version 1.8.5 and version 2.x later than about 2.1.1. It
+      works with both Saxon 9.1 (as shipped with the Open Toolkit through version 2.4) and Saxon 9.6
+      or newer.</p>
+  </body>
+</topic>
