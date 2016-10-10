@@ -20,7 +20,7 @@
     />
   
   <xsl:variable name="customCollatorUri" as="xs:string"
-    select="'http://saxon.sf.net/collation?class=org.ditacommunity.i18n.ZhCnAwareCollator'"
+    select="'http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN'"
   />
   <xsl:variable name="collatorUri" as="xs:string"
     select="if (false()) then 'http://www.w3.org/2005/xpath-functions/collation/codepoint' else $customCollatorUri"

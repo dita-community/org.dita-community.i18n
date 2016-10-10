@@ -17,6 +17,13 @@ public class ZhCnAwareCollator extends Collator implements java.util.Comparator<
     private final com.ibm.icu.text.Collator delegate;
     private final Locale locale ;
 
+    public ZhCnAwareCollator()  {
+        this.locale = Locale.getDefault();
+        this.delegate = RuleBasedCollator.getInstance(locale);
+
+    }
+
+
     public ZhCnAwareCollator(Locale locale)  {
         this.delegate = RuleBasedCollator.getInstance(locale);
 
