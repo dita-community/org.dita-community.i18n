@@ -1,6 +1,7 @@
 package org.ditacommunity.i18n;
 
 import com.ibm.icu.text.RuleBasedCollator;
+import net.sf.saxon.sort.StringCollator;
 
 import java.text.CollationKey;
 import java.text.Collator;
@@ -12,7 +13,7 @@ import java.util.Locale;
  * Rules-based collator that uses the CC-CEDICT Simplified Chinese
  * dictionary to do collation of Simplified Chinese.
  */
-public class ZhCnAwareCollator extends Collator implements java.util.Comparator<Object> {
+public class ZhCnAwareCollator extends Collator implements java.util.Comparator<Object>, StringCollator {
 
     private final com.ibm.icu.text.Collator delegate;
     private final Locale locale ;
@@ -28,6 +29,11 @@ public class ZhCnAwareCollator extends Collator implements java.util.Comparator<
         this.delegate = RuleBasedCollator.getInstance(locale);
 
         this.locale = locale;
+    }
+
+    @Override
+    public int compareStrings(String source, String target) {
+        return this.compare(source, target);
     }
 
     @Override

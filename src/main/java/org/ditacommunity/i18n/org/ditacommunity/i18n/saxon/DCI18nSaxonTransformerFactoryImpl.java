@@ -16,6 +16,7 @@ public class DCI18nSaxonTransformerFactoryImpl extends TransformerFactoryImpl {
 
     public DCI18nSaxonTransformerFactoryImpl() {
         super();
+        System.out.println("DCI18nSaxonTransformerFactoryImpl: Setting collation URI resolver to DCI18nCollationUriResolver");
         this.setAttribute(FeatureKeys.COLLATION_URI_RESOLVER, new DCI18nCollationUriResolver());
     }
 
