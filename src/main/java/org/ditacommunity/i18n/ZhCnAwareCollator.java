@@ -7,6 +7,7 @@ import java.text.CollationKey;
 import java.text.Collator;
 import java.text.ParseException;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -17,18 +18,21 @@ public class ZhCnAwareCollator extends Collator implements java.util.Comparator<
 
     private final com.ibm.icu.text.Collator delegate;
     private final Locale locale ;
+    private final boolean isZhCn;
+    private HashMap<String, ZhCnAwareCollationKey> colKeyCache = new HashMap<String, ZhCnAwareCollationKey>();
+    private ZhCnDictionary zhCnDictionary;
 
     public ZhCnAwareCollator()  {
         this.locale = Locale.getDefault();
+        this.isZhCn = Locale.SIMPLIFIED_CHINESE == locale;
         this.delegate = RuleBasedCollator.getInstance(locale);
-
     }
 
 
     public ZhCnAwareCollator(Locale locale)  {
         this.delegate = RuleBasedCollator.getInstance(locale);
-
         this.locale = locale;
+        this.isZhCn = Locale.SIMPLIFIED_CHINESE == locale;
     }
 
     @Override
@@ -38,7 +42,11 @@ public class ZhCnAwareCollator extends Collator implements java.util.Comparator<
 
     @Override
     public synchronized CollationKey getCollationKey(String source) {
-        CollationKey colKey = new ZhCnAwareCollationKey(delegate, source);
+        if (this.colKeyCache.containsKey(source)) {
+            return this.colKeyCache.get(source);
+        }
+        ZhCnAwareCollationKey colKey = new ZhCnAwareCollationKey(delegate, source);
+        this.colKeyCache.put(source, colKey);
         return colKey;
     }
 
@@ -57,7 +65,6 @@ public class ZhCnAwareCollator extends Collator implements java.util.Comparator<
      */
     public static synchronized Collator getInstance(Locale desiredLocale) {
         System.out.print("getInstance(): desiredLocale=" + desiredLocale);
-        // FIXME: If locale is zh-CN then construct a zh-CN collator.
         Collator collator = new ZhCnAwareCollator(desiredLocale);
         return collator;
 
@@ -65,7 +72,54 @@ public class ZhCnAwareCollator extends Collator implements java.util.Comparator<
 
     @Override
     public int compare(String source, String target) {
-        return delegate.compare(source, target);
+        int result;
+        if (isZhCn) {
+            result = zhCnCompare(source, target);
+        } else {
+            result = delegate.compare(source, target);
+        }
+        return result;
+    }
+
+    /**
+     * Use the Simplified Chinese sort keys to do the comparison. The sort keys
+     * are then passed to the base ICU collator so that its normal rule-based
+     * configuration rules are then applied. For Simplified Chinese the sort key
+     * is the pinyin transliteration of the Chinese word, so the base part of the sort
+     * key is always in latin script.
+     * @param source Source string
+     * @param target Target string
+     * @return Comparison value.
+     */
+    private int zhCnCompare(String source, String target) {
+
+        String sourceSortKey = getZhCnSortKey(source);
+        String targetSortKey = getZhCnSortKey(target);
+
+        return delegate.compare(sourceSortKey, targetSortKey);
+    }
+
+    /**
+     * Given a string that may contain Simplified Chinese ideographs, return
+     * the appropiate sort key, which is the pinyin transliteration as the
+     * primary key and the original text as the secondary key.
+     * @param source Source string.
+     * @return Sort key for use by the RuleBasedCollator.compare() method.
+     */
+    protected String getZhCnSortKey(String source) {
+
+        if (this.colKeyCache.containsKey(source)) {
+            return colKeyCache.get(source).getSortKey();
+        }
+
+        if (zhCnDictionary == null) {
+            // Because the dictionary is in the jar this should never fail in normal operation.
+            this.zhCnDictionary = new ZhCnDictionary();
+        }
+
+        String pinyin = zhCnDictionary.getPinYin(source);
+        // FIXME: Construct proper primary/secondary ICU sort key.
+        return pinyin + source;
     }
 
     @Override

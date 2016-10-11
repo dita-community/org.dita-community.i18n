@@ -1,4 +1,5 @@
 import org.ditacommunity.i18n.ZhCnAwareCollator;
+import org.ditacommunity.i18n.ZhCnDictionary;
 
 import java.text.CollationKey;
 import java.text.Collator;
@@ -31,6 +32,15 @@ public class TestZhCnAwareCollator  {
         assertNotNull(sortKey);
         result = sortKey.compareTo(sortKeyC);
         assertEquals("Wrong compare result", result, -1);
+
+    }
+
+    @org.junit.Test
+    public void testZhCnDictionary() throws Exception {
+        ZhCnDictionary dictionary = new ZhCnDictionary();
+        String expectedPinYin = "a1 lian2 qiu2 zhang3 guo2";
+        String sortKey = dictionary.getPinYin("阿联酋长国");
+        assertEquals("Wrong pinyin", expectedPinYin, sortKey);
 
     }
 }
