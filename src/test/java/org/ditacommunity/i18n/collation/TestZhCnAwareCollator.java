@@ -1,10 +1,10 @@
-import org.ditacommunity.i18n.ZhCnAwareCollator;
-import org.ditacommunity.i18n.ZhCnDictionary;
+package org.ditacommunity.i18n.collation;
+
+import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
+import org.ditacommunity.i18n.collation.ZhCnDictionary;
 
 import java.text.CollationKey;
 import java.text.Collator;
-import java.text.RuleBasedCollator;
-import java.util.Comparator;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;

@@ -1,4 +1,4 @@
-package org.ditacommunity.i18n;
+package org.ditacommunity.i18n.collation;
 
 import java.io.*;
 import java.net.URI;
@@ -86,7 +86,7 @@ public class ZhCnDictionary {
         if (null != pinyin) {
             return pinyin;
         } else {
-            if (source.length() == 1) {
+            if (source.length() <= 1) {
                 return null; // No possible match
             } else {
                 return findLongestMatch(source.substring(0, source.length() - 1));

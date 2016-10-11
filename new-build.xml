@@ -202,6 +202,9 @@
         <include name="**.*" />
         <include name="**/**.*" />
       </fileset>
+      <fileset dir="${basedir}/src/main/java">
+        <include name="**/resources/**.*" />
+      </fileset>
 
     </jar>
   </target>

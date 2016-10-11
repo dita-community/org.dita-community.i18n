@@ -1,4 +1,4 @@
-package org.ditacommunity.i18n;
+package org.ditacommunity.i18n.collation;
 
 import com.ibm.icu.text.Collator;
 

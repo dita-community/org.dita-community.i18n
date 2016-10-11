@@ -1,12 +1,12 @@
-package org.ditacommunity.i18n;
+package org.ditacommunity.i18n.collation;
 
 import com.ibm.icu.text.RuleBasedCollator;
+import net.sf.saxon.expr.sort.AtomicMatchKey;
 import net.sf.saxon.sort.StringCollator;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.text.CollationKey;
 import java.text.Collator;
-import java.text.ParseException;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -14,15 +14,18 @@ import java.util.Locale;
  * Rules-based collator that uses the CC-CEDICT Simplified Chinese
  * dictionary to do collation of Simplified Chinese.
  */
-public class ZhCnAwareCollator extends Collator implements java.util.Comparator<Object>, StringCollator {
+public class ZhCnAwareCollator extends Collator
+        implements java.util.Comparator<Object>, StringCollator {
 
     private final com.ibm.icu.text.Collator delegate;
     private final Locale locale ;
     private final boolean isZhCn;
     private HashMap<String, ZhCnAwareCollationKey> colKeyCache = new HashMap<String, ZhCnAwareCollationKey>();
     private ZhCnDictionary zhCnDictionary;
+    private String collationURI;
 
-    public ZhCnAwareCollator()  {
+    public ZhCnAwareCollator(String collationURI)  {
+        this.collationURI = collationURI;
         this.locale = Locale.getDefault();
         this.isZhCn = Locale.SIMPLIFIED_CHINESE == locale;
         this.delegate = RuleBasedCollator.getInstance(locale);
@@ -74,7 +77,13 @@ public class ZhCnAwareCollator extends Collator implements java.util.Comparator<
     public int compare(String source, String target) {
         int result;
         if (isZhCn) {
-            result = zhCnCompare(source, target);
+            try {
+                result = zhCnCompare(source, target);
+            } catch (Exception e) {
+                System.out.println(" + [ERROR] ZhCnAwareCollator.compare(): " + e.getClass().getSimpleName());
+                e.printStackTrace();
+                result = delegate.compare(source, target);
+            }
         } else {
             result = delegate.compare(source, target);
         }
@@ -126,4 +135,9 @@ public class ZhCnAwareCollator extends Collator implements java.util.Comparator<
     public int compare(Object o1, Object o2) {
         return delegate.compare(o1, o2);
     }
+
+    public void setCollationURI(String collationURI) {
+        this.collationURI = collationURI;
+    }
+
 }
