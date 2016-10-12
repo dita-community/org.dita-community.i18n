@@ -13,7 +13,7 @@
              not itself extend any other plugins.
     -->
   
-  <feature extension="dita.conductor.lib.import" file="lib/dita-community-i18n.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/dita-community-i18n-saxon91.jar"/>
   <feature extension="dita.conductor.target.relative" value="build.xml" type="file"/>
   
       
