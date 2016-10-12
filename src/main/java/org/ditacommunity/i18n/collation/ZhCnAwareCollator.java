@@ -1,7 +1,6 @@
 package org.ditacommunity.i18n.collation;
 
 import com.ibm.icu.text.RuleBasedCollator;
-import net.sf.saxon.expr.sort.AtomicMatchKey;
 import net.sf.saxon.sort.StringCollator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

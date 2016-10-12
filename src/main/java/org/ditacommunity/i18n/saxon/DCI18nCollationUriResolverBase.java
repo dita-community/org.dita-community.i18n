@@ -1,9 +1,5 @@
 package org.ditacommunity.i18n.saxon;
 
-import net.sf.saxon.Configuration;
-import net.sf.saxon.sort.CollationURIResolver;
-import net.sf.saxon.sort.StandardCollationURIResolver;
-import net.sf.saxon.sort.StringCollator;
 import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
 
 import java.io.UnsupportedEncodingException;
@@ -43,11 +39,9 @@ public class DCI18nCollationUriResolverBase {
      * Get a ZhCnAwareCollator or, if this fails for some very unlikely reason, return null.
      * It's up to the caller to provide a default resolver if this method returns null;
      * @param uri The URI of the collator
-     * @param base Base for the URI
-     * @param configuration The Saxon configuration object.
      * @return A ZhCnAwareCollator instance or null (should never happen).
      */
-    protected ZhCnAwareCollator resolveToZhCnAwareCollator(String uri, String base, Configuration configuration) {
+    protected ZhCnAwareCollator resolveToZhCnAwareCollator(String uri) {
 
         if (uri.startsWith(DITA_COMMUNITY_I18N_ZH_CNAWARE_COLLATOR)) {
             URL url = null;

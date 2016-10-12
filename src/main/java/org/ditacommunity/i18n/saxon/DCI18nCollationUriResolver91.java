@@ -22,7 +22,7 @@ public class DCI18nCollationUriResolver91 extends DCI18nCollationUriResolverBase
 
     public StringCollator resolve(String uri, String base, Configuration configuration) {
         System.out.println("+ [DEBUG] DCI18nCollationUriResolver91.resolve(): Collation URI=\"" + uri + "\"");
-        ZhCnAwareCollator collator = resolveToZhCnAwareCollator(uri, base, configuration);
+        ZhCnAwareCollator collator = resolveToZhCnAwareCollator(uri);
         if (null == collator) {
             System.out.println("+ [DEBUG] DCI18nCollationUriResolver91.resolve():   Failed to construct a ZhCnAwareCollator, delegating to default resolver.");
             return defaultResolver.resolve(uri, base, configuration);
