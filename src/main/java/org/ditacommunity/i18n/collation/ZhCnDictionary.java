@@ -14,16 +14,15 @@ import java.util.TreeMap;
  */
 public class ZhCnDictionary {
 
-    private final TreeMap<String, String> pinyinByWord = new TreeMap<String, String>();
+    private static final TreeMap<String, String> pinyinByWord = new TreeMap<String, String>();
 
-    public ZhCnDictionary() {
-        // Load the data
+    static {
         loadDictionaryFromCSV();
     }
 
-    private void loadDictionaryFromCSV() {
+    private static void loadDictionaryFromCSV() {
         String resourceUri = "resources/lookup-zh-cn.csv";
-        URL resource = this.getClass().getResource(resourceUri);
+        URL resource = ZhCnDictionary.class.getResource(resourceUri);
         if (resource == null) {
             throw new RuntimeException("Failed to load zh-CN data set \"" + resourceUri + "\"");
         }
@@ -35,7 +34,7 @@ public class ZhCnDictionary {
                 if (line.startsWith("#")) continue;;
                 String[] parts = line.split("\t");
                 if (parts.length >= 2) {
-                    this.pinyinByWord.put(parts[0], parts[1]);
+                    pinyinByWord.put(parts[0], parts[1]);
                 } else {
                     // Only 1 part, nothing we can do.
                 }
@@ -52,7 +51,7 @@ public class ZhCnDictionary {
      * @param source Word to get transliteration for.
      * @return The transliteration or the input string if no transliteration was found.
      */
-    public String getPinYin(String source) {
+    public static String getPinYin(String source) {
         String pinyin = lookupPinYin(source);
         if (pinyin == null) {
             return source;
@@ -66,7 +65,7 @@ public class ZhCnDictionary {
      * @param source Source to look up.
      * @return The pinyin transliteration, if found, or null if not found.
      */
-    protected String lookupPinYin(String source) {
+    protected static String lookupPinYin(String source) {
         String result = findLongestMatch(source);
         if (result == null) {
             return source;
@@ -81,8 +80,8 @@ public class ZhCnDictionary {
      * @param source The text to find the pinyin for
      * @return The pinyin or null if no matching key is found.
      */
-    private String findLongestMatch(String source) {
-        String pinyin = this.pinyinByWord.get(source);
+    private static String findLongestMatch(String source) {
+        String pinyin = pinyinByWord.get(source);
         if (null != pinyin) {
             return pinyin;
         } else {
