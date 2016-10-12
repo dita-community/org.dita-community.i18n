@@ -199,6 +199,7 @@
   <target name="jar" depends="build.modules">
     <jar destfile="${basedir}/target/lib/dita-community-i18n.jar">
       <fileset dir="${basedir}/target/classes/production/org.dita-community.i18n" >
+        <exclude name="**/*96.*"/>
         <include name="**.*" />
         <include name="**/**.*" />
       </fileset>

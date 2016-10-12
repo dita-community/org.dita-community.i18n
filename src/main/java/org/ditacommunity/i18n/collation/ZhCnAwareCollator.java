@@ -59,7 +59,8 @@ public class ZhCnAwareCollator extends Collator
     }
 
     /**
-     * Gets the Collator for the desired locale.
+     * Gets the Collator for the desired locale. Always returns a
+     * ZhCnAwareCollator.
      *
      * @param desiredLocale the desired locale.
      * @return the Collator for the desired locale.

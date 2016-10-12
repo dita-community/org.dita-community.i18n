@@ -6,11 +6,6 @@ import net.sf.saxon.sort.StandardCollationURIResolver;
 import net.sf.saxon.sort.StringCollator;
 import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.util.*;
-
 /**
  * Resolves references to the DITA Community zh-CN URI resolver, setting the
  * properties specified on the URI.
@@ -18,8 +13,22 @@ import java.util.*;
  */
 public class DCI18nCollationUriResolver91 extends DCI18nCollationUriResolverBase implements CollationURIResolver {
 
+    private final StandardCollationURIResolver defaultResolver;
+
     public DCI18nCollationUriResolver91() {
         super();
+        defaultResolver = StandardCollationURIResolver.getInstance();
+    }
+
+    public StringCollator resolve(String uri, String base, Configuration configuration) {
+        System.out.println("+ [DEBUG] DCI18nCollationUriResolver91.resolve(): Collation URI=\"" + uri + "\"");
+        ZhCnAwareCollator collator = resolveToZhCnAwareCollator(uri, base, configuration);
+        if (null == collator) {
+            System.out.println("+ [DEBUG] DCI18nCollationUriResolver91.resolve():   Failed to construct a ZhCnAwareCollator, delegating to default resolver.");
+            return defaultResolver.resolve(uri, base, configuration);
+        }
+        System.out.println("+ [DEBUG] DCI18nCollationUriResolver91.resolve():   Returning ZhCnAwareCollator");
+        return (StringCollator)collator;
     }
 
 }
