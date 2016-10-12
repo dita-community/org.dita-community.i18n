@@ -2,7 +2,7 @@ package org.ditacommunity.i18n.collation;
 
 import com.ibm.icu.text.RuleBasedCollator;
 import net.sf.saxon.expr.sort.AtomicMatchKey;
-import net.sf.saxon.sort.StringCollator;
+import net.sf.saxon.lib.StringCollator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.text.CollationKey;
@@ -36,11 +36,6 @@ public class ZhCnAwareCollator extends Collator
         this.delegate = RuleBasedCollator.getInstance(locale);
         this.locale = locale;
         this.isZhCn = Locale.SIMPLIFIED_CHINESE == locale;
-    }
-
-    @Override
-    public int compareStrings(String source, String target) {
-        return this.compare(source, target);
     }
 
     @Override
@@ -141,4 +136,23 @@ public class ZhCnAwareCollator extends Collator
         this.collationURI = collationURI;
     }
 
+    @Override
+    public String getCollationURI() {
+        return this.collationURI;
+    }
+
+    @Override
+    public int compareStrings(CharSequence charSequence, CharSequence charSequence1) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public boolean comparesEqual(CharSequence charSequence, CharSequence charSequence1) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public AtomicMatchKey getCollationKey(CharSequence charSequence) {
+        throw new NotImplementedException();
+    }
 }

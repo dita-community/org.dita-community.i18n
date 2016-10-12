@@ -1,9 +1,6 @@
 package org.ditacommunity.i18n.saxon;
 
 import net.sf.saxon.Configuration;
-import net.sf.saxon.sort.CollationURIResolver;
-import net.sf.saxon.sort.StandardCollationURIResolver;
-import net.sf.saxon.sort.StringCollator;
 import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
 
 import java.io.UnsupportedEncodingException;
