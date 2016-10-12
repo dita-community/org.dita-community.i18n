@@ -3,6 +3,7 @@
   
   <property file=".build.properties" />
   <property file="build.properties"/>
+  <property file="version.properties"/>
   
   <property file="new-build.properties"/>
   <!-- Uncomment the following property if no tests compilation is needed -->
@@ -191,6 +192,7 @@
   <target name="clean.module.org.dita-community.i18n" description="cleanup module">
     <delete dir="${org.dita-community.i18n.output.dir}"/>
     <delete dir="${org.dita-community.i18n.testoutput.dir}"/>
+    <delete dir="${package.dir}"/>
   </target>
   
   <target name="init" description="Build initialization">
@@ -198,7 +200,8 @@
     <tstamp/>
   </target>
   
-  <target name="clean" depends="clean.module.org.dita-community.i18n" description="cleanup all"/>
+  <target name="clean" depends="clean.module.org.dita-community.i18n" description="cleanup all">
+  </target>
   
   <target name="build.modules" depends="init, clean, compile.module.org.dita-community.i18n" description="build all modules"/>
 
@@ -232,6 +235,12 @@
         <include name="lib/*.jar"/>
       </fileset>
     </copy>
+  </target>
+  
+  <target name="dist" depends="package">
+    <zip basedir="${package.dir}/plugins" destfile="${package.dir}/org_dita-community_i18n_plugin_${version}.zip">
+      <include name="org.dita-community.i18n/**/*"/>
+    </zip>
   </target>
   
   <target name="deploy" depends="package" 
