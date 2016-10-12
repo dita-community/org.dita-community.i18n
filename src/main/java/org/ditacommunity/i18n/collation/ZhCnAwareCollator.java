@@ -20,7 +20,6 @@ public class ZhCnAwareCollator extends Collator
     private final Locale locale ;
     private final boolean isZhCn;
     private HashMap<String, ZhCnAwareCollationKey> colKeyCache = new HashMap<String, ZhCnAwareCollationKey>();
-    private ZhCnDictionary zhCnDictionary;
     private String collationURI;
 
     public ZhCnAwareCollator(String collationURI)  {
@@ -121,12 +120,8 @@ public class ZhCnAwareCollator extends Collator
             return colKeyCache.get(source).getSortKey();
         }
 
-        if (zhCnDictionary == null) {
-            // Because the dictionary is in the jar this should never fail in normal operation.
-            this.zhCnDictionary = new ZhCnDictionary();
-        }
 
-        String pinyin = zhCnDictionary.getPinYin(source);
+        String pinyin = ZhCnDictionary.getPinYin(source);
         // FIXME: Construct proper primary/secondary ICU sort key.
         return pinyin + source;
     }
