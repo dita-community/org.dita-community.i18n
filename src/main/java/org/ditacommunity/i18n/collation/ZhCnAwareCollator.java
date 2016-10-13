@@ -2,8 +2,10 @@ package org.ditacommunity.i18n.collation;
 
 import com.ibm.icu.text.RuleBasedCollator;
 import net.sf.saxon.sort.StringCollator;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.ditacommunity.i18n.collation.configuration.GroupingAndSortingHelper;
+import org.ditacommunity.i18n.collation.configuration.GroupingAndSortingHelperException;
 
+import java.io.File;
 import java.text.CollationKey;
 import java.text.Collator;
 import java.util.HashMap;
@@ -16,7 +18,9 @@ import java.util.Locale;
 public class ZhCnAwareCollator extends Collator
         implements java.util.Comparator<Object>, StringCollator {
 
-    private final com.ibm.icu.text.Collator delegate;
+    public static final String CONF_GROUPING_AND_SORTING_GROUPING_AND_SORTING_RULES_XML =
+            "conf/grouping-and-sorting/grouping_and_sorting_rules.xml";
+    private final RuleBasedCollator delegate;
     private final Locale locale ;
     private final boolean isZhCn;
     private HashMap<String, ZhCnAwareCollationKey> colKeyCache = new HashMap<String, ZhCnAwareCollationKey>();
@@ -26,14 +30,39 @@ public class ZhCnAwareCollator extends Collator
         this.collationURI = collationURI;
         this.locale = Locale.getDefault();
         this.isZhCn = Locale.SIMPLIFIED_CHINESE == locale;
-        this.delegate = RuleBasedCollator.getInstance(locale);
+        this.delegate = getConfiguredICUCollator(locale);
     }
 
 
     public ZhCnAwareCollator(Locale locale)  {
-        this.delegate = RuleBasedCollator.getInstance(locale);
+        this.delegate = getConfiguredICUCollator(locale);
+
         this.locale = locale;
         this.isZhCn = Locale.SIMPLIFIED_CHINESE == locale;
+    }
+
+    private RuleBasedCollator getConfiguredICUCollator(Locale locale) {
+        // FIXME: This reflects the original API design implemented by me (Eliot)
+        // many years ago. This is obviously not the best design but don't have time
+        // to refactor it now.
+
+        // FIXME: This is a hack to avoid having to work out a better configuration mechanism at
+        // this time. The better implementation should expect a URI and should use the configured
+        // resolution catalog to resolve it.
+        final File myJarFile = new File(ZhCnAwareCollator.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        final File configFile =
+                new File(myJarFile.getParent(),
+                         CONF_GROUPING_AND_SORTING_GROUPING_AND_SORTING_RULES_XML);
+        RuleBasedCollator collator;
+        GroupingAndSortingHelper helper = null;
+        try {
+            helper = new GroupingAndSortingHelper(configFile.getAbsolutePath());
+            collator = helper.getComparator(locale);
+        } catch (Exception e) {
+            e.printStackTrace();
+            collator = (RuleBasedCollator)RuleBasedCollator.getInstance(locale);
+        }
+        return collator;
     }
 
     @Override
@@ -135,4 +164,12 @@ public class ZhCnAwareCollator extends Collator
         this.collationURI = collationURI;
     }
 
+    /**
+     * Get the ICU RuleBasedCollator that backs this collator. Useful mostly for testing
+     * and debugging.
+     * @return The backing collator.
+     */
+    public RuleBasedCollator getBackingCollator() {
+        return this.delegate;
+    }
 }

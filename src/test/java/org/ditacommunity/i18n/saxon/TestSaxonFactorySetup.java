@@ -1,7 +1,13 @@
 package org.ditacommunity.i18n.saxon;
 
+import com.ibm.icu.text.RuleBasedBreakIterator;
+import com.ibm.icu.text.RuleBasedCollator;
 import net.sf.saxon.FeatureKeys;
+import net.sf.saxon.sort.CollationURIResolver;
+import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
 import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
@@ -30,6 +36,13 @@ public class TestSaxonFactorySetup {
                 DCI18nCollationUriResolver91.class.getName(),
                 collationUriResolverClass
                 );
+
+        CollationURIResolver resolver = new DCI18nCollationUriResolver91();
+        Object collator = resolver.resolve(DCI18nCollationUriResolver91.DITA_COMMUNITY_I18N_ZH_CNAWARE_COLLATOR + "?lang=zh-CN", "", null);
+        assertNotNull(collator);
+        assertTrue("Not an ICU collator", collator instanceof ZhCnAwareCollator);
+        RuleBasedCollator delegate = ((ZhCnAwareCollator)collator).getBackingCollator();
+        assertNotNull(delegate);
 
     }
 

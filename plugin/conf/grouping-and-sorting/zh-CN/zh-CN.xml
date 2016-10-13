@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index_config>
+    <national_language>zh-CN</national_language>
+    <description>
+        <p>Index configuration for Chinese cn</p>
+        <p>Simplified Chinese is sorted by Pin-Yin transliteration. This definition was created
+            using the data from the Unicode unihan.txt database, using the first pronunciation
+            listed for each character.</p>
+    </description>
+    <collation_spec>
+        <!--use_java_collator/-->
+		<replace_rules/>
+        <java_collation_spec/><!-- NOTE: Uses dictionary-based collator. -->        
+    </collation_spec>
+    <sort_method>
+        <sort_between_keys/>
+        <!-- If you adopt style that English word is placed before
+             Hanzi word index, activate sort_english_before element.
+          -->
+        <!--sort_english_before/-->
+    </sort_method>
+    <group_definitions>
+        <!-- If you adopt style that English word is placed before
+             Hanzi word index as symbol, select following term_group.
+          -->
+        <!--term_group>
+            <group_key>&#x0020;</group_key>
+            <group_label>#NUMERIC</group_label>
+            <group_members/>
+        </term_group-->
+        
+        <!-- If you adopt style that English word is treated as index,
+             select following term_groups.
+          -->
+        <term_group>
+            <group_key>&#x0020;</group_key>
+            <group_label>#NUMERIC</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>A</group_key>
+            <group_label>A</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>B</group_key>
+            <group_label>B</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>C</group_key>
+            <group_label>C</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>D</group_key>
+            <group_label>D</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>E</group_key>
+            <group_label>E</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>F</group_key>
+            <group_label>F</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>G</group_key>
+            <group_label>G</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>H</group_key>
+            <group_label>H</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>I</group_key>
+            <group_label>I</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>J</group_key>
+            <group_label>J</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>K</group_key>
+            <group_label>K</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>L</group_key>
+            <group_label>L</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>M</group_key>
+            <group_label>M</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>N</group_key>
+            <group_label>N</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>O</group_key>
+            <group_label>O</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>P</group_key>
+            <group_label>P</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>Q</group_key>
+            <group_label>Q</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>R</group_key>
+            <group_label>R</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>S</group_key>
+            <group_label>S</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>T</group_key>
+            <group_label>T</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>U</group_key>
+            <group_label>U</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>V</group_key>
+            <group_label>V</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>W</group_key>
+            <group_label>W</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>X</group_key>
+            <group_label>X</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>Y</group_key>
+            <group_label>Y</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>Z</group_key>
+            <group_label>Z</group_label>
+            <group_members/>
+        </term_group>
+        
+        <!-- ========================= -->
+        
+        <term_group>
+            <group_key>&#x5416;</group_key>
+            <!-- group_key>阿</group_key -->
+            <group_label>A</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x516B;</group_key>
+            <!-- group_key>鲃</group_key -->
+            <group_label>B</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x28EAD;</group_key>
+            <!--group_key>&#x5693;</group_key-->
+            <!-- group_key>擦</group_key -->
+            <group_label>C</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x21251;</group_key>
+            <!--group_key>&#x54D2;</group_key-->
+            <!-- group_key>撘</group_key -->
+            <group_label>D</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x59B8;</group_key>
+            <!-- group_key>峉</group_key -->
+            <group_label>E</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x53D1;</group_key>
+            <!-- group_key>瞂</group_key -->
+            <group_label>F</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x21245;</group_key>
+            <!--group_key>&#x560E;</group_key-->
+            <!-- group_key>嘠</group_key -->
+            <group_label>G</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x20000;</group_key>
+            <!--group_key>&#x54C8;</group_key-->
+            <!-- group_key>和</group_key -->
+            <group_label>H</group_label>
+            <group_members/>
+        </term_group>
+        <!--term_group>
+            <group_key>&#x7867;</group_key>
+            <group_key>硧</group_key>
+            <group_label>I</group_label>
+            <group_members/>
+        </term_group-->
+        <term_group>
+            <group_key>&#x51E0;</group_key>
+            <!-- group_key>畿</group_key -->
+            <group_label>J</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x5496;</group_key>
+            <!-- group_key>咖</group_key -->
+            <group_label>K</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x5783;</group_key>
+            <!-- group_key>菈</group_key -->
+            <group_label>L</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x5988;</group_key>
+            <!-- group_key>呣</group_key -->
+            <group_label>M</group_label>	
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x343B;</group_key>
+            <!-- group_key>煾</group_key -->
+            <group_label>N</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x5594;</group_key>
+            <!--group_key>&#x8BB4;</group_key-->
+            <!-- group_key>噢</group_key -->
+            <group_label>O</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x23C7A;</group_key>
+            <!--group_key>&#x593F;</group_key-->
+            <!-- group_key>啪</group_key -->
+            <group_label>P</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x4E03;</group_key>
+            <!-- group_key>漆</group_key -->
+            <group_label>Q</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x20BCD;</group_key>
+            <!--group_key>&#x80B0;</group_key-->
+            <!-- group_key>䖄</group_key -->
+            <group_label>R</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x4EE8;</group_key>
+            <!-- group_key>些</group_key -->
+            <group_label>S</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x4ED6;</group_key>
+            <!-- group_key>禢</group_key -->
+            <group_label>T</group_label>
+            <group_members/>
+        </term_group>
+        <!-- NOTE: Mandarin does not use U or V in pin-yin -->
+        <term_group>
+            <group_key>&#x7A75;</group_key>
+            <!-- group_key>嗗</group_key -->
+            <group_label>W</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x5915;</group_key>
+            <!-- group_key>焁</group_key -->
+            <group_label>X</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+            <group_key>&#x4E2B;</group_key>	
+            <!-- group_key>鸭</group_key -->
+            <group_label>Y</group_label>
+            <group_members/>
+        </term_group>
+        <term_group>
+                <group_key>&#x5E00;</group_key>
+            <!-- group_key>沞</group_key -->
+            <group_label>Z</group_label>
+            <group_members>
+                <last_member>
+                    <char_or_seq>&#x2A3B2;</char_or_seq>
+                    <!--char_or_seq>&#x7CF3;</char_or_seq-->
+                    <!-- char_or_seq>糳</char_or_seq -->
+                </last_member>
+            </group_members>
+        </term_group>
+    </group_definitions>
+</index_config>
+
