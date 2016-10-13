@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="org.dita-community.i18n">
+  
+  <target name="org.dita-community.i18n-test">
+    <echo>Testing I18N features:</echo>
+    <echo>Test TBD but will exercise the XSLT integration and demonstrate
+    sorting of Simplified Chinese and other languages. </echo>
+  </target>
+</project>
