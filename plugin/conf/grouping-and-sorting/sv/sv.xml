@@ -8,7 +8,7 @@
     <collation_spec>
         <!-- Added to avoid ICU bugs(?) about 'V' and 'W'sorting. 2006-05-18 -->
         <java_collation_spec>
-            <include_collation_spec>sv-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>sv/sv-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

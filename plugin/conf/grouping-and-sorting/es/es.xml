@@ -10,7 +10,7 @@
     <collation_spec>
         <!-- Added. 2007-03-16 -->
         <java_collation_spec>
-            <include_collation_spec>es-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>es/es-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

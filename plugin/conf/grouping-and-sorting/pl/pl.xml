@@ -8,7 +8,7 @@
     <collation_spec>
         <!-- Added to implement upper case to lower case sort sequence. 2006-05-18 -->
         <java_collation_spec>
-            <include_collation_spec>pl-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>pl/pl-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

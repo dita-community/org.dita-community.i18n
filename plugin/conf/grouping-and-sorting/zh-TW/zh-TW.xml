@@ -11,7 +11,7 @@
         <!--use_java_collator/-->
         <!--replace_rules/-->
         <java_collation_spec>
-            <include_collation_spec>zh-TW-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>zh-TW/zh-TW-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

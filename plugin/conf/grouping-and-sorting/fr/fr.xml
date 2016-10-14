@@ -11,7 +11,7 @@
     <collation_spec>
         <!-- Added to support U+0153, U+0152, U+00FC, U+00DC. 2006-10-10 -->
         <java_collation_spec>
-            <include_collation_spec>fr-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>fr/fr-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>
