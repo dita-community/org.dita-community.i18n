@@ -8,7 +8,7 @@
     <collation_spec>
         <!-- Added temporaray to place U+00C6, U+00D8, U+00C5 after 'Z'. 2006-05-18 -->
         <java_collation_spec>
-            <include_collation_spec>no-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>no/no-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

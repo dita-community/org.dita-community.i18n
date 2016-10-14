@@ -11,7 +11,7 @@
         <!-- Added to place "ch" order properly. ICU default "ca" rule seems to treat "ch" as one character. 2006-05-18 -->
         <replace_rules/>
         <java_collation_spec>
-            <include_collation_spec>ca-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>ca/ca-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

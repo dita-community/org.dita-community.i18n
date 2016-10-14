@@ -8,7 +8,7 @@
     <collation_spec>
         <!-- Added 2006/03/28 -->
         <java_collation_spec>
-            <include_collation_spec>cs-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>cs/cs-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

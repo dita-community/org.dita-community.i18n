@@ -51,7 +51,7 @@ public class ZhCnAwareCollator extends Collator
         // resolution catalog to resolve it.
         final File myJarFile = new File(ZhCnAwareCollator.class.getProtectionDomain().getCodeSource().getLocation().getPath());
         final File configFile =
-                new File(myJarFile.getParent(),
+                new File(myJarFile.getParentFile().getParentFile(),
                          CONF_GROUPING_AND_SORTING_GROUPING_AND_SORTING_RULES_XML);
         RuleBasedCollator collator;
         GroupingAndSortingHelper helper = null;
@@ -67,6 +67,7 @@ public class ZhCnAwareCollator extends Collator
 
     @Override
     public int compareStrings(String source, String target) {
+
         return this.compare(source, target);
     }
 
@@ -113,7 +114,9 @@ public class ZhCnAwareCollator extends Collator
                 result = delegate.compare(source, target);
             }
         } else {
+//            System.out.println("+ [DEBUG] ZhCnAwareCollator.compare(): Using delegate comparator on \"" + source + "\", \"" + target + "\"");
             result = delegate.compare(source, target);
+//            System.out.println("+ [DEBUG] ZhCnAwareCollator.compare(): Returning \"" + result + "\"");
         }
         return result;
     }

@@ -8,7 +8,7 @@
     <collation_spec>
         <!-- Added to place 'IJ' to after 'Y'. 2006-05-18 -->
         <java_collation_spec>
-            <include_collation_spec>nl-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>nl/nl-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

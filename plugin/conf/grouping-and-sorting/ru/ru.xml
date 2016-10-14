@@ -8,7 +8,7 @@
     <collation_spec>
         <java_collation_spec>
                <!-- ADDED 2009-04-17 -->
-	        <include_collation_spec>ru-sort-rules.txt</include_collation_spec>
+	        <include_collation_spec>ru/ru-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

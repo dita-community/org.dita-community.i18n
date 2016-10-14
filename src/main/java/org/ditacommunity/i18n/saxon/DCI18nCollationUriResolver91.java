@@ -6,6 +6,10 @@ import net.sf.saxon.sort.StandardCollationURIResolver;
 import net.sf.saxon.sort.StringCollator;
 import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 /**
  * Resolves references to the DITA Community zh-CN URI resolver, setting the
  * properties specified on the URI.
@@ -15,12 +19,27 @@ public class DCI18nCollationUriResolver91 extends DCI18nCollationUriResolverBase
 
     private final StandardCollationURIResolver defaultResolver;
 
+    private static final Properties versionProps = new Properties();
+
+    static {
+        try {
+            InputStream inStream = DCI18nCollationUriResolver91.class.getResourceAsStream("version.properties");
+            if (null != inStream) {
+                versionProps.load(inStream);
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to load version.properties resource from jar file. This should not happen.");
+        }
+
+    }
+
     public DCI18nCollationUriResolver91() {
         super();
         defaultResolver = StandardCollationURIResolver.getInstance();
     }
 
     public StringCollator resolve(String uri, String base, Configuration configuration) {
+        System.out.println("DCI18nCollationUriResolver91 version " + DCI18nCollationUriResolver91.getVersion());
         System.out.println("+ [DEBUG] DCI18nCollationUriResolver91.resolve(): Collation URI=\"" + uri + "\"");
         ZhCnAwareCollator collator = resolveToZhCnAwareCollator(uri);
         if (null == collator) {
@@ -29,6 +48,10 @@ public class DCI18nCollationUriResolver91 extends DCI18nCollationUriResolverBase
         }
         System.out.println("+ [DEBUG] DCI18nCollationUriResolver91.resolve():   Returning ZhCnAwareCollator");
         return (StringCollator)collator;
+    }
+
+    private static String getVersion() {
+        return versionProps.getProperty("version", "Version not set");
     }
 
 }

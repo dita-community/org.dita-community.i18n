@@ -43,6 +43,9 @@ public class TestSaxonFactorySetup {
         assertTrue("Not an ICU collator", collator instanceof ZhCnAwareCollator);
         RuleBasedCollator delegate = ((ZhCnAwareCollator)collator).getBackingCollator();
         assertNotNull(delegate);
+        collator = resolver.resolve(DCI18nCollationUriResolver91.DITA_COMMUNITY_I18N_ZH_CNAWARE_COLLATOR + "?lang=es-ES", "", null);
+        assertNotNull(collator);
+        delegate = ((ZhCnAwareCollator)collator).getBackingCollator();
 
     }
 

@@ -7,7 +7,7 @@
     </description>
     <collation_spec>
         <java_collation_spec>
-            <include_collation_spec>lo-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>lo/lo-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

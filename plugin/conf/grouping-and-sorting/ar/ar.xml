@@ -8,7 +8,7 @@
     <collation_spec>
         <!-- Added. 2007-09-24 -->
         <java_collation_spec>
-            <include_collation_spec>ar-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>ar/ar-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

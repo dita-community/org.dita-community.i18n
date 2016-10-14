@@ -8,7 +8,7 @@
     <collation_spec>
         <use_java_collator/>
         <java_collation_spec>
-            <include_collation_spec>ja-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>ja/ja-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

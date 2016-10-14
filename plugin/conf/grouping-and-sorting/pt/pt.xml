@@ -9,7 +9,7 @@
     <collation_spec>
         <!-- Added. 2006-05-18 -->
         <java_collation_spec>
-            <include_collation_spec>pt-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>pt/pt-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

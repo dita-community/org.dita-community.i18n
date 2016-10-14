@@ -7,7 +7,7 @@
     </description>
     <collation_spec>
         <java_collation_spec>
-	        <include_collation_spec>km-sort-rules.txt</include_collation_spec>
+	        <include_collation_spec>km/km-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>

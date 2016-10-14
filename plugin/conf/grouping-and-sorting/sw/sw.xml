@@ -12,7 +12,7 @@
     </description>
     <collation_spec>
         <!-- java_collation_spec>
-		        <include_collation_spec>sw-sort-rules.txt</include_collation_spec>
+		        <include_collation_spec>sw/sw-sort-rules.txt</include_collation_spec>
 	        </java_collation_spec -->
     </collation_spec>
     <sort_method>

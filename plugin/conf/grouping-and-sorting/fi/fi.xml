@@ -8,7 +8,7 @@
     <collation_spec>
         <!-- Added. 2006-10-07 -->
         <java_collation_spec>
-            <include_collation_spec>fi-sort-rules.txt</include_collation_spec>
+            <include_collation_spec>fi/fi-sort-rules.txt</include_collation_spec>
         </java_collation_spec>
     </collation_spec>
     <sort_method>
