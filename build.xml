@@ -185,6 +185,11 @@
         <type type="file"/>
       </fileset>
     </copy>
+    <copy todir="${org.dita-community.i18n.output.dir}/org/ditacommunity/i18n/saxon">
+      <fileset dir="${basedir}">
+        <include name="version.properties"/>
+      </fileset>
+    </copy>
   </target>
   
   <target name="compile.module.org.dita-community.i18n.tests" depends="compile.module.org.dita-community.i18n.production" description="compile module org.dita-community.i18n; test classes" unless="skip.tests"/>
@@ -218,7 +223,6 @@
       <fileset dir="${basedir}/src/main/java">
         <include name="**/resources/**.*" />
       </fileset>
-
     </jar>
   </target>
   
