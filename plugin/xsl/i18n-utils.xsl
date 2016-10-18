@@ -191,4 +191,21 @@
     <xsl:sequence select="$result"/>
   </xsl:function>
   
+  <!-- Split a text into words using a locale-specific ICU word iterator.
+    
+    @param text The text to be split
+    @param lang Language code specifying the locale to use for identifying words.
+    @param debug Turn debuging on or off.
+    @return Sequence of words. Will contain at least one word unless the input 
+    text is empty or only consists of non-letter text.
+    -->
+  <xsl:function name="dci18n:splitLine" as="xs:integer*">
+    <xsl:param name="text" as="xs:string"/>
+    <xsl:param name="lang" as="xs:string"/><!-- Language code -->
+    <xsl:param name="debug" as="xs:boolean"/>
+    
+    <xsl:variable name="result" as="xs:integer*" select="textAnalyzer:splitLine($text, $lang, $debug)"/>
+    <xsl:sequence select="$result"/>
+  </xsl:function>
+  
 </xsl:stylesheet>

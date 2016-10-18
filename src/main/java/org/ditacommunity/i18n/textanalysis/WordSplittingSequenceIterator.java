@@ -40,14 +40,6 @@ public class WordSplittingSequenceIterator implements SequenceIterator {
         this.debug = debug;
     }
 
-    public WordSplittingSequenceIterator(Locale locale, CharacterIterator text, boolean debug) {
-        this.locale = locale;
-        this.breakIterator = RuleBasedBreakIterator.getWordInstance(locale);
-        breakIterator.setText(text);
-        this.text = text.toString();
-        this.debug = debug;
-    }
-
     public static WordSplittingSequenceIterator getInstanceForLocale(Locale locale, String text) {
         WordSplittingSequenceIterator iterator = new WordSplittingSequenceIterator(locale, text, false);
         return iterator;
@@ -69,24 +61,20 @@ public class WordSplittingSequenceIterator implements SequenceIterator {
     }
 
     /**
-     * Get the next word.
+     * Get the next word. Note that this returns everything, not just words containing
+     * letter characters. This allows processing of all the text in a string. It's up to
+     * the consumer to decide how to handle non-letter words.
      * @return The next word or null if we are at the end of the text.
      */
     private String getNextWord() {
         String word = null;
         int start = breakIterator.current();
         int end = breakIterator.next();
-        while (end != BreakIterator.DONE) {
+        if (BreakIterator.DONE != end) {
             word = this.text.substring(start, end);
+        }
+        if (debug) {
             System.out.println("getNextWord(): start: " + start + "; end: " + end + "; word=\"" + word + "\"");
-            if (Character.isLetter(word.charAt(0))) {
-                if (debug) {
-                    System.out.println("getNextWord(): Word starts with a letter, using it.");
-                }
-                break;
-            }
-            start = end;
-            end = breakIterator.next();
         }
         this.currentWord = word;
         this.position++;
