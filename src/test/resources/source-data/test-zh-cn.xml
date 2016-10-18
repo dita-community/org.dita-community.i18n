@@ -56,4 +56,8 @@
     <word sort-position="0" expected-sort-key="" expected-group="">”</word>
     <word sort-position="0" expected-sort-key="" expected-group="">：</word>
   </words>
+  <paragraphs>
+    <!-- http://chinesereadingpractice.com/2015/03/01/guest-post-story-behind-the-idiom-ke-zhou-qiu-jian/ -->
+    <para>从前有一位楚国人, 他非常爱惜他的宝剑。</para>
+  </paragraphs>
 </test-data>

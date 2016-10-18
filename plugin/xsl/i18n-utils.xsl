@@ -2,6 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:dci18n="http://org.dita-community/i18n"
+  xmlns:textAnalyzer="java:org.ditacommunity.i18n.textanalysis.TextAnalyzer"
   exclude-result-prefixes="xs dci18n"
   version="2.0">
   <!-- ==================================================================
@@ -167,5 +168,27 @@
       *[contains(@class, ' topic/prolog ')]//*[(@name = ('sort-as'))]/@value)[1]"/>
   </xsl:template>
   
+  <xsl:function name="dci18n:splitWords" as="xs:string*">
+    <xsl:param name="text" as="xs:string"/>
+    <xsl:param name="lang" as="xs:string"/><!-- Language code -->
+    <xsl:sequence select="dci18n:splitWords($text, $lang, false())"/>
+  </xsl:function>
+  
+  <!-- Split a text into words using a locale-specific ICU word iterator.
+    
+    @param text The text to be split
+    @param lang Language code specifying the locale to use for identifying words.
+    @param debug Turn debuging on or off.
+    @return Sequence of words. Will contain at least one word unless the input 
+    text is empty or only consists of non-letter text.
+    -->
+  <xsl:function name="dci18n:splitWords" as="xs:string*">
+    <xsl:param name="text" as="xs:string"/>
+    <xsl:param name="lang" as="xs:string"/><!-- Language code -->
+    <xsl:param name="debug" as="xs:boolean"/>
+    
+    <xsl:variable name="result" as="xs:string*" select="textAnalyzer:splitWords($text, $lang, $debug)"/>
+    <xsl:sequence select="$result"/>
+  </xsl:function>
   
 </xsl:stylesheet>
