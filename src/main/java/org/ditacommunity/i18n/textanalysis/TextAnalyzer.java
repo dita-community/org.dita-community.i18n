@@ -76,7 +76,9 @@ public class TextAnalyzer {
         }
 
         Locale locale = Locale.forLanguageTag(langCode);
-        System.out.println("+ [DEBUG] splitLine(): text=\"" + text + "\", debug=" + debug);
+        if (debug) {
+            System.out.println("+ [DEBUG] splitLine(): text=\"" + text + "\"");
+        }
 
         LineSplittingSequenceIterator iterator =
                 LineSplittingSequenceIterator.getInstanceForLocale(locale, text, debug);
@@ -89,6 +91,33 @@ public class TextAnalyzer {
         }
 
         return items;
+
+    }
+
+    /**
+     * Get the position of the next line break opportunity in the specified text, not counting the start of the
+     * text, which is always a line break opportunity.
+     * <p>
+     * The value is the number of characters from the start
+     * of the text to the break point. So if the first break opportunity is between the first and second
+     * characters the return value will be "1".
+     * @param text The text to analyze
+     * @param langCode Language code for the locale to use
+     * @param debug Set to true to turn on debug messages
+     * @return The zero-indexed position of the first line break opportunity in the text, which may be after the
+     * end of the text.
+     * @throws Exception
+     */
+    public static int nextLineBreakPosition(String text, String langCode, boolean debug) throws Exception {
+        Locale locale = Locale.forLanguageTag(langCode);
+        if (debug) {
+            System.out.println("+ [DEBUG] nextLineBreakPosition(): text=\"" + text + "\"");
+        }
+
+        BreakIterator iterator = RuleBasedBreakIterator.getLineInstance(locale);
+        iterator.setText(text);
+        iterator.next(); // Skip the start of the text, which is always the first line break
+        return iterator.next();
 
     }
 }

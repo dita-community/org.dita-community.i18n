@@ -254,4 +254,23 @@
     <xsl:sequence select="$result"/>
   </xsl:function>
   
+  <!-- Get the next line break position in the line. If the line break
+       position is the end of the line then returns the length of the
+       line. 
+    -->
+  <xsl:function name="dci18n:nextLineBreakPosition" as="xs:integer">
+    <xsl:param name="text" as="xs:string"/>
+    <xsl:param name="lang" as="xs:string"/>
+    <xsl:param name="debug" as="xs:boolean"/>
+    
+    <xsl:variable name="breakPos" as="xs:integer"
+      select="textAnalyzer:nextLineBreakPosition($text, $lang, $debug)"
+    />
+    
+    <xsl:variable name="result" as="xs:integer"
+      select="if ($breakPos = -1) then string-length($text) else $breakPos"
+    />
+    <xsl:sequence select="$result"/>
+  </xsl:function>
+  
 </xsl:stylesheet>
