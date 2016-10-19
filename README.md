@@ -76,8 +76,10 @@ word boundaries.
 
 20 Oct 2016
 
-Collator fully tested with Saxon 9.1.
-Initial support for line and word breaking extension functions
+* Collator fully tested with Saxon 9.1.
+* Initial support for line and word breaking extension functions
+* Refined XSLT functions in i18n-utils.xsl to enable getting primary and secondary 
+sort keys
 
 10 Oct 2016
 
