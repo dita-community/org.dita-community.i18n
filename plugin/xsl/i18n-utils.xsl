@@ -36,31 +36,33 @@
        ===================================================================== -->
   
   
-  <!-- Given a topicref to a topic, construct the sort key for the 
-       topic using the topic's title and the first sort-as found
-       in the topic title or prolog.
+  <!-- Given a topicref to a topic, construct the base sort key for the 
+       topic using the topic's title.
+       
+       The base sort key is the sort key without regard to any sort-as
+       specifications. It is typically used as the secondary sort key.
        
        @param topicref The topicref to be resolved.
        @return The sort key string. Will be empty if, for some reason,
        all the topic's possible titles are empty and there is no sort-as
        in the prolog.
     -->
-  <xsl:function name="dci18n:getSortKeyForTopicref" as="xs:string">
+  <xsl:function name="dci18n:getBaseSortKeyForTopicref" as="xs:string">
     <xsl:param name="topicref" as="element()"/>
-    <xsl:sequence select="dci18n:getSortKeyForTopicref($topicref, false())"/>
+    <xsl:sequence select="dci18n:getBaseSortKeyForTopicref($topicref, false())"/>
   </xsl:function>
   
   <!-- Given a topicref to a topic, construct the sort key for the 
-       topic using the topic's title and the first sort-as found
-       in the topic title or prolog.
-
+       topic using the topic's title. The sort key is folded
+       to lowercase.       
+       
        @param topicref The topicref to be resolved.
        @param debug Set to true to turn debug messages on.
        @return The sort key string. Will be empty if, for some reason,
        all the topic's possible titles are empty and there is no sort-as
        in the prolog.
 -->
-  <xsl:function name="dci18n:getSortKeyForTopicref" as="xs:string">
+  <xsl:function name="dci18n:getBaseSortKeyForTopicref" as="xs:string">
     <xsl:param name="topicref" as="element()"/>
     <xsl:param name="doDebug" as="xs:boolean"/>
     
@@ -93,11 +95,53 @@
     <xsl:sequence select="normalize-space($result)"/>
   </xsl:function>
   
+  <!-- Get the primary sort key for the specified topicref. 
+    
+       The primary sort key is either the first sort-as value,
+       if present, or the base sort key for the referenced
+       topic.
+       
+    -->
+  <xsl:function name="dci18n:getPrimarySortKeyForTopicref">
+    <xsl:param name="topicref" as="element()"/>
+    <xsl:sequence select="dci18n:getPrimarySortKeyForTopicref($topicref, false())"/>
+  </xsl:function>
+  
+  <!-- Get the primary sort key for the specified topicref. 
+    
+       The primary sort key is either the first sort-as value,
+       if present, or the base sort key for the referenced
+       topic.
+       
+    -->
+  <xsl:function name="dci18n:getPrimarySortKeyForTopicref">
+    <xsl:param name="topicref" as="element()"/>
+    <xsl:param name="doDebug" as="xs:boolean"/>
+    
+    <xsl:variable name="sortAs" as="xs:string?" 
+      select="dci18n:getSortAsForTopicref($topicref, $doDebug)"
+    />
+    <xsl:variable name="baseSortKey" as="xs:string?" 
+      select="dci18n:getBaseSortKeyForTopicref($topicref, $doDebug)"
+    />
+    
+    <xsl:if test="$doDebug">
+      <xsl:message> + [DEBUG] dci18n:getPrimarySortKeyForTopicref(): exists($sortAs)=<xsl:value-of select="exists($sortAs)"/>; $sortAs="<xsl:value-of select="$sortAs"/>"</xsl:message>
+      <xsl:message> + [DEBUG] dci18n:getPrimarySortKeyForTopicref(): exists($baseSortKey)=<xsl:value-of select="exists($sortAs)"/>; $baseSortKey="<xsl:value-of select="$baseSortKey"/>"</xsl:message>
+    </xsl:if>
+    <xsl:variable name="result" as="xs:string?"
+      select="if (normalize-space($sortAs) != '') 
+                 then normalize-space($sortAs)
+                 else $baseSortKey"
+    />
+    <xsl:sequence select="$result"/>
+  </xsl:function>
+  
   <!-- Gets the sort-as value, if any, for the topic referenced by the specified
        topicref.
        
     -->
-  <xsl:function name="dci18n:getSortAsForTopicref" as="xs:string">
+  <xsl:function name="dci18n:getSortAsForTopicref" as="xs:string?">
     <xsl:param name="topicref" as="element()"/>
     <xsl:param name="doDebug" as="xs:boolean"/>
     
@@ -119,8 +163,10 @@
       </xsl:apply-templates>
     </xsl:variable>
     
-    <xsl:variable name="result" as="xs:string"
-      select="$sort-as"
+    <xsl:variable name="result" as="xs:string?"
+      select="if (normalize-space($sort-as) != '') 
+                 then normalize-space($sort-as) 
+                 else ()"
     />
     
     <xsl:if test="$doDebug">
