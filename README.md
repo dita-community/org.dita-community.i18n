@@ -11,7 +11,7 @@ It provides the following services:
 * A customizable collator for use with XSLT. Includes support for 
 dictionary-based Simplified Chinese grouping and sorting.
 * A general grouping service useful for grouping index terms, glossary entries, etc.
-* Access to the ICU word breaking facility in XSLT, useful for doing word breaking
+* Access to the ICU line and word breaking facility in XSLT, useful for doing word breaking
 in languages like Thai and Chinese that require a dictionary or writing-system-specific
 rules.
 
@@ -44,13 +44,19 @@ with Saxon 9.1+ or with other XSLT engines or Java code that needs to do
 collation. The core collation functionality is provided by the ICU4J 
 library.
 
+*NOTE:* Support for Saxon 9.6+ is under development but the 9.1 and 9.6 collation
+APIs are not compatible so it requires two different code sets.
+
 You can customize both the grouping and sorting for a given language using
-XML configuration files as for the DITA Open Toolkit PDF2 transform.
+project-specific grouping configuration files or normal ICU collation rule
+files.
 
 You can also extend or customize the Simplified Chinese dictionary to adjust
 how Simplified Chinese is sorted. 
 
 ## Grouping Feature
+
+*NOTE*: Grouping feature TBD
 
 Provides XSLT functions for getting locale-specific grouping keys for words.
 Depends on the custom collator. Uses the same configuration file format as for the
@@ -59,17 +65,19 @@ DITA Open Toolkit PDF2 transform.
 Makes it easy to do locale-specific grouping in XSLT as required for index generation,
 glossary generation, and so on.
 
-## Word Break Feature
+## Line and Word Break Feature
 
-Provides XSLT functions for breaking text strings into words using locale-specific
-word breaking rules. Depends on the built-in word break algorithms and dictionaries
-provided by the ICU package.
-
-Useful whenever you need to break a string into words, for example to do manual 
-line wrapping, to count words, or to insert zero-width spaces or other break-enabling
-characters into strings.
+Provides XSLT extension functions that use the ICU4J line break and work break
+features to enable doing locale-specific line and word breaking, including in
+CJK languages that do not use spaces or that require a dictionary to determine
+word boundaries.
 
 ## Status
+
+20 Oct 2016
+
+Collator fully tested with Saxon 9.1.
+Initial support for line and word breaking extension functions
 
 10 Oct 2016
 
