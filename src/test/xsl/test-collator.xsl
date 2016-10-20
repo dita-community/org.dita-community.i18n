@@ -1,6 +1,7 @@
 <xsl:stylesheet version="2.0" 
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:dci18n="http://org.dita-community/i18n"
   exclude-result-prefixes="#all"
   >
   <!-- =================================================================================
@@ -15,6 +16,8 @@
        
        ================================================================================== -->
 
+
+<xsl:import href="../../../plugin/xsl/i18n-utils.xsl"/>
     <xsl:output method="html"
       indent="yes"
     />
@@ -23,7 +26,7 @@
     select="'http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN'"
   />
   <xsl:variable name="collatorUri" as="xs:string"
-    select="if (false()) then 'http://www.w3.org/2005/xpath-functions/collation/codepoint' else $customCollatorUri"
+    select="if (true()) then 'http://www.w3.org/2005/xpath-functions/collation/codepoint' else $customCollatorUri"
   />
 
     <xsl:template match="/">
@@ -56,7 +59,7 @@
     <div class="root">
       <xsl:apply-templates select="title"/>
       <div class="results">
-        <xsl:apply-templates select="words"/>
+        <xsl:apply-templates select="words, paragraphs"/>
       </div>      
     </div>    
   </xsl:template>
@@ -65,6 +68,7 @@
     <xsl:param name="doDebug" as="xs:boolean" tunnel="yes" select="false()"/>
 
     <div class="wordset">
+      <h2>Word Collation Test</h2>
       <table border="1">
         <thead>
           <tr>
@@ -74,7 +78,7 @@
             <td>Expected Sort Key</td>
           </tr>
         </thead>
-        <tbody>
+        <tbody>          
           <xsl:apply-templates select="word">
             <xsl:sort collation="{$collatorUri}"/>
           </xsl:apply-templates>
@@ -105,6 +109,84 @@
     
     <xsl:message> - [WARN] #default: Fallback handling <xsl:value-of select="concat(name(..), '/', name(.))"/></xsl:message>
     <xsl:apply-templates/>
+  </xsl:template>
+  
+  <xsl:template match="paragraphs">
+    <div class="paragraphs">
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+  
+  <xsl:template match="para">
+    <xsl:variable name="text" as="xs:string">
+      <xsl:value-of select="."/>
+    </xsl:variable>
+    <xsl:variable name="temp" as="xs:integer*"
+      select="dci18n:splitLine($text, 'zn-CN', false())"
+    />
+    <xsl:variable name="breakPoints" as="xs:integer*"
+      select="for $p in $temp return $p"
+      />
+    
+<!--    <xsl:message> + [DEBUG] $breakPoints="<xsl:sequence select="$breakPoints"/>"</xsl:message>-->
+    <div class="para">
+      <h2>Line Break Test</h2>
+      <p>Original text:</p>
+      <p><xsl:value-of select="."/></p>
+      <table>
+        <thead>
+          <tr>
+            <th>i</th>
+            <th>Break Position</th>
+            <th>Line segment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <xsl:for-each select="$breakPoints[position() lt last()]">
+            <xsl:variable name="pos" as="xs:integer" select="position()"/>
+<!--            <xsl:message> + [DEBUG] for-each $breakPoints, [<xsl:value-of select="position()"/>] 
+              bp     ="<xsl:value-of select="."/>", 
+              bp + 1 = <xsl:value-of select="$temp[$pos + 1]"/>
+            </xsl:message>
+-->            <xsl:variable name="length" as="xs:integer" select="$breakPoints[$pos + 1] - ."/>
+            <tr>
+              <td>[<xsl:value-of select="$pos"/>]</td>
+              <td><xsl:value-of select="."/>, length <xsl:value-of select="$length"/></td>
+              <td>
+                <xsl:variable name="length" as="xs:integer" select="$breakPoints[$pos + 1] - ."/>
+                <xsl:value-of select="substring($text, $breakPoints[$pos], $length)"/>
+              </td>
+            </tr>
+          </xsl:for-each>
+        </tbody>
+      </table>
+    </div>
+    
+    <xsl:variable name="words" as="xs:string*"
+      select="dci18n:splitWords(normalize-space(.), 'zn-CN', false())"
+    />
+    <div class="para">
+      <h2>Word Boundary Test</h2>
+      <p>Original text:</p>
+      <p><xsl:value-of select="."/></p>
+      <table>
+        <thead>
+          <tr>
+            <th>Word Position</th>
+            <th>Word</th>
+          </tr>
+        </thead>
+        <tbody>
+          <xsl:for-each select="$words">
+<!--            <xsl:message> + [DEBUG] for-each $words, [<xsl:value-of select="position()"/>] word="<xsl:value-of select="."/>"</xsl:message>-->
+            <tr>
+              <td><xsl:value-of select="position()"/></td>
+              <td><xsl:value-of select="."/></td>
+            </tr>
+          </xsl:for-each>
+        </tbody>
+      </table>
+    </div>
   </xsl:template>
   
   <!-- ==================================

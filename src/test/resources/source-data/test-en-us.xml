@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data xml:lang="zh-CN">
+  <title>zh-CN words to be sorted</title>
+  <words>
+    <word expected-group="t" expected-sort-key="the">The</word>
+    <word expected-group="t" expected-sort-key="the">quick brown</word>
+    <word expected-group="t" expected-sort-key="the">fox</word>
+  </words>
+  <paragraphs>
+    <para>The quick brown fox jumped over the zounds: this is a a boring-oh-so-boring sentence. And this is more—parenthetical (expression here)—and more.</para>
+  </paragraphs>
+</test-data>
