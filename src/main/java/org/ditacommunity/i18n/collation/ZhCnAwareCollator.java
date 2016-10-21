@@ -175,4 +175,12 @@ public class ZhCnAwareCollator extends Collator
     public RuleBasedCollator getBackingCollator() {
         return this.delegate;
     }
+
+    /**
+     * Get the locale for which the collator was originally constructed.
+     * @return
+     */
+    public Locale getLocale() {
+        return this.locale;
+    }
 }

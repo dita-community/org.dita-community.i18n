@@ -2,6 +2,8 @@ package org.ditacommunity.i18n.collation;
 
 import com.ibm.icu.text.BreakIterator;
 import com.ibm.icu.text.RuleBasedBreakIterator;
+import com.ibm.icu.text.RuleBasedCollator;
+import com.ibm.icu.util.ULocale;
 import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
 import org.ditacommunity.i18n.collation.ZhCnDictionary;
 import org.junit.Test;
@@ -101,5 +103,19 @@ public class TestZhCnAwareCollator  {
         }
 
         assertEquals("Not enough words", 10, words.size());
+    }
+
+    @Test
+    public void testJapaneseCollator() {
+        Collator collator = ZhCnAwareCollator.getInstance(Locale.JAPANESE);
+        assertNotNull("no collator", collator);
+
+        assertTrue("not JAPANESE", ((ZhCnAwareCollator)collator).getLocale().equals(Locale.JAPANESE));
+        RuleBasedCollator rbc = ((ZhCnAwareCollator)collator).getBackingCollator();
+        ULocale actual = rbc.getLocale(ULocale.ACTUAL_LOCALE);
+        assertEquals("not " + Locale.JAPANESE.toString() + ", got " + actual.toLanguageTag(),
+                Locale.JAPANESE.toLanguageTag(),
+                actual.toLanguageTag()
+                );
     }
 }
