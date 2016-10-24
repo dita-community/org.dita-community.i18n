@@ -1,5 +1,6 @@
 package org.ditacommunity.i18n.collation;
 
+import com.ibm.icu.text.RuleBasedBreakIterator;
 import com.ibm.icu.text.RuleBasedCollator;
 import net.sf.saxon.sort.StringCollator;
 import org.ditacommunity.i18n.collation.configuration.GroupingAndSortingHelper;
@@ -141,8 +142,9 @@ public class ZhCnAwareCollator extends Collator
 
     /**
      * Given a string that may contain Simplified Chinese ideographs, return
-     * the appropiate sort key, which is the pinyin transliteration as the
-     * primary key and the original text as the secondary key.
+     * the appropriate primary sort key, which is the pinyin transliteration as the
+     * primary key. If no pinyin is found returns the original text as the primary
+     * key.
      * @param source Source string.
      * @return Sort key for use by the RuleBasedCollator.compare() method.
      */
@@ -152,10 +154,13 @@ public class ZhCnAwareCollator extends Collator
             return colKeyCache.get(source).getSortKey();
         }
 
-
         String pinyin = ZhCnDictionary.getPinYin(source);
-        // FIXME: Construct proper primary/secondary ICU sort key.
-        return pinyin + source;
+        // NOTE: This should never happen because at a minimum
+        // the first character should produce a pinyin result.
+        if (null == pinyin || "".equals(pinyin)) {
+            pinyin = source;
+        }
+        return pinyin;
     }
 
     @Override

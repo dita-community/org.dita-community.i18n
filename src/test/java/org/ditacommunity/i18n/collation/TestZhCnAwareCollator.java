@@ -46,8 +46,8 @@ public class TestZhCnAwareCollator  {
     @org.junit.Test
     public void testZhCnDictionary() throws Exception {
         ZhCnDictionary dictionary = new ZhCnDictionary();
-        String expectedPinYin = "a1 lian2 qiu2 zhang3 guo2";
-        String sortKey = dictionary.getPinYin("阿联酋长国");
+        String expectedPinYin = "e1lian2qiu2zhang3guo2";
+        String sortKey = dictionary.getPinYin("阿联酋长国", true);
         assertEquals("Wrong pinyin", expectedPinYin, sortKey);
 
     }
