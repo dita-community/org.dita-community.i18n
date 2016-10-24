@@ -3,7 +3,8 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:dci18n="http://org.dita-community/i18n"
   xmlns:textAnalyzer="java:org.ditacommunity.i18n.textanalysis.TextAnalyzer"
-  exclude-result-prefixes="xs dci18n"
+  xmlns:textMetrics="java:org.ditacommunity.i18n.textanalysis.TextMetrics"
+  exclude-result-prefixes="#all"
   version="2.0">
   <!-- ==================================================================
        DITA Community Internationalization Utilities
@@ -348,6 +349,18 @@
     
     <xsl:variable name="result" as="xs:boolean"
       select="matches($text, concat('^[&#x20;-&#x7E;', $specialCharacters, ']+'))"
+    />
+    <xsl:sequence select="$result"/>
+  </xsl:function>
+
+  <xsl:function name="dci18n:getRenderedTextLength" as="xs:integer">
+    <xsl:param name="text" as="xs:string"/>
+    <xsl:param name="fontName" as="xs:string"/>
+    <xsl:param name="fontSize" as="xs:integer"/>
+    <xsl:param name="fontStyle" as="xs:string"/>
+    <xsl:param name="debug" as="xs:boolean"/>
+    <xsl:variable name="result" as="xs:integer"
+      select="textMetrics:getRenderedLength($text, $fontName, $fontSize, $fontStyle, $debug)"
     />
     <xsl:sequence select="$result"/>
   </xsl:function>
