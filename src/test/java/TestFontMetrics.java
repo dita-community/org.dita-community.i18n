@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -45,8 +46,19 @@ public class TestFontMetrics {
     @Test
     public void testGetRenderedLength() throws Exception {
         String text1 = "“For ring gantry devices, the virtual isocenter is allocated outside of the gantry bore, so";
-        int length = TextMetrics.getRenderedLength(text1, "Avenir", 24, "plain");
+        String fontName = "Avenir";
+        int fontSize = 24;
+        String fontStyle = "plain";
+        int length = TextMetrics.getRenderedLength(text1, fontName, fontSize, "plain");
         assertTrue(length + " not greater than 20", length > 20);
         System.out.println("Length: " + length);
+        double start = System.nanoTime();
+        System.out.println("Trying 1000 times to test timing...");
+        for (int i = 0; i < 100; i++) {
+            length = TextMetrics.getRenderedLength(text1, fontName, fontSize, "plain");
+        }
+        double end = System.nanoTime();
+        System.out.println("Rendering took " + ((end - start)/1000000) + " milliseconds");
+
     }
 }

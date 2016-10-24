@@ -2,6 +2,7 @@ package org.ditacommunity.i18n.textanalysis;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 /**
  * Utility class to provide rendered text width for
@@ -20,12 +21,16 @@ import java.awt.image.BufferedImage;
 public class TextMetrics {
 
 
+    private static HashMap<String, Font> fontsByName = new HashMap<String, Font>();
+
     /**
      *
-     * @param text
-     * @param fontName
-     * @param fontSize
-     * @param fontStyle
+     * @param text The text to get the rendered length for.
+     * @param fontName The font name. If not found then the default font will be used.
+     * @param fontSize The font size, in points, e.g. "12"
+     * @param fontStyle The font style: "plain", "bold", "italic", corresponding to the font style constants
+     *                  for @java.awt.Font
+     * @param debug Turn debug messages on or off.
      * @return Rendered length in pixels
      */
     public static int getRenderedLength(String text,
@@ -35,8 +40,7 @@ public class TextMetrics {
                                         boolean debug) {
 
 
-        int fontStyleValue = getFontStyle(fontStyle);
-        Font font = new Font(fontName, fontStyleValue, fontSize);
+        Font font = getFont(fontName, fontSize, fontStyle);
         if (debug) {
             System.out.println("Input font name \"" + fontName + "\" resulted in font \"" + font.getFontName() + "\"");
         }
@@ -51,6 +55,17 @@ public class TextMetrics {
         int result = metrics.stringWidth(text);
         return result;
 
+    }
+
+    private static Font getFont(String fontName, int fontSize, String fontStyle) {
+        int fontStyleValue = getFontStyle(fontStyle);
+        String key = fontName + "^" + fontStyle + "^" + fontSize;
+        if (fontsByName.containsKey(key)) {
+            return fontsByName.get(key);
+        }
+        Font font = new Font(fontName, fontStyleValue, fontSize);
+        fontsByName.put(key, font);
+        return font;
     }
 
     /**
@@ -92,6 +107,21 @@ public class TextMetrics {
                                  String fontName,
                                  int fontSize) {
         return getRenderedLength(text, fontName, fontSize, "plain", false);
+    }
+
+    /**
+     *
+     * @param text
+     * @param fontName
+     * @param fontSize
+     * @param fontStyle
+     * @return Rendered length in pixels
+     */
+    public static int getRenderedLength(String text,
+                                        String fontName,
+                                        int fontSize,
+                                        String fontStyle) {
+        return getRenderedLength(text, fontName, fontSize, fontStyle, false);
     }
 
 
