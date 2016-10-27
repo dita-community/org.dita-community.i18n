@@ -1,10 +1,19 @@
 package org.ditacommunity.i18n.collation;
 
+import com.sun.javafx.collections.transformation.SortedList;
+import net.sf.saxon.charcode.CharacterSet;
+import net.sf.saxon.om.Item;
+import org.ditacommunity.i18n.textanalysis.WordSplittingSequenceIterator;
+
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Utility to do analysis and reporting on the collation details
@@ -37,8 +46,13 @@ public class CollationAnalyzer {
             System.err.println("Cannot read input file \"" + inFile.getAbsolutePath() + "\"");
             System.exit(1);
         }
+        OutputType outType = null;
+        if (args.length > 1) {
+            outType = OutputType.fromString(args[1]);
+        }
+        if (outType == null) outType = OutputType.TEXT;
         try {
-            reportCollationDetails(inFile);
+            reportCollationDetails(inFile, System.out, outType);
         } catch (Exception e) {
             System.err.println("Unexpected " + e.getClass().getSimpleName() + ":");
             e.printStackTrace();
@@ -50,52 +64,136 @@ public class CollationAnalyzer {
      * Report the collation details for the input file.
      * @param inFile Input file (see @main for details).
      */
-    public static void reportCollationDetails(File inFile) throws Exception {
+    public static void reportCollationDetails(File inFile,
+                                              PrintStream outStream,
+                                              OutputType outType) throws Exception {
         InputStream inStream = new FileInputStream(inFile);
-        reportCollationDetails(inStream);
+
+        reportCollationDetails(inStream, outStream, outType);
     }
 
     /**
      * Report the collation details for the input stream.
      * @param inStream Input stream (see @main for details).
+     * @param outStream
+     * @param outType
      */
-    public static void reportCollationDetails(InputStream inStream) throws Exception {
+    public static void reportCollationDetails(InputStream inStream,
+                                              PrintStream outStream,
+                                              OutputType outType) throws Exception {
 
-        System.out.print("Collation report for language ");
+        PrintStream utf16Stream = new PrintStream(outStream, true, "UTF-16LE");
         BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
         String line = getNextDataLine(reader);
         String langCode = line.trim();
-        System.out.print(langCode + "\n\n");
         if ("zh-cn".equals(langCode.toLowerCase())) {
-            reportZhCnCollation(langCode, reader);
+            switch (outType) {
+                case CSV:
+                    reportZhCnCollationAsCSV(langCode, reader, utf16Stream);
+                    break;
+                case TEXT:
+                default:
+                    reportZhCnCollation(langCode, reader, outStream);
+
+            }
         } else {
-            System.out.println("Language codes other than zh-CN not yet implemented.");
+            System.err.println("Language codes other than zh-CN not yet implemented.");
         }
 
     }
 
     /**
-     *
      * @param langCode
      * @param reader
+     * @param outStream
      */
-    public static void reportZhCnCollation(String langCode, BufferedReader reader) throws IOException {
+    public static void reportZhCnCollation(String langCode, BufferedReader reader, PrintStream outStream) throws Exception {
         // Two parts: first do word and pinyin analysis in the order provided then
         // do the sort.
         ArrayList<String> terms = loadTerms(reader);
-        System.out.println("\nInput terms:\n");
+        Locale locale = Locale.forLanguageTag(langCode);
+
+        boolean debug = false;
+        outStream.print("Collation report for language ");
+
+
+        outStream.println("\nInput terms:\n");
+        int i = 0;
         for (String term : terms) {
-            System.out.println(term);
+            outStream.format("[%2d] Term: \"%s\"%n", ++i, term);
+            WordSplittingSequenceIterator iterator = new WordSplittingSequenceIterator(locale, term, debug);
+            Item item = iterator.next();
+            outStream.println("       Words and pinyin:");
+            while (item != null) {
+                String word = item.getStringValue();
+                if (Character.isLetter(word.charAt(0))) {
+                    String pinyin = ZhCnDictionary.getPinYin(word);
+                    outStream.format("\t\t \"%s\"\t: %s\"%n", word, pinyin);
+                }
+                item = iterator.next();
+            }
+         }
+        outStream.println("\n========================\n");
+        outStream.println("\nSorted:\n");
+        ArrayList<String> list = new ArrayList<>(terms);
+        Collections.sort(list, ZhCnAwareCollator.getInstance(locale));
+        outStream.println();
+        i = 0;
+        for (String term : terms) {
+            outStream.format("[%2d] \"%s\"%n", ++i, term);
         }
-        System.out.println("\n========================\n");
+
+
+    }
+
+    /**
+     * @param langCode
+     * @param reader
+     * @param outStream
+     */
+    public static void reportZhCnCollationAsCSV(String langCode, BufferedReader reader, PrintStream outStream) throws Exception {
+        // Two parts: first do word and pinyin analysis in the order provided then
+        // do the sort.
+        ArrayList<String> terms = loadTerms(reader);
+        Locale locale = Locale.forLanguageTag(langCode);
+
+        boolean debug = false;
+
+        outStream.write(0xFF);
+        outStream.write(0xFE);
+
+        outStream.println("\"Input terms\t\"words\t\"pinyin");
+        int i = 0;
+        for (String term : terms) {
+            WordSplittingSequenceIterator iterator = new WordSplittingSequenceIterator(locale, term, debug);
+            Item item = iterator.next();
+            while (item != null) {
+                String word = item.getStringValue();
+                if (Character.isLetter(word.charAt(0))) {
+                    String pinyin = ZhCnDictionary.getPinYin(word);
+                    outStream.format("\"%s\t\"%s\t\"%s%n", term, word, pinyin);
+                }
+                item = iterator.next();
+            }
+        }
+
+        ArrayList<String> list = new ArrayList<>(terms);
+        Collections.sort(list, ZhCnAwareCollator.getInstance(locale));
+        outStream.println();
+        i = 0;
+
+        outStream.println("\"Sorted terms\t\"pinyin");
+        for (String term : terms) {
+            outStream.format("\"%s\t\"%s%n", term, ZhCnDictionary.getPinYin(term));
+        }
+
 
     }
 
     private static ArrayList<String> loadTerms(BufferedReader reader) throws IOException {
-        System.out.println("\nLoading terms:\n");
+        // System.out.println("\nLoading terms:\n");
         ArrayList<String> terms = new ArrayList<String>();
         String term = getNextDataLine(reader);
-        System.out.println("term=\"" + term + "\"");
         while (null != term) {
             terms.add(term.trim());
             term = getNextDataLine(reader);

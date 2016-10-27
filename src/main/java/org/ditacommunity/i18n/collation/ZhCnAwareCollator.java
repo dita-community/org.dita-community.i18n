@@ -97,7 +97,7 @@ public class ZhCnAwareCollator extends Collator
      * @see java.util.ResourceBundle
      */
     public static synchronized Collator getInstance(Locale desiredLocale) {
-        System.out.print("getInstance(): desiredLocale=" + desiredLocale);
+        // System.out.print("getInstance(): desiredLocale=" + desiredLocale);
         Collator collator = new ZhCnAwareCollator(desiredLocale);
         return collator;
 
