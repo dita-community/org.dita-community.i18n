@@ -35,6 +35,54 @@
          Simplified Chinese collation.
        
        ===================================================================== -->
+
+  <!-- Construct the base sort key for a topic using the topic's title.
+       
+       The base sort key is the sort key without regard to any sort-as
+       specifications. It is typically used as the secondary sort key.
+       
+       @param topic The topic to get the sort key for.
+       @return The sort key string. Will be empty if, for some reason,
+       all the topic's possible titles are empty and there is no sort-as
+       in the prolog.
+    -->
+  <xsl:function name="dci18n:getBaseSortKeyForTopic" as="xs:string">
+    <xsl:param name="topic" as="element()"/>
+    <xsl:sequence select="dci18n:getBaseSortKeyForTopic($topic, false())"/>
+  </xsl:function>
+  
+  <!-- Construct the base sort key for a topic using the topic's title.
+       
+       The base sort key is the sort key without regard to any sort-as
+       specifications. It is typically used as the secondary sort key.
+       
+       @param topic The topic to get the sort key for.
+       @param doDebug Set to true() to turn on debug messgaes.
+       @return The sort key string. Will be empty if, for some reason,
+       all the topic's possible titles are empty and there is no sort-as
+       in the prolog.
+    -->
+  <xsl:function name="dci18n:getBaseSortKeyForTopic" as="xs:string">
+    <xsl:param name="topic" as="element()"/>
+    <xsl:param name="doDebug" as="xs:boolean"/>
+    
+    <xsl:variable name="title">
+      <xsl:apply-templates select="$topic" mode="dci18n:getTitleText">
+        <xsl:with-param name="doDebug" as="xs:boolean" tunnel="yes" select="$doDebug"/>
+      </xsl:apply-templates>
+    </xsl:variable>
+    
+    <xsl:variable name="result" as="xs:string"
+      select="lower-case($title)"
+    />
+    
+    <xsl:if test="$doDebug">
+      <xsl:message> + [DEBUG] dci18n:getSortKeyForTopic: Returning "<xsl:value-of select="$result"/>"</xsl:message>
+    </xsl:if>
+    
+    <xsl:sequence select="normalize-space($result)"/>
+  </xsl:function>
+  
   
   
   <!-- Given a topicref to a topic, construct the base sort key for the 
@@ -79,14 +127,8 @@
       <xsl:message> + [DEBUG] dci18n:getSortKeyForTopicref: Resolved ref? <xsl:value-of select="exists($topic)"/></xsl:message>
     </xsl:if>
     
-    <xsl:variable name="title">
-      <xsl:apply-templates select="$topic" mode="dci18n:getTitleText">
-        <xsl:with-param name="doDebug" as="xs:boolean" tunnel="yes" select="$doDebug"/>
-      </xsl:apply-templates>
-    </xsl:variable>
-    
     <xsl:variable name="result" as="xs:string"
-      select="lower-case($title)"
+      select="dci18n:getSortAsForTopic($topic, $doDebug)"
     />
     
     <xsl:if test="$doDebug">
@@ -96,6 +138,101 @@
     <xsl:sequence select="normalize-space($result)"/>
   </xsl:function>
 
+  <!-- Get the primary sort key for the specified topic. 
+    
+       The primary sort key is either the first sort-as value,
+       if present, or the base sort key for the referenced
+       topic.
+       
+       @param topic The topic that provides the sort key data.
+       @return The primary sort key string.
+    -->
+  <xsl:function name="dci18n:getPrimarySortKeyForTopic">
+    <xsl:param name="topic" as="element()"/>
+    <xsl:sequence select="dci18n:getPrimarySortKeyForTopic($topic, 'first', false())"/>
+  </xsl:function>
+  
+  <!-- Get the primary sort key for the specified topic. 
+    
+       The primary sort key is either the first sort-as value,
+       if present, or the base sort key for the referenced
+       topic.
+       
+       @param topic The topic that provides the sort key data.
+       @param sortEnglish Indicate where to sort English: before, with, or after other languages.
+       @return The primary sort key string.
+    -->
+  <xsl:function name="dci18n:getPrimarySortKeyForTopic">
+    <xsl:param name="topic" as="element()"/>
+    <xsl:param name="sortEnglish" as="xs:string"/>
+    <xsl:sequence select="dci18n:getPrimarySortKeyForTopic($topic, 'first', false())"/>
+  </xsl:function>
+  
+  <!-- Get the primary sort key for the specified topic. 
+    
+       The primary sort key is either the first sort-as value,
+       if present, or the base sort key for the referenced
+       topic.
+       
+       @param topic The topic that provides the sort key data.
+       @param sortEnglish Indicate where to sort English: before, with, or after other languages.
+       @param doDebug Turn debug messages on or off.
+       @return The primary sort key string.
+    -->
+  <xsl:function name="dci18n:getPrimarySortKeyForTopic">
+    <xsl:param name="topic" as="element()"/>
+    <xsl:param name="sortEnglish" as="xs:string"/>
+    <xsl:param name="doDebug" as="xs:boolean"/>
+    
+    <xsl:variable name="sortAs" as="xs:string?" 
+      select="dci18n:getSortAsForTopic($topic, $doDebug)"
+    />
+    <xsl:variable name="baseSortKey" as="xs:string?" 
+      select="dci18n:getBaseSortKeyForTopic($topic, $doDebug)"
+    />
+    <!-- This is kind of crude but will work for CJK languages.
+      
+         For zh-CN, where the sort is done using the pinyin
+         transliteration and therefore would otherwise sort
+         with English, we have to use a character that would
+         not be in any pinyin as the prefix to force English
+         to sort before it or after it.
+         
+         For other languages the normal collation order will
+         do the right thing.
+      -->
+    
+    <xsl:variable name="sortKeyPrefix" as="xs:string?"
+      select="if (dci18n:startsWithEnglishText($baseSortKey, $doDebug)) 
+      then if (matches($sortEnglish, 'before', 'i'))
+      then '&#x09;'
+      else if (matches($sortEnglish, 'after', 'i'))
+      then '&#xFFFC;'
+      else ''
+      else if (matches($sortEnglish, 'before', 'i'))
+      then '&#x4E00;'
+      else if (matches($sortEnglish, 'after', 'i')) 
+      then '&#x09;'
+      else ''
+      "
+    />
+    
+    <xsl:if test="$doDebug">
+      <xsl:message> + [DEBUG] dci18n:getPrimarySortKeyForTopic(): exists($sortAs)=<xsl:value-of select="exists($sortAs)"/>; $sortAs="<xsl:value-of select="$sortAs"/>"</xsl:message>
+      <xsl:message> + [DEBUG] dci18n:getPrimarySortKeyForTopic(): exists($baseSortKey)=<xsl:value-of select="exists($sortAs)"/>; $baseSortKey="<xsl:value-of select="$baseSortKey"/>"</xsl:message>
+    </xsl:if>
+    <xsl:variable name="sortKey" as="xs:string?"
+      select="if (normalize-space($sortAs) != '') 
+      then normalize-space($sortAs)
+      else $baseSortKey"
+    />
+    <xsl:variable name="result" as="xs:string" 
+      select="concat($sortKeyPrefix, $sortKey)"
+    />
+    <xsl:sequence select="$result"/>
+    
+  </xsl:function>
+  
   <!-- Get the primary sort key for the specified topicref. 
     
        The primary sort key is either the first sort-as value,
@@ -145,52 +282,39 @@
     <xsl:param name="sortEnglish" as="xs:string"/>
     <xsl:param name="doDebug" as="xs:boolean"/>
     
-    <xsl:variable name="sortAs" as="xs:string?" 
-      select="dci18n:getSortAsForTopicref($topicref, $doDebug)"
+    <xsl:variable name="topic" as="element()?"
+      select="document(string($topicref/@href), $topicref)/*"
     />
-    <xsl:variable name="baseSortKey" as="xs:string?" 
-      select="dci18n:getBaseSortKeyForTopicref($topicref, $doDebug)"
+    <xsl:variable name="result" as="xs:string?"
+      select="dci18n:getPrimarySortKeyForTopic($topic, $sortEnglish, $doDebug)"
     />
-    <!-- This is kind of crude but will work for CJK languages.
-      
-         For zh-CN, where the sort is done using the pinyin
-         transliteration and therefore would otherwise sort
-         with English, we have to use a character that would
-         not be in any pinyin as the prefix to force English
-         to sort before it or after it.
-         
-         For other languages the normal collation order will
-         do the right thing.
-      -->
-      
-    <xsl:variable name="sortKeyPrefix" as="xs:string?"
-      select="if (dci18n:startsWithEnglishText($baseSortKey, $doDebug)) 
-                 then if (matches($sortEnglish, 'before', 'i'))
-                      then '&#x09;'
-                      else if (matches($sortEnglish, 'after', 'i'))
-                           then '&#xFFFC;'
-                           else ''
-                 else if (matches($sortEnglish, 'before', 'i'))
-                      then '&#x4E00;'
-                      else if (matches($sortEnglish, 'after', 'i')) 
-                           then '&#x09;'
-                           else ''
-      "
+    <xsl:sequence select="$result"/>
+  </xsl:function>
+  
+  <!-- Gets the sort-as value, if any, for the specified topic.
+       
+    -->
+  <xsl:function name="dci18n:getSortAsForTopic" as="xs:string?">
+    <xsl:param name="topic" as="element()"/>
+    <xsl:param name="doDebug" as="xs:boolean"/>
+
+    <xsl:variable name="sort-as">
+      <xsl:apply-templates select="$topic" mode="dci18n:getTopicSortAs">
+        <xsl:with-param name="doDebug" as="xs:boolean" tunnel="yes" select="$doDebug"/>
+      </xsl:apply-templates>
+    </xsl:variable>
+    
+    <xsl:variable name="result" as="xs:string?"
+      select="if (normalize-space($sort-as) != '') 
+      then normalize-space($sort-as) 
+      else ()"
     />
     
     <xsl:if test="$doDebug">
-      <xsl:message> + [DEBUG] dci18n:getPrimarySortKeyForTopicref(): exists($sortAs)=<xsl:value-of select="exists($sortAs)"/>; $sortAs="<xsl:value-of select="$sortAs"/>"</xsl:message>
-      <xsl:message> + [DEBUG] dci18n:getPrimarySortKeyForTopicref(): exists($baseSortKey)=<xsl:value-of select="exists($sortAs)"/>; $baseSortKey="<xsl:value-of select="$baseSortKey"/>"</xsl:message>
+      <xsl:message> + [DEBUG] dci18n:getSortAsForTopic: Returning "<xsl:value-of select="$result"/>"</xsl:message>
     </xsl:if>
-    <xsl:variable name="sortKey" as="xs:string?"
-      select="if (normalize-space($sortAs) != '') 
-                 then normalize-space($sortAs)
-                 else $baseSortKey"
-    />
-    <xsl:variable name="result" as="xs:string" 
-      select="concat($sortKeyPrefix, $sortKey)"
-    />
-    <xsl:sequence select="$result"/>
+    
+    <xsl:sequence select="normalize-space($result)"/>
   </xsl:function>
   
   <!-- Gets the sort-as value, if any, for the topic referenced by the specified
@@ -213,16 +337,8 @@
       <xsl:message> + [DEBUG] dci18n:getSortAsForTopicref: Resolved ref? <xsl:value-of select="exists($topic)"/></xsl:message>
     </xsl:if>
     
-    <xsl:variable name="sort-as">
-      <xsl:apply-templates select="$topic" mode="dci18n:getTopicSortAs">
-        <xsl:with-param name="doDebug" as="xs:boolean" tunnel="yes" select="$doDebug"/>
-      </xsl:apply-templates>
-    </xsl:variable>
-    
     <xsl:variable name="result" as="xs:string?"
-      select="if (normalize-space($sort-as) != '') 
-                 then normalize-space($sort-as) 
-                 else ()"
+      select="dci18n:getSortAsForTopic($topic, $doDebug)"
     />
     
     <xsl:if test="$doDebug">
