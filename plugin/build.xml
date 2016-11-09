@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="org.dita-community.i18n">
   
-  <target name="org.dita-community.i18n-test">
-    <echo>Simplified Chinese Test</echo>
+  <target name="org.dita-community.i18n-jar-test">
+    <echo>org.dita-community.i18n Jar test for zh-CN:</echo>
     <java classpath="${basedir}/lib/icu4j.jar:${basedir}/lib/saxon.jar:${basedir}/plugins/org.dita-community.i18n/lib/dita-community-i18n-saxon91.jar" 
       classname="org.ditacommunity.i18n.collation.CollationAnalyzer"
       >
       <arg value="${basedir}/plugins/org.dita-community.i18n/test/resources/word-lists/hsk-1-examples.txt"/>
     </java>
   </target>
+  
+  
 </project>

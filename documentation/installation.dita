@@ -37,5 +37,41 @@ org.dita-community.i18n-test:
 ...
 BUILD SUCCESSFUL
 Total time: 1 second</codeblock></p>
+    <p>In order to use the custom collator with Saxon you must also set the Java system property
+        <parmname>javax.xml.transform.TransformerFactory</parmname> to point to the i18n library's
+      transformer factory.</p>
+    <p>The value of <parmname>javax.xml.transform.TransformerFactory</parmname> must be
+        "<codeph>org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</codeph>". The
+      DCI18nSaxonTransformerFactoryImpl91 class is in the
+        <filepath>dita-community-i18n-saxon91.jar</filepath> jar file in the i18n plugin's
+        <filepath>lib/</filepath> directory. This jar is automatically included in the Open
+      Toolkit's Java class path.</p>
+    <p>How you set this property depends on how you run the Open Toolkit.</p>
+    <p>If you are running the Open Toolkit from a command line you can use the ANT_OPTS environment
+      variable to specify the property using the <parmname>-D</parmname> Java command-line
+      parameter:</p>
+    <p>Windows:<codeblock>c:\DITA-OT>set ANT_OPTS="-Xmx512m  -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"</codeblock></p>
+    <p>macOS:</p>
+    <p>
+      <codeblock>ekimber$ export ANT_OPTS="-Xmx512m  -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"</codeblock>
+    </p>
+    <p>If you are using the 1.8.5 Open Toolkit, you can modify the <filepath>startcmd.sh</filepath>
+      or <filepath>startcmd.bat</filepath> file to set the ANT_OPTS environment variable, e.g.:</p>
+    <p>Windows:<codeblock>...
+REM Set environment variables
+set ANT_OPTS=-Xmx512m %ANT_OPTS%
+<b>set ANT_OPTS=%ANT_OPTS% -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</b>
+set ANT_HOME=%DITA_DIR%
+...</codeblock></p>
+    <p>macOS:</p>
+    <codeblock>...
+export ANT_OPTS="-Xmx512m $ANT_OPTS"
+<b>export ANT_OPTS="$ANT_OPTS -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"</b>
+export ANT_HOME="$DITA_DIR"
+...</codeblock>
+    <p>If you do not have the transformer factory set correctly the failure symptom is a message
+      from Saxon that it cannot find the collator
+      http://org.dita-community.i18n.zhCNawareCollator.</p>
+    <p/>
   </body>
 </topic>
