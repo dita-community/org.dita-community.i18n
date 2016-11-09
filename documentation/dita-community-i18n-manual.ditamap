@@ -13,6 +13,9 @@
     </critdates>
     <prodinfo>
       <prodname>org.dita-community.i18n</prodname>
+      <vrmlist>
+        <vrm version="1" release="0" modification="0"/>
+      </vrmlist>
     </prodinfo>
   </topicmeta>
   <mapref href="external-keydefs.ditamap"/>

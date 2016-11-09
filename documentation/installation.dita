@@ -19,8 +19,23 @@
     <p>You can verify that the plugin is correctly installed by running the Ant target
       "org.dita-community.i18n-test". You should get output like
       this:<codeblock>c:\DITA-OT> ant org.dita-community.i18n-test
-Simplified Chinese Sort Test:
+
+org.dita-community.i18n-test:
+     [echo] Simplified Chinese Test
+     [java] Collation report for language 
+     [java] Input terms:
+     [java] 
+     [java] [ 1] Term: "8点40分"
+     [java]        Words and pinyin:
+     [java] 		 "点"	: dian3"
+     [java] 		 "分"	: fen4"
+     [java] [ 2] Term: "2009年7月6日"
+     [java]        Words and pinyin:
+     [java] 		 "年"	: nian2"
+     [java] 		 "月"	: yue4"
+     [java] 		 "日"	: ri4"
 ...
-{FIXME: put real output here}</codeblock></p>
+BUILD SUCCESSFUL
+Total time: 1 second</codeblock></p>
   </body>
 </topic>

@@ -4,13 +4,21 @@
   <title>DITA Community Internationalization Plugin</title>
   <body>
     <p>The DITA Community internationalization plugin, <filepath>org.dita-community.i18n</filepath>,
-      provides a set of features for doing locale-specific sorting, grouping, and word breaking in
-      XSLT and Java code.</p>
-    <p>It has been designed to support the general tasks for index generation and glossary sorting
-      in DITA documents but can be used in any XSLT or Java program.</p>
+      provides a set of features for doing locale-specific sorting, grouping, line breaking, word
+      breaking, and rendered text length estimation.</p>
+    <p>It has been designed to support the general tasks of index generation and glossary sorting in
+      DITA documents but can be used in any XSLT or Java program. </p>
+    <p>Word breaking is required to do correct sorting of Simplified Chinese (zh-CN) but is also
+      useful for other tasks, such as inserting zero-width spaces to enable appropriate line
+      breaking or determining the width of the first word of a string in order to calculate column
+      widths or definition list term indents.</p>
+    <p>Line breaking is useful for doing line wrapping in content, for example, to estimate the
+      horizontal and vertical rendered extent of  blocks of text in order to then do pagination or
+      allocation of text to fixed-sized regions in XSL-FO or HTML output.</p>
     <p>A key feature of this library is full support for grouping and sorting Simplified Chinese,
       which is particularly challenging and cannot be correctly sorted using the default Java or ICU
-      collators. Simplified Chinese requires a dictionary and this plugin provides an open-source
+      collators. </p>
+    <p>Simplified Chinese requires a dictionary and this plugin provides an open-source
       dictionary-based solution for Simplified Chinese, based on the open-source CC-CEDICT
       dictionary. See <xref keyref="cc-cedict-project"/>.</p>
     <p>It provides the following services:</p>
@@ -23,13 +31,16 @@
         <p>A general grouping service useful for grouping index terms, glossary entries, etc.</p>
       </li>
       <li>
-        <p>Access to the ICU word breaking facility in XSLT, useful for doing word breaking in
-          languages like Thai and Chinese that require a dictionary or writing-system-specific
-          rules.</p>
+        <p>Access to the ICU word and line breaking facilities in XSLT, useful for doing word
+          breaking in languages like Thai and Chinese that require a dictionary or
+          writing-system-specific rules.</p>
       </li>
     </ul>
     <p>The plugin supports Open Toolkit version 1.8.5 and version 2.x later than about 2.1.1. It
-      works with both Saxon 9.1 (as shipped with the Open Toolkit through version 2.4) and Saxon 9.6
-      or newer.</p>
+      works with Saxon 9.1 (as shipped with the Open Toolkit through version 2.4). </p>
+    <p>Support for Saxon 9.6+ is under development as of release 1.0.0. Because Saxon versions after
+      9.1 change the way that extension functions are supported in the free version of Saxon (Saxon
+      HE), the extension function integration for Saxon 9.1 will not work with later versions of
+      Saxon, which require a different mechanism for integrating extension functions.</p>
   </body>
 </topic>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="external_resources">
+  <title>External Resources</title>
+  <body>
+    <p>This project draws on a number of resources:</p>
+    <section id="section_qxy_pr5_wx">
+      <title>CEDICT Project</title>
+      <p><xref keyref="cc-cedict-project"/></p>
+      <p>The CC-CEDICT project is an open-source Simplified Chinese dictionary reflecting about
+        140,000 words. It is the basis for the dictionary used in the i18n library's Simplified
+        Chinese collator.</p>
+    </section>
+    <section id="section_ugt_5r5_wx">
+      <title> Hanban HSK exam Preparation Resources (HSK东西)</title>
+      <p><xref keyref="hskhks-project"/></p>
+      <p>This site provides resources that support studying for the Hanban HSK (Hanyu Shuiping
+        Kaoshi) exam, a free Chinese proficiency exam for Chinese language learners. The i18n
+        project uses word lists and sample sentences from the hskhks project as source data for
+        exercising the zh-CN collation and other processing.</p>
+    </section>
+  </body>
+</topic>

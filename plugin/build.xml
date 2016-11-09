@@ -2,8 +2,11 @@
 <project basedir="." name="org.dita-community.i18n">
   
   <target name="org.dita-community.i18n-test">
-    <echo>Testing I18N features:</echo>
-    <echo>Test TBD but will exercise the XSLT integration and demonstrate
-    sorting of Simplified Chinese and other languages. </echo>
+    <echo>Simplified Chinese Test</echo>
+    <java classpath="${basedir}/lib/icu4j.jar:${basedir}/lib/saxon.jar:${basedir}/plugins/org.dita-community.i18n/lib/dita-community-i18n-saxon91.jar" 
+      classname="org.ditacommunity.i18n.collation.CollationAnalyzer"
+      >
+      <arg value="${basedir}/plugins/org.dita-community.i18n/test/resources/word-lists/hsk-1-examples.txt"/>
+    </java>
   </target>
 </project>
