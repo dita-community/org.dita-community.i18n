@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d7727e00-bbba-4739-86fc-6ed6a4502cf0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="d7727e00-bbba-4739-86fc-6ed6a4502cf0" name="Default" comment="" />
     <list id="7359b1b3-2f69-4596-8527-f67fff7cf1a5" name="Rejected commit: Default" comment="Do-nothing implementation of zh-CN rule based collator works.&#10;&#10;Does not work with Saxon (yet)" />
     <ignored path="org.dita-community.i18n.iws" />
     <ignored path=".idea/workspace.xml" />
