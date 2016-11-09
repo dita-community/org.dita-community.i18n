@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="org.dita-community.i18n">
   
-  <target name="org.dita-community.i18n-jar-test">
-    <echo>org.dita-community.i18n Jar test for zh-CN:</echo>
+  <target name="org.dita-community.i18n-jar-test" description="Test the DITA Community i18n library jar">
+    <echo>org.dita-community.i18n jar test for zh-CN:</echo>
     <java classpath="${basedir}/lib/icu4j.jar:${basedir}/lib/saxon.jar:${basedir}/plugins/org.dita-community.i18n/lib/dita-community-i18n-saxon91.jar" 
       classname="org.ditacommunity.i18n.collation.CollationAnalyzer"
       >
@@ -10,5 +10,15 @@
     </java>
   </target>
   
-  
+  <target name="org.dita-community-i18n-xslt-test" description="Test the DITA Community i18n Saxon custom collator">
+    <echo>org.dita-community.i18n XSLT collator test</echo>
+    <xslt
+      classpath="${basedir}/lib/icu4j.jar:${basedir}/lib/saxon.jar:${basedir}/plugins/org.dita-community.i18n/lib/dita-community-i18n-saxon91.jar"
+      in="${dita.plugin.org.dita-community.i18n.dir}/test/resources/source-data/test-zh-cn.xml"
+      style="${dita.plugin.org.dita-community.i18n.dir}/test/xsl/test-collator.xsl"
+      out="${basedir}/out/zh-cn-xslt-test.html"
+      >
+     
+    </xslt>
+  </target>
 </project>
