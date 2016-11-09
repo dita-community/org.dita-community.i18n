@@ -21,5 +21,10 @@
   <mapref href="external-keydefs.ditamap"/>
   <topicref href="dita_community_internationalization_plugin.dita" keys="root-topic">
     <topicref href="installation.dita" keys="installation"/>
+    <topicref href="using_the_i18n_collator_from_xslt.dita" keys="using-collator-from-xslt"/>
+    <topicref href="doing_line_and_word_breaking_in_xslt.dita" keys="line-and-word-breaking-in-xslt"/>
+    <topicref href="estimating_rendered_string_length_in_xslt.dita"
+      keys="estimating-rendered-string-length-xslt"/>
+    <topicref href="external_resources.dita"/>
   </topicref>
 </map>

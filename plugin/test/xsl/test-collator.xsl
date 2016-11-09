@@ -26,12 +26,13 @@
     select="'http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN'"
   />
   <xsl:variable name="collatorUri" as="xs:string"
-    select="if (true()) then 'http://www.w3.org/2005/xpath-functions/collation/codepoint' else $customCollatorUri"
+    select="if (false()) then 'http://www.w3.org/2005/xpath-functions/collation/codepoint' else $customCollatorUri"
   />
 
     <xsl:template match="/">
       
       <xsl:message> + [INFO] Processing source document <xsl:value-of select="document-uri(.)"/>...</xsl:message>
+      <xsl:message> + [INFO] Using collator "<xsl:value-of select="$collatorUri"/>"</xsl:message>
       
       <html>
         <head>

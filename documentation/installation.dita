@@ -17,8 +17,8 @@
           GitHub:<codeblock>c:\DITA-OT> bin\dita -install http://github.com/dita-community/org.dita-community.i18n/release/latest/org.dita-community.i18n.zip</codeblock></li>
       </ol></p>
     <p>You can verify that the plugin is correctly installed by running the Ant target
-      "org.dita-community.i18n-test". You should get output like
-      this:<codeblock>c:\DITA-OT> ant org.dita-community.i18n-test
+      "org.dita-community-i18n-jar-test". You should get output like
+      this:<codeblock>c:\DITA-OT> ant org.dita-community-i18n-jar-test
 
 org.dita-community.i18n-test:
      [echo] Simplified Chinese Test
@@ -69,9 +69,48 @@ export ANT_OPTS="-Xmx512m $ANT_OPTS"
 <b>export ANT_OPTS="$ANT_OPTS -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"</b>
 export ANT_HOME="$DITA_DIR"
 ...</codeblock>
-    <p>If you do not have the transformer factory set correctly the failure symptom is a message
-      from Saxon that it cannot find the collator
-      http://org.dita-community.i18n.zhCNawareCollator.</p>
-    <p/>
+    <p>You can test that the transformer factory is correctly configured by running the Ant target
+      "org.dita-community-i18n-xslt-test":</p>
+    <codeblock>ekimber$ ant org.dita-community-i18n-xslt-test 
+Buildfile: /Users/ekimber/dita-ot/DITA-OT/build.xml
+
+org.dita-community-i18n-xslt-test:
+     [echo] org.dita-community.i18n XSLT collator test
+     [echo] ANT_OPTS="-Xmx512m  -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"
+     [xslt] Processing /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml to /Users/ekimber/dita-ot/DITA-OT/out/zh-cn-xslt-test.html
+     [xslt] Loading stylesheet /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl
+     [xslt] DCI18nSaxonTransformerFactoryImpl: Setting collation URI resolver to DCI18nCollationUriResolver91
+     [xslt]  + [INFO] Processing source document file:/Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml...
+     [xslt]  + [INFO] Using collator "http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN"
+     [xslt] DCI18nCollationUriResolver91 version 1.0.0
+     [xslt] + [DEBUG] DCI18nCollationUriResolver91.resolve(): Collation URI="http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN"
+     [xslt] + [DEBUG] DCI18nCollationUriResolver91.resolve():   Returning ZhCnAwareCollator
+     [xslt] + [DEBUG] splitWords(): text="从前有一位楚国人, 他非常爱惜他的宝剑。", debug=false
+     [xslt]  + [INFO] Document processed.
+
+BUILD SUCCESSFUL
+Total time: 1 second</codeblock>
+    <p>The output of the test is in the <filepath>out/</filepath> directory under the DITA OT
+      directory.</p>
+    <p>If you see a result like
+      this:<codeblock>ekimber$ ant org.dita-community.i18n-xslt-test 
+Buildfile: /Users/ekimber/dita-ot/DITA-OT/build.xml
+
+org.dita-community.i18n-xslt-test:
+     [echo] org.dita-community.i18n XSLT collator test
+     [echo] ANT_OPTS="${env.ANT_OPTS}"
+     [xslt] Processing /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml to /Users/ekimber/dita-ot/DITA-OT/out/zh-cn-xslt-test.html
+     [xslt] Loading stylesheet /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl
+     [xslt]  + [INFO] Processing source document file:/Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml...
+     [xslt]  + [INFO] Using collator "http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN"
+     [xslt] /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl:82: Fatal Error! Unknown collation http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN
+     [xslt] Failed to process /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml
+
+BUILD FAILED
+/Users/ekimber/dita-ot/DITA-OT/build.xml:175: Fatal error during transformation using /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl: Unknown collation http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN; SystemID: file:/Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl; Line#: 82; Column#: -1
+
+Total time: 0 seconds</codeblock></p>
+    <p>It means you don't have the <parmname>javax.xml.transform.TransformerFactory</parmname>
+      parameter set correctly.</p>
   </body>
 </topic>
