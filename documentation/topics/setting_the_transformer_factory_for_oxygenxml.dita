@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="setting_the_transformer_factory_for_oxygenxml">
+  <title>Setting the Transformer Factory for oXygenXML</title>
+  <taskbody>
+    <context>
+      
+    <p>Because oXygenXML uses newer versions of Saxon by default when running the Open Toolkit, in
+        order to use the i18n collator you must reconfigure your transformation scenarios to use
+        Saxon 9.1, to include the i18n Jar in the class path, and to specify the
+          <parmname>javax.xml.transform.TransformerFactory</parmname> parameter. You will need to do
+        this for any transformation scenario that needs to enable the i18n plugin.</p>
+    </context>
+    <steps id="steps_dkh_gqw_wx">
+      <step>
+        <cmd>Edit the transformation scenario and move to the <uicontrol>Advanced</uicontrol>
+          tab.</cmd>
+      </step>
+      <step>
+        <cmd>In the <uicontrol>JVM Parameters</uicontrol> field add
+            <codeph>-Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</codeph></cmd>
+      </step>
+      <step>
+        <cmd>From the <uicontrol>Advanced</uicontrol> tab, click on the
+            <uicontrol>Libraries</uicontrol> button to open the <uicontrol>Libraries</uicontrol>
+          dialog.</cmd>
+      </step>
+      <step>
+        <cmd>In the <uicontrol>Libraries</uicontrol> dialog, uncheck the <uicontrol>Allow
+            &lt;oXygen> to add high-priority libraries to classpath</uicontrol> checkbox and answer
+          "Yes" to the "Do you really want to do this" message box.</cmd>
+        <stepresult>The <uicontrol>Libraries</uicontrol> dialog should be populated with long list
+          of Jar files.</stepresult>
+      </step>
+      <step>
+        <cmd>For Open Toolkit 1.8.5, make the following changes:</cmd>
+        <info>
+          <ol id="ol_d2m_fll_xx">
+            <li>Edit the entry for the Saxon jar and change it to "saxon*.jar":
+                "<codeph>${dita.dir.url}/lib/saxon/saxon9.jar</codeph>"</li>
+            <li>Add a new entry for the saxon9-dom jar:
+                "<codeph>${dita.dir.url}/lib/saxon/saxon9-dom.jar</codeph>"</li>
+            <li>Add a new entry
+                "<codeph>${dita.dir.url}/plugins/org.dita-community.i18n/lib/*.jar</codeph>"</li>
+          </ol>
+          <p>Note that you can't just use "${dita.dir.url}/lib/saxon/saxon*.jar" because is will
+            include jars that then cause other configuration-related failures.</p>
+        </info>
+      </step>
+      <step>
+        <cmd>For Open Toolkit 2.x, make the following change:</cmd>
+        <info>
+          <ol id="ol_p4x_nfl_xx">
+            <li>Add a new entry
+                "<codeph>${dita.dir.url}/plugins/org.dita-community.i18n/lib/*.jar</codeph>"</li>
+          </ol>
+        </info>
+      </step>
+    </steps>
+  </taskbody>
+</task>

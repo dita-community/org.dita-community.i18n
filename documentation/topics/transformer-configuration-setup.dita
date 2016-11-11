@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="untitled9">
+  <title>Setting Up The Saxon Transformer Factory Configuration</title>
+  <shortdesc>In order to use the custom collator with Saxon you must set the Java system property
+      <parmname>javax.xml.transform.TransformerFactory</parmname> to point to the i18n library's
+    transformer factory.</shortdesc>
+  <body>
+    <p>The value of <parmname>javax.xml.transform.TransformerFactory</parmname> must be
+        "<codeph>org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</codeph>". The
+      DCI18nSaxonTransformerFactoryImpl91 class is in the
+        <filepath>dita-community-i18n-saxon91.jar</filepath> jar file in the i18n plugin's
+        <filepath>lib/</filepath> directory. This jar is automatically included in the Open
+      Toolkit's Java class path.</p>
+    <p>How you set this property depends on how you run the Open Toolkit.</p>
+    <p>If you are running the Open Toolkit from the command line or in a command environment, such
+      as through a continuous integration server or through a CCMS, you can set an environment
+      variable or you can set the <parmname>javax.xml.transform.TransformerFactory</parmname>
+      property as part of the Ant command invocation. See <xref
+        keyref="transformer-factory-setting-command-line"/>.</p>
+    <p>If you are running the Open Toolkit from oXygenXML you need to modify transformation
+      scenarios to use Saxon 9.1 rather than later versions and set the
+        <parmname>javax.xml.transform.TransformerFactory</parmname> property. See <xref
+        keyref="transformer-factory-setting-oxygen"/>.</p>
+  </body>
+</topic>

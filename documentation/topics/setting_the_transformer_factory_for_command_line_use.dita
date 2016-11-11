@@ -1,57 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
-<topic id="installation">
-  <title>Installation</title>
+<topic id="setting_the_transformer_factory_for_command_line_use">
+  <title>Setting the Transformer Factory for Command Line Use</title>
   <body>
-    <p>For Open Toolkit 1.8.5:<ol id="ol_xxb_4px_nx">
-        <li>Expand the plugin Zip file into the Open Toolkit's <filepath>plugins/</filepath>
-          directory so that you have a new directory,
-          <filepath>org.dita-community.i18n</filepath>.</li>
-        <li>Run the Open Toolkit integrator.xml Ant
-          task:<codeblock>c:\DITA-OT> ant -f integrator.xml</codeblock></li>
-      </ol></p>
-    <p>For Open Toolkit 2.x:<ol id="ol_owc_tpx_nx">
-        <li>Run the <cmdname>dita</cmdname> command with the <parmname>-install</parmname>
-          parameter, specifying the location of the plugin Zip file, which can be downloaded locally
-          or retrieved directly from
-          GitHub:<codeblock>c:\DITA-OT> bin\dita -install http://github.com/dita-community/org.dita-community.i18n/release/latest/org.dita-community.i18n.zip</codeblock></li>
-      </ol></p>
-    <p>You can verify that the plugin is correctly installed by running the Ant target
-      "org.dita-community-i18n-jar-test". You should get output like
-      this:<codeblock>c:\DITA-OT> ant org.dita-community-i18n-jar-test
-
-org.dita-community.i18n-test:
-     [echo] Simplified Chinese Test
-     [java] Collation report for language 
-     [java] Input terms:
-     [java] 
-     [java] [ 1] Term: "8点40分"
-     [java]        Words and pinyin:
-     [java] 		 "点"	: dian3"
-     [java] 		 "分"	: fen4"
-     [java] [ 2] Term: "2009年7月6日"
-     [java]        Words and pinyin:
-     [java] 		 "年"	: nian2"
-     [java] 		 "月"	: yue4"
-     [java] 		 "日"	: ri4"
-...
-BUILD SUCCESSFUL
-Total time: 1 second</codeblock></p>
-    <p>In order to use the custom collator with Saxon you must also set the Java system property
-        <parmname>javax.xml.transform.TransformerFactory</parmname> to point to the i18n library's
-      transformer factory.</p>
-    <p>The value of <parmname>javax.xml.transform.TransformerFactory</parmname> must be
-        "<codeph>org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</codeph>". The
-      DCI18nSaxonTransformerFactoryImpl91 class is in the
-        <filepath>dita-community-i18n-saxon91.jar</filepath> jar file in the i18n plugin's
-        <filepath>lib/</filepath> directory. This jar is automatically included in the Open
-      Toolkit's Java class path.</p>
-    <p>How you set this property depends on how you run the Open Toolkit.</p>
-    <p>If you are running the Open Toolkit from a command line you can use the ANT_OPTS environment
-      variable to specify the property using the <parmname>-D</parmname> Java command-line
-      parameter:</p>
+    <p>If you are running the Open Toolkit from a command line you can specify the
+        <parmname>javax.xml.transform.TransformerFactory</parmname> property on the
+        <cmdname>ant</cmdname> or <cmdname>dita</cmdname> command line directly using a
+        <parmname>-D</parmname>
+      parameter:<codeblock>c:\DITA-OT>dita -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91 
+-i /Users/ekimber/workspace/Thunderbird/User-Guide.ditamap ...</codeblock></p>
+    <p>You can also use the <varname>ANT_OPTS</varname> environment variable to specify the property
+      using the <parmname>-D</parmname> Java command-line parameter:</p>
     <p>Windows:<codeblock>c:\DITA-OT>set ANT_OPTS="-Xmx512m  -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"</codeblock></p>
-    <p>macOS:</p>
+    <p>macOS and Linux:</p>
     <p>
       <codeblock>ekimber$ export ANT_OPTS="-Xmx512m  -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"</codeblock>
     </p>
@@ -63,12 +24,14 @@ set ANT_OPTS=-Xmx512m %ANT_OPTS%
 <b>set ANT_OPTS=%ANT_OPTS% -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</b>
 set ANT_HOME=%DITA_DIR%
 ...</codeblock></p>
-    <p>macOS:</p>
+    <p>macOS and Linux:</p>
     <codeblock>...
 export ANT_OPTS="-Xmx512m $ANT_OPTS"
 <b>export ANT_OPTS="$ANT_OPTS -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"</b>
 export ANT_HOME="$DITA_DIR"
 ...</codeblock>
+    <p>For DITA OT 2.x and later you can set the <varname>ANT_OPTS</varname> environment variable
+      globally.</p>
     <p>You can test that the transformer factory is correctly configured by running the Ant target
       "org.dita-community-i18n-xslt-test":</p>
     <codeblock>ekimber$ ant org.dita-community-i18n-xslt-test 
@@ -110,7 +73,7 @@ BUILD FAILED
 /Users/ekimber/dita-ot/DITA-OT/build.xml:175: Fatal error during transformation using /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl: Unknown collation http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN; SystemID: file:/Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl; Line#: 82; Column#: -1
 
 Total time: 0 seconds</codeblock></p>
-    <p>It means you don't have the <parmname>javax.xml.transform.TransformerFactory</parmname>
-      parameter set correctly.</p>
+    <p>It means the <parmname>javax.xml.transform.TransformerFactory</parmname> is not set
+      correctly.</p>
   </body>
 </topic>
