@@ -1,0 +1,6 @@
+[submodule "docker/dita-ot-i18n-docker-base"]
+	path = docker/dita-ot-i18n-docker-base
+	url = git@github.com:dita-community/dita-ot-i18n-docker-base.git
+[submodule "docker/dita-ot-i18n-docker"]
+	path = docker/dita-ot-i18n-docker
+	url = git@github.com:dita-community/dita-ot-i18n-docker.git
