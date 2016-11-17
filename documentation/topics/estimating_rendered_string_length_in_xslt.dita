@@ -2,8 +2,36 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="estimating_rendered_string_length_in_xslt">
  <title>Estimating Rendered String Length in XSLT</title>
- <shortdesc></shortdesc>
+ <shortdesc>You can use the i18n library to estimate the rendered length of strings with reasonable
+    accuracy (if you know the font details).</shortdesc>
  <conbody>
-  <p>TBD</p>
+  <p>The <codeph>dci18n:getRenderedTextLength()</codeph> function takes a string and a font
+      specification (font name, size, and variant) and returns an estimate of its rendered length
+      for that font. It uses the standard Java2D library under the covers. If the font specified is
+      available to Java then it should provide a reasonably accurate estimate of the length,
+      especially for shorter strings. The estimate will not reflect subtleties like kerning or
+      custom inter-word spacing that some layout engines may apply but it's usually accurate to
+      within about one en-width for an 80-character string.</p>
+    <p>The main challenge is setting the font details correctly. As for all things involving fonts,
+      that usually requires operating-system- and operating-environment-specific configuration. See
+      the Oracle-provided Java2D documentation for details on how to specify fonts. For macOS and
+      Windows it should access installed fonts using the font name shown in the operating system
+      font catalog. For Linux systems the configuration may be different.</p>
+    <p>For example, to determine the longest term in a set of definition list entries you could do
+      something like
+      this:<codeblock>...
+&lt;!-- Context is a &lt;dl> element -->
+&lt;xsl:variable name="terms" as="xs:string*"
+  select="normalize-space(*[contains(@class, ' topic/dlentry ']/
+                          *[contains(@class, ' topic/dt ']"
+/>
+&lt;xsl:variable name="maxLength" as="double()"
+ select="max(for $t in $terms 
+                 return dci18n:getdci18n:getRenderedTextLength($t, 'Arial', '12', 'normal')
+        "
+/>
+...</codeblock></p>
+    <p>You can use the rendered length estimator with line breaking to do pretty good layout of
+      text, for example, to generate fixed-layout HTML using absolutely positioned CSS.</p>
  </conbody>
 </concept>

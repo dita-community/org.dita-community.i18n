@@ -29,21 +29,23 @@
         <cmd>In the <uicontrol>Libraries</uicontrol> dialog, uncheck the <uicontrol>Allow
             &lt;oXygen> to add high-priority libraries to classpath</uicontrol> checkbox and answer
           "Yes" to the "Do you really want to do this" message box.</cmd>
-        <stepresult>The <uicontrol>Libraries</uicontrol> dialog should be populated with long list
-          of Jar files.</stepresult>
+        <stepresult>
+          <p>The <uicontrol>Libraries</uicontrol> dialog should be populated with a long list of Jar
+            files.</p>
+        </stepresult>
       </step>
       <step>
         <cmd>For Open Toolkit 1.8.5, make the following changes:</cmd>
         <info>
           <ol id="ol_d2m_fll_xx">
             <li>Edit the entry for the Saxon jar and change it to "saxon*.jar":
-                "<codeph>${dita.dir.url}/lib/saxon/saxon9.jar</codeph>"</li>
+                "<codeph>${dita.dir.url}/lib/saxon/saxon*.jar</codeph>"</li>
             <li>Add a new entry for the saxon9-dom jar:
                 "<codeph>${dita.dir.url}/lib/saxon/saxon9-dom.jar</codeph>"</li>
-            <li>Add a new entry
+            <li>Add a new entry:
                 "<codeph>${dita.dir.url}/plugins/org.dita-community.i18n/lib/*.jar</codeph>"</li>
           </ol>
-          <p>Note that you can't just use "${dita.dir.url}/lib/saxon/saxon*.jar" because is will
+          <p>Note that you can't just use "${dita.dir.url}/lib/saxon/saxon*.jar" because it will
             include jars that then cause other configuration-related failures.</p>
         </info>
       </step>
@@ -51,7 +53,7 @@
         <cmd>For Open Toolkit 2.x, make the following change:</cmd>
         <info>
           <ol id="ol_p4x_nfl_xx">
-            <li>Add a new entry
+            <li>Add a new entry:
                 "<codeph>${dita.dir.url}/plugins/org.dita-community.i18n/lib/*.jar</codeph>"</li>
           </ol>
         </info>

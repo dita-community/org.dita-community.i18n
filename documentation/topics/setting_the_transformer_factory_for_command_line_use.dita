@@ -73,7 +73,7 @@ BUILD FAILED
 /Users/ekimber/dita-ot/DITA-OT/build.xml:175: Fatal error during transformation using /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl: Unknown collation http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN; SystemID: file:/Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl; Line#: 82; Column#: -1
 
 Total time: 0 seconds</codeblock></p>
-    <p>It means the <parmname>javax.xml.transform.TransformerFactory</parmname> is not set
+    <p>It means the <parmname>javax.xml.transform.TransformerFactory</parmname> property is not set
       correctly.</p>
   </body>
 </topic>

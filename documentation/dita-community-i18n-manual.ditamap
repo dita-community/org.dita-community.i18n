@@ -34,6 +34,7 @@
     <topicref href="topics/doing_line_and_word_breaking_in_xslt.dita" keys="line-and-word-breaking-in-xslt"/>
     <topicref href="topics/estimating_rendered_string_length_in_xslt.dita"
       keys="estimating-rendered-string-length-xslt"/>
+    <topicref href="topics/how_it_works.dita" keys="how-it-works"/>
     <topicref href="topics/external_resources.dita"/>
   </topicref>
 </map>

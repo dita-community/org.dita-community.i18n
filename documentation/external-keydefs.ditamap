@@ -4,13 +4,24 @@
  <title>External Resource Key Definitions</title>
   <topicgroup>
     <keydef keys="cc-cedict-project" scope="external" format="html"
-      href="http://www.mdbg.net/chindict/chindict.php?page=cedict"
+      href="http://www.mdbg.net/chindict"
     >
       <topicmeta>
         <navtitle>www.mdbg.net/chindict/chindict.php?page=cedict</navtitle>
       </topicmeta>
     </keydef>
     <keydef href="http://www.hskhsk.com/index.html" keys="hskhks-project" format="html"
-      scope="external" navtitle=" HSK东西"/>
+      scope="external" navtitle=" HSK东西">
+      <topicmeta>
+        <navtitle>HSK HKS Project (www.hskhks.com)</navtitle>
+      </topicmeta>
+    </keydef>
+    <keydef keys="dita-ot-docker" href="http://github.com/dita-community/dita-ot-project-docker"
+      format="html" scope="external"
+      >
+      <topicmeta>
+        <navtitle>DITA Open Toolkit Docker Project (GitHub)</navtitle>
+      </topicmeta>
+    </keydef>
   </topicgroup>
 </map>

@@ -469,6 +469,22 @@
     <xsl:sequence select="$result"/>
   </xsl:function>
 
+  <!-- Estimate the rendered length of the specified text string using
+       the specified font (if available). The accuracy of the resulting
+       estimate depends on the accuracy of the font specification.
+      
+       @param text The text to get the length of
+       @param fontName The name of the font as known to the Java2D font
+       access functions. Normally this is the font name as you see it
+       in your operating system font library. See the Java2D documentation
+       for details.
+       @param fontSize The font size in points with no units, e.g. "24" for 
+       a 24-point font.
+       @param fontStyle The font style, e.g. "bold", "italic", "oblique", etc.
+       Corresponds to the font variant of the installed font.
+       @debug Turns debug messages on or off. Set to true() to turn debug
+       messages on.
+    -->
   <xsl:function name="dci18n:getRenderedTextLength" as="xs:integer">
     <xsl:param name="text" as="xs:string"/>
     <xsl:param name="fontName" as="xs:string"/>

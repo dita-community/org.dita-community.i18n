@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="how_it_works">
+  <title>How It Works</title>
+  <body>
+    <p>Saxon 9 supports custom collators through the use of custom collator URIs that are resolved
+      through a custom collation URI resolver.</p>
+    <p>Custom collation URI resolvers are configured on Saxon by transformer factories.</p>
+    <p>Thus the i18n library provides a custom transformer factory that returns Saxon configured
+      with the i18n library's custom collation URI resolver.</p>
+    <p>When Saxon encounters a <xmlatt>collation</xmlatt> attribute on
+        <xmlelement>xsl:sort</xmlelement> it calls the configured collation URI resolvers to resolve
+      the URI. The i18n library's URI resolver then returns the custom Java zhCnAwareCollator, which
+      implements Saxon's collation-related APIs, which are in turn used by Saxon's implementation of
+      the <xmlelement>xsl:sort</xmlelement> element.</p>
+    <p>The ZhCnAwareCollator integrates the ICU4J libraries for doing locale-aware collation
+      generally and then provides a Simplified-Chinese-specific collator that uses the CEDICT
+      dictionary along with the ICU4J zh-CN word breaker to construct pinyin sort keys from
+      Simplified Chinese text.</p>
+    <p>The i18n Java code also provides two Java classes that serve as Saxon 9.1 extension function
+      libraries: <codeph>org.ditacommunity.i18n.textanalysis.TextAnalyzer</codeph> and
+        <codeph>org.ditacommunity.i18n.textanalysis.TextMetrics</codeph>. These libraries, along
+      with the ZhCnAwareCollator, back the functions in the <filepath>i18n-utils.xsl</filepath>
+      module.</p>
+  </body>
+</topic>

@@ -11,7 +11,7 @@
       DCI18nSaxonTransformerFactoryImpl91 class is in the
         <filepath>dita-community-i18n-saxon91.jar</filepath> jar file in the i18n plugin's
         <filepath>lib/</filepath> directory. This jar is automatically included in the Open
-      Toolkit's Java class path.</p>
+      Toolkit's Java class path by the i18n Open Toolkit plugin.</p>
     <p>How you set this property depends on how you run the Open Toolkit.</p>
     <p>If you are running the Open Toolkit from the command line or in a command environment, such
       as through a continuous integration server or through a CCMS, you can set an environment

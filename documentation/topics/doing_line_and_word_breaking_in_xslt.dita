@@ -2,8 +2,28 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="doing_line_and_word_breaking_in_xslt">
  <title>Doing Line and Word Breaking in XSLT</title>
- <shortdesc></shortdesc>
+ <shortdesc>The i18n library provides XSLT access to the ICU4J line and working
+    functions.</shortdesc>
  <conbody>
-  <p>TBD</p>
+  <p>The i18n XSLT utility library provides functions for doing locale-aware word and line breaking
+      of strings. This can be useful for things like estimating rendered lengths of strings,
+      generating word indexes, and finding appropriate points to insert zero-width spaces in literal
+      examples where line wrapping would not otherwise occur.</p>
+    <p>The file <filepath>test/xsl/test-collator.xsl</filepath> in the i18n plugin demonstrates how
+      to use the collator and the line and word breaking utility functions. </p>
+    <p>For example, to break a line into words you can do something like
+      this:<codeblock>&lt;xsl:variable name="words" as="xs:string*"
+  select="dci18n:splitWords(normalize-space(.), $langCode)
+/>
+&lt;xsl:for-each select="$words">
+  &lt;p>&lt;span class="word">&lt;xsl:value-of select="."/>&lt;/span>&lt;/p>
+&lt;/xsl:for-each></codeblock></p>
+    <p>The <codeph>dci18n:splitWords()</codeph> function only returns words, omitting any
+      whitespace, punctuation, or other non-word characters. The function will return at least one
+      word unless the input string is empty or consists only of non-word characters.</p>
+    <p>The <codeph>dci18n:splitLines()</codeph> function works the same way, splitting the text into
+      a sequence of strings, each string representing the string from the previous line break point
+      to the next one (or from the start of the string to the first break point). The result
+      reflects all the characters in the input string.</p>
  </conbody>
 </concept>

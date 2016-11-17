@@ -2,8 +2,62 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="using_the_i18n_collator_from_xslt">
  <title>Using the i18n Collator from XSLT</title>
- <shortdesc></shortdesc>
  <conbody>
-  <p>TBD</p>
+  <p>To use the i18n collator from XSLT you specify the custom collation URL using the
+        <xmlatt>collation</xmlatt> attribute on <xmlelement>xsl:sort</xmlelement> elements or other
+      contexts where <xmlatt>collation</xmlatt> is allowed. You then use the
+        <xmlelement>xsl:sort</xmlelement> element
+      normally:<codeblock>&lt;xsl:apply-templates select="word">
+  &lt;xsl:sort <b>collation="'http://org.dita-community.i18n.zhCNawareCollator?lang=<varname>langCode</varname>'"</b>/>
+&lt;/xsl:apply-templates></codeblock></p>
+    <p>Where <varname>langCode</varname> is the language code for the language the collator should
+      be configured for when sorting. For Simplified Chinese the language code should be "zh-CN".
+      Depending on the Open Toolkit version you're using you should be able to use either the
+        <codeph>getLowerCaseLang</codeph> named template or the
+        <codeph>dita-ot:get-current-language()</codeph> function to get the language for the current
+      context.</p>
+    <p>To construct sort keys that take DITA-defined sort-as definitions into account, you can use
+      the XSLT functions defined by the i18n plugin to get primary and secondary sort keys from
+      topics or other DITA elements and then use those sort keys in the
+        <xmlelement>xsl:sort</xmlelement> element's <xmlatt>use</xmlatt> attribute. To use these
+      functions declare the namespace "<codeph>http://org.dita-community/i18n</codeph>" in your XSLT
+      module and import the <filepath>xsl/i18n-lib.xsl</filepath> module from the i18n plugin into
+      your XSLT module.</p>
+    <p>The file <filepath>test/xsl/test-collator.xsl</filepath> in the i18n plugin demonstrates how
+      to use the collator and the i18n utility functions. If there's a function you need that isn't
+      provided please submit an issue on GitHub against the org.dita-community.i18n project or
+      implement the function and submit a pull request—if you need the function it's likely that
+      others do too.</p>
+    <p>You can use multiple <xmlelement>xsl:sort</xmlelement> elements to do sorting on primary and
+      secondary (or even tertiary) keys. For example, if you are sorting a set of topicrefs you can
+      use code like
+      this:<codeblock>&lt;xsl:variable name="langCode" as="xs:string"
+ select="dita-ot:get-current-language(.)" 
+/>
+&lt;xsl:variable name="collationUri" as="xs:string"
+  select="concat('http://org.dita-community.i18n.zhCNawareCollator?lang=', $langCode)"
+/>
+&lt;xsl:apply-templates select="*[contains(@class, ' map/topicref ']">
+  &lt;xsl:sort collation="{$collationUri}" 
+     use="dci18n:getPrimarySortKeyForTopicref(.)"
+  />
+  &lt;xsl:sort collation="{$collationUri}" 
+     use="dci18n:getBaseSortKeyForTopicref(.)"
+  />
+&lt;/xsl:apply-templates></codeblock></p>
+    <p>The function <codeph>dci18n:getPrimarySortKeyForTopicref()</codeph> uses the collator's
+      configured language to construct a primary sort key from the title of the topic referenced by
+      the topicref (if it references a topic), taking into account any sort-as elements and applying
+      locale-specific rules for constructing sort keys (e.g., for Simplified Chinese, converting the
+      words in the base sort key into pinyin).</p>
+    <p>The function <codeph>dci18n:getBaseSortKeyForTopicref()</codeph> just uses the title text of
+      the referenced topic. </p>
+    <p>By using two <xmlelement>xsl:sort</xmlelement> elements in this way, if two topics produce
+      the same primary sort key but have different base keys they will sort together by primary key
+      but then be sorted in order by base key.</p>
+    <p>The i18n library recognizes both the DITA 1.3 <xmlelement>sort-as</xmlelement> element and
+        <xmlelement>data</xmlelement> elements with a <xmlatt>name</xmlatt> value of "sort-as" as
+      sort-as elements. If you have some other way of capturing sort-as values you can implement
+      your own functions using the i18n functions a base or as examples.</p>
  </conbody>
 </concept>

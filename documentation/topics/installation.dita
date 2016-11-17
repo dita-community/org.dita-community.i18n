@@ -2,5 +2,17 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="installation">
   <title>Installation</title>
-  <body/>
+  <body>
+    <p>Installation requires installing the plugin as you would any other Open Toolkit plugin and
+      then configuring the Java JAXP transformer factory property so that the Open Toolkit will use
+      an instance of Saxon configured with the custom collator and Java extensions. There are
+      several ways to set the Java system property depending on how you are running the transform:
+      from a command line, from within oXygenXML, from a content management system, etc.</p>
+    <p>The project also provides a pair of Docker container configurations that include the i18n
+      plugin and transformer factory configuration, making it easy to run the Open Toolkit with the
+      correct configuration. You can use the dita-ot-i18n container directly if you don't need any
+      additional plugins or you can use the dita-ot-i18n-base Dockerfile as the basis for your own
+      Docker file that includes additional plugins or other configuration. See <xref
+        keyref="dita-ot-docker"/> for details.</p>
+  </body>
 </topic>
