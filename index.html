@@ -1,37 +1,46 @@
 <!DOCTYPE html
   SYSTEM "about:legacy-compat">
-<html lang="en">
-   <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta charset="UTF-8">
-      <meta name="DC.Type" content="map">
-      <meta name="DC.Format" content="XHTML">
-      <link rel="stylesheet" type="text/css" href="commonltr.css">
-      <link rel="stylesheet" type="text/css" href="dita-ot-doc.css">
-      <title>DITA Community Internationalization Plugin</title>
-   </head>
-   <body>
-      <h1 class="title topictitle1">DITA Community Internationalization Plugin</h1>
-      <nav>
-         <ul class="map">
-            <li class="topicref"><a href="topics/dita_community_internationalization_plugin.html">DITA Community Internationalization Plugin</a><ul>
-                  <li class="topicref"><a href="topics/installation.html">Installation</a><ul>
-                        <li class="topicref"><a href="topics/deploying-i18n-plugin.html">Deploying the i18n Open Toolkit Plugin</a></li>
-                        <li class="topicref"><a href="topics/transformer-configuration-setup.html">Setting Up The Saxon Transformer Factory Configuration</a><ul>
-                              <li class="topicref"><a href="topics/setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li>
-                              <li class="topicref"><a href="topics/setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li>
-                           </ul>
-                        </li>
-                     </ul>
-                  </li>
-                  <li class="topicref"><a href="topics/using_the_i18n_collator_from_xslt.html">Using the i18n Collator from XSLT</a></li>
-                  <li class="topicref"><a href="topics/doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li>
-                  <li class="topicref"><a href="topics/estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></li>
-                  <li class="topicref"><a href="topics/how_it_works.html">How It Works</a></li>
-                  <li class="topicref"><a href="topics/external_resources.html">External Resources</a></li>
-               </ul>
-            </li>
-         </ul>
-      </nav>
-   </body>
-</html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="DC.Type" content="topic"><meta name="DC.Relation" scheme="URI" content="topics/installation.html"><meta name="DC.Relation" scheme="URI" content="topics/using_the_i18n_collator_from_xslt.html"><meta name="DC.Relation" scheme="URI" content="topics/doing_line_and_word_breaking_in_xslt.html"><meta name="DC.Relation" scheme="URI" content="topics/estimating_rendered_string_length_in_xslt.html"><meta name="DC.Relation" scheme="URI" content="topics/how_it_works.html"><meta name="DC.Relation" scheme="URI" content="topics/external_resources.html"><meta name="prodname" content="org.dita-community.i18n"><meta name="version" content="1"><meta name="release" content="0"><meta name="modification" content="0"><meta name="DC.Creator" content="Eliot Kimber"><meta name="rights" content="© 2016 DITA Community Project"><meta name="DC.Date.Created" content="2016-10-08"><meta name="DC.Format" content="XHTML"><meta name="DC.Identifier" content="dita_community_internationalization_plugin"><link rel="stylesheet" type="text/css" href="commonltr.css"><link rel="stylesheet" type="text/css" href="dita-ot-doc.css"><title>DITA Community Internationalization Plugin</title></head><body id="dita_community_internationalization_plugin"><nav role="toc"><ul><li class="active"><a href="index.html">DITA Community Internationalization Plugin</a><ul><li><a href="topics/installation.html">Installation</a><ul><li><a href="topics/deploying-i18n-plugin.html">Deploying the i18n Open Toolkit Plugin</a></li><li><a href="topics/transformer-configuration-setup.html">Setting Up The Saxon Transformer Factory Configuration</a><ul><li><a href="topics/setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li><li><a href="topics/setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li></ul></li></ul></li><li><a href="topics/using_the_i18n_collator_from_xslt.html">Using the i18n Collator from XSLT</a></li><li><a href="topics/doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li><li><a href="topics/estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></li><li><a href="topics/how_it_works.html">How It Works</a></li><li><a href="topics/external_resources.html">External Resources</a></li></ul></li></ul></nav><main role="main"><article role="article" aria-labelledby="ariaid-title1">
+  <h1 class="title topictitle1" id="ariaid-title1">DITA Community Internationalization Plugin</h1>
+  <div class="body">
+    <p class="p">The DITA Community internationalization plugin, <span class="ph filepath">org.dita-community.i18n</span>,
+      provides a set of features for doing locale-specific sorting, grouping, line breaking, word
+      breaking, and rendered text length estimation.</p>
+    <p class="p">It has been designed to support the general tasks of index generation and glossary sorting in
+      DITA documents but can be used in any XSLT or Java program. </p>
+    <p class="p">Word breaking is required to do correct sorting of Simplified Chinese (zh-CN) but is also
+      useful for other tasks, such as inserting zero-width spaces to enable appropriate line
+      breaking or determining the width of the first word of a string in order to calculate column
+      widths or definition list term indents.</p>
+    <p class="p">Line breaking is useful for doing line wrapping in content, for example, to estimate the
+      horizontal and vertical rendered extent of  blocks of text in order to then do pagination or
+      allocation of text to fixed-sized regions in XSL-FO or HTML output.</p>
+    <p class="p">A key feature of this library is full support for grouping and sorting Simplified Chinese,
+      which is particularly challenging and cannot be correctly sorted using the default Java or ICU
+      collators. </p>
+    <p class="p">Simplified Chinese requires a dictionary and this plugin provides an open-source
+      dictionary-based solution for Simplified Chinese, based on the open-source CC-CEDICT
+      dictionary. See <a class="xref" href="http://www.mdbg.net/chindict" target="_blank">http://www.mdbg.net/chindict</a>.</p>
+    <p class="p">It provides the following services:</p>
+    <ul class="ul" id="dita_community_internationalization_plugin__ul_zh4_1px_nx">
+      <li class="li">
+        <p class="p">A customizable collator for use with XSLT. Includes support for dictionary-based
+          Simplified Chinese grouping and sorting.</p>
+      </li>
+      <li class="li">
+        <p class="p">A general grouping service useful for grouping index terms, glossary entries, etc.</p>
+      </li>
+      <li class="li">
+        <p class="p">Access to the ICU word and line breaking facilities in XSLT, useful for doing word
+          breaking in languages like Thai and Chinese that require a dictionary or
+          writing-system-specific rules.</p>
+      </li>
+    </ul>
+    <p class="p">The plugin supports Open Toolkit version 1.8.5 and version 2.x later than about 2.1.1. It
+      works with Saxon 9.1 (as shipped with the Open Toolkit through version 2.4). </p>
+    <p class="p">Support for Saxon 9.6+ is under development as of release 1.0.0. Because Saxon versions after
+      9.1 change the way that extension functions are supported in the free version of Saxon (Saxon
+      HE), the extension function integration for Saxon 9.1 will not work with later versions of
+      Saxon, which require a different mechanism for integrating extension functions.</p>
+  </div>
+<nav role="navigation" class="related-links"><ul class="ullinks"><li class="link ulchildlink"><strong><a href="topics/installation.html">Installation</a></strong><br></li><li class="link ulchildlink"><strong><a href="topics/using_the_i18n_collator_from_xslt.html">Using the i18n Collator from XSLT</a></strong><br></li><li class="link ulchildlink"><strong><a href="topics/doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></strong><br>The i18n library provides XSLT access to the ICU4J line and working     functions.</li><li class="link ulchildlink"><strong><a href="topics/estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></strong><br>You can use the i18n library to estimate the rendered length of strings with reasonable     accuracy (if you know the font details).</li><li class="link ulchildlink"><strong><a href="topics/how_it_works.html">How It Works</a></strong><br></li><li class="link ulchildlink"><strong><a href="topics/external_resources.html">External Resources</a></strong><br></li></ul></nav></article></main></body></html>
