@@ -1,24 +1,42 @@
 <!DOCTYPE html
   SYSTEM "about:legacy-compat">
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="DC.Type" content="topic"><meta name="description" content="In order to use the custom collator with Saxon you must set the Java system property javax.xml.transform.TransformerFactory to point to the i18n library's transformer factory."><meta name="DC.Relation" scheme="URI" content="../topics/installation.html"><meta name="DC.Relation" scheme="URI" content="../topics/setting_the_transformer_factory_for_command_line_use.html"><meta name="DC.Relation" scheme="URI" content="../topics/setting_the_transformer_factory_for_oxygenxml.html"><meta name="prodname" content="org.dita-community.i18n"><meta name="version" content="1"><meta name="release" content="0"><meta name="modification" content="0"><meta name="DC.Creator" content="Eliot Kimber"><meta name="rights" content="© 2016 DITA Community Project"><meta name="DC.Date.Created" content="2016-10-08"><meta name="DC.Format" content="XHTML"><meta name="DC.Identifier" content="untitled9"><link rel="stylesheet" type="text/css" href="../commonltr.css"><link rel="stylesheet" type="text/css" href="../dita-ot-doc.css"><title>Setting Up The Saxon Transformer Factory Configuration</title></head><body id="untitled9"><nav role="toc"><ul><li><a href="../index.html">DITA Community Internationalization Plugin</a><ul><li><a href="../topics/installation.html">Installation</a><ul><li><a href="../topics/deploying-i18n-plugin.html">Deploying the i18n Open Toolkit Plugin</a></li><li class="active"><a href="../topics/transformer-configuration-setup.html">Setting Up The Saxon Transformer Factory Configuration</a><ul><li><a href="../topics/setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li><li><a href="../topics/setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li></ul></li></ul></li><li><a href="../topics/using_the_i18n_collator_from_xslt.html">Using the i18n Collator from XSLT</a></li><li><a href="../topics/doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li><li><a href="../topics/estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></li><li><a href="../topics/how_it_works.html">How It Works</a></li><li><a href="../topics/external_resources.html">External Resources</a></li></ul></li></ul></nav><main role="main"><article role="article" aria-labelledby="ariaid-title1">
-  <h1 class="title topictitle1" id="ariaid-title1">Setting Up The Saxon Transformer Factory Configuration</h1>
-  
-  <div class="body"><p class="shortdesc">In order to use the custom collator with Saxon you must set the Java system property
-      <span class="keyword parmname">javax.xml.transform.TransformerFactory</span> to point to the i18n library's
-    transformer factory.</p>
-    <p class="p">The value of <span class="keyword parmname">javax.xml.transform.TransformerFactory</span> must be
-        "<code class="ph codeph">org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</code>". The
-      DCI18nSaxonTransformerFactoryImpl91 class is in the
-        <span class="ph filepath">dita-community-i18n-saxon91.jar</span> jar file in the i18n plugin's
-        <span class="ph filepath">lib/</span> directory. This jar is automatically included in the Open
-      Toolkit's Java class path.</p>
-    <p class="p">How you set this property depends on how you run the Open Toolkit.</p>
-    <p class="p">If you are running the Open Toolkit from the command line or in a command environment, such
-      as through a continuous integration server or through a CCMS, you can set an environment
-      variable or you can set the <span class="keyword parmname">javax.xml.transform.TransformerFactory</span>
-      property as part of the Ant command invocation. See <a class="xref" href="setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a>.</p>
-    <p class="p">If you are running the Open Toolkit from oXygenXML you need to modify transformation
-      scenarios to use Saxon 9.1 rather than later versions and set the
-        <span class="keyword parmname">javax.xml.transform.TransformerFactory</span> property. See <a class="xref" href="setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a>.</p>
-  </div>
-<nav role="navigation" class="related-links"><ul class="ullinks"><li class="link ulchildlink"><strong><a href="../topics/setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></strong><br></li><li class="link ulchildlink"><strong><a href="../topics/setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></strong><br></li></ul><div class="familylinks"><div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="../topics/installation.html">Installation</a></div></div></nav></article></main></body></html>
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Setting Up The Saxon Transformer Factory Configuration</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="schema.DC" href="http://purl.org/dc/terms/"><meta name="DC.Type" content="topic"><meta name="description" content="If the Open-Toolkit-managed Java class path is not used or is not configured correctly for some reason then you must set the Java javax.xml.transform.TransformerFactory system property to point to the i18n library's transformer factory."><meta name="DC.Format" content="XHTML"><meta name="DC.Identifier" content="untitled9"><script type="text/javascript">var d4p = {"relativePath":"..\/","dev":false,"debug":false,"draft":false,"nextTopicHref":"topics\/setting_the_transformer_factory_for_command_line_use.html","previousTopicHref":"topics\/deploying-i18n-plugin.html","ext":".html","root":false,"topic":{"chunked":""},"map":{"title":"DITA Community Internationalization Plugin","version":1,"chunked":false},"search":{"minlength":2},"l":{"searchPageHeading":"Search Results","close":"Close"}}</script><link rel="stylesheet" type="text/css" media="screen, projection" href="../themes/dita-d4p-classic/css/style.css"><link rel="stylesheet" type="text/css" media="screen, projection, print" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><script type="text/javascript">
+      
+        d4p.cssGridPath = d4p.dev ? 'html5-themes/modules/960-Responsive-Grid/css/' : 'themes/dita-d4p-classic/css/';
+        var ADAPT_CONFIG = {
+          // Where is your CSS?
+          path: d4p.relativePath + d4p.cssGridPath,
+          
+          // false = Only run once, when page first loads.
+          // true = Change on window resize and page tilt.
+          dynamic: true,
+          
+          // Optional callback... myCallback(i, width)
+          callback: doc_resize,
+          
+          // First range entry is the minimum.
+          // Last range entry is the maximum.
+          // Separate ranges by "to" keyword.
+          range: [
+             // small (size-0)
+            '0px    to 760px  = mobile.css',
+             // medium (size-1, size-2)
+            '760px  to 980px  = 720.css',
+            '980px  to 1270px = 960.css',
+             // large (size-3, size-5)
+            '1270px to 1600px = 1200.css',
+            '1600px to 1940px = 1560.css',
+             // extra large (size-6)
+            '1940px to 2540px = 1920.css',
+            '2540px           = 2520.css'
+          ]
+        };
+
+        function doc_resize(i, width)
+        {
+          d4p.setBodyClassfunction(i, width);
+        }
+
+
+        
+      </script><script type="text/javascript" src="../themes/dita-d4p-classic/js/script.js"></script></head><body class="en-us dita-d4p-classic centered navigation-default"><div id="d4h5-main-container" class="container_12" role="application"><header role="banner" aria-labelledby="publication-title" class="hide-for-small"><div class="grid_8"><h1 id="publication-title">DITA Community Internationalization Plugin</h1></div><section class="grid_4 search-box"><form id="search" role="search"><div class="form-group"><input id="search-text" type="text" autocomplete="off" class="form-control" placeholder="Search"></div></form></section><secion class="clearfix"></secion></header><div id="d4h5-section-container" class="grid_12"><nav id="local-navigation" class="grid_4 alpha omega" role="navigation" aria-label="Main navigation"><div id="nav-content"><ul><li><a href="../index.html">Table of Contents</a></li><li class="collapsible active"><a href="dita_community_internationalization_plugin.html">DITA Community Internationalization Plugin</a><ul><li class="collapsible active"><a href="installation.html">Installation</a><ul><li><a href="deploying-i18n-plugin.html">Deploying the i18n Open Toolkit Plugin</a></li><li class="collapsible active"><a href="transformer-configuration-setup.html" class=" selected">Setting Up The Saxon Transformer Factory Configuration</a><ul><li><a href="setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li><li><a href="setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li></ul></li></ul></li><li><a href="doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li><li><a href="estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></li><li><a href="external_resources.html">External Resources</a></li></ul></li></ul></div></nav><div id="d4h5-main-content" class="grid_8 alpha omega"><article><nav id="content-toolbar" class="toolbar hide-for-small"></nav><section id="page"><div><a id="untitled9" class="anchor"></a> <h1 class="title topictitle1">Setting Up The Saxon Transformer Factory Configuration</h1> <div class="body"><p class="shortdesc">If the Open-Toolkit-managed Java class path is not used or is not configured correctly for some reason then you must set the Java <span class="keyword parmname">javax.xml.transform.TransformerFactory</span> system property to point to the i18n library's transformer factory.</p> <aside class="note note "><span class="title">Note:</span> You should not need to do this when running the Open Toolkit normally via the command line.</aside> <p class="p">The value of <span class="keyword parmname">javax.xml.transform.TransformerFactory</span> must be "<samp class="ph codeph">org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</samp>". The DCI18nSaxonTransformerFactoryImpl91 class is in the <span class="ph filepath">dita-community-i18n-saxon91.jar</span> jar file in the i18n plugin's <span class="ph filepath">lib/</span> directory. This jar is automatically included in the Open Toolkit's Java class path by the i18n Open Toolkit plugin.</p> <p class="p">How you set this property depends on how you run the Open Toolkit.</p> <p class="p">If you are running the Open Toolkit from the command line or in a command environment, such as through a continuous integration server or through a CCMS, you can set an environment variable or you can set the <span class="keyword parmname">javax.xml.transform.TransformerFactory</span> property as part of the Ant command invocation. See <a data-keyref="transformer-factory-setting-command-line" class="xref" href="setting_the_transformer_factory_for_command_line_use.html">setting_the_transformer_factory_for_command_line_use.html</a>.</p> <p class="p">If you are running the Open Toolkit from oXygenXML you need to modify transformation scenarios to use Saxon 9.1 rather than later versions and set the <span class="keyword parmname">javax.xml.transform.TransformerFactory</span> property. See <a data-keyref="transformer-factory-setting-oxygen" class="xref" href="setting_the_transformer_factory_for_oxygenxml.html">setting_the_transformer_factory_for_oxygenxml.html</a>.</p> </div> <footer id="topicsNPLinks"><div id="footer_previous"><a href="../topics/deploying-i18n-plugin.html" class="previous" rel="internal">Deploying the i18n Open Toolkit Plugin</a></div><div id="footer_next"><a href="../topics/setting_the_transformer_factory_for_command_line_use.html" class="next" rel="internal">Setting the Transformer Factory for Command Line Use</a></div></footer></div></section></article><div class="clear"></div></div><div class="clearfix"></div></div><div class="clearfix"></div><div id="footer-container" class="grid_12"></div></div></body></html>

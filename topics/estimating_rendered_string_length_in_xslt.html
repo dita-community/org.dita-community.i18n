@@ -1,25 +1,45 @@
 <!DOCTYPE html
   SYSTEM "about:legacy-compat">
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="DC.Type" content="concept"><meta name="description" content="You can use the i18n library to estimate the rendered length of strings with reasonable accuracy (if you know the font details)."><meta name="DC.Relation" scheme="URI" content="../index.html"><meta name="prodname" content="org.dita-community.i18n"><meta name="version" content="1"><meta name="release" content="0"><meta name="modification" content="0"><meta name="DC.Creator" content="Eliot Kimber"><meta name="rights" content="© 2016 DITA Community Project"><meta name="DC.Date.Created" content="2016-10-08"><meta name="DC.Format" content="XHTML"><meta name="DC.Identifier" content="estimating_rendered_string_length_in_xslt"><link rel="stylesheet" type="text/css" href="../commonltr.css"><link rel="stylesheet" type="text/css" href="../dita-ot-doc.css"><title>Estimating Rendered String Length in XSLT</title></head><body id="estimating_rendered_string_length_in_xslt"><nav role="toc"><ul><li><a href="../index.html">DITA Community Internationalization Plugin</a><ul><li><a href="../topics/installation.html">Installation</a><ul><li><a href="../topics/deploying-i18n-plugin.html">Deploying the i18n Open Toolkit Plugin</a></li><li><a href="../topics/transformer-configuration-setup.html">Setting Up The Saxon Transformer Factory Configuration</a><ul><li><a href="../topics/setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li><li><a href="../topics/setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li></ul></li></ul></li><li><a href="../topics/using_the_i18n_collator_from_xslt.html">Using the i18n Collator from XSLT</a></li><li><a href="../topics/doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li><li class="active"><a href="../topics/estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></li><li><a href="../topics/how_it_works.html">How It Works</a></li><li><a href="../topics/external_resources.html">External Resources</a></li></ul></li></ul></nav><main role="main"><article role="article" aria-labelledby="ariaid-title1">
- <h1 class="title topictitle1" id="ariaid-title1">Estimating Rendered String Length in XSLT</h1>
- 
- <div class="body conbody"><p class="shortdesc">You can use the i18n library to estimate the rendered length of strings with reasonable
-    accuracy (if you know the font details).</p>
-  <p class="p">The <code class="ph codeph">dci18n:getRenderedTextLength()</code> function takes a string and a font
-      specification (font name, size, and variant) and returns an estimate of its rendered length
-      for that font. It uses the standard Java2D library under the covers. If the font specified is
-      available to Java then it should provide a reasonably accurate estimate of the length,
-      especially for shorter strings. The estimate will not reflect subtleties like kerning or
-      custom inter-word spacing that some layout engines may apply but it's usually accurate to
-      within about one en-width for an 80-character string.</p>
-    <p class="p">The main challenge is getting the font details correctly. As for all things involving fonts
-      that usually requires operating-system- and operating-environment-specific configuration. See
-      the Oracle-provided Java2D documentation for details on how to specify fonts. For macOS and
-      Windows it should access installed fonts using the font name shown in the operating system
-      font catalog. For Linux systems the configuration may be different.</p>
-    <div class="p">For example, to determine the longest term in a set of definition list entries you could do
-      something like
-      this:<pre class="pre codeblock"><code>...
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Estimating Rendered String Length in XSLT</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="schema.DC" href="http://purl.org/dc/terms/"><meta name="DC.Type" content="concept"><meta name="description" content="You can use the i18n library to estimate the rendered length of strings with reasonable accuracy (if you know the font details)."><meta name="prodname" content="org.dita-community.i18n"><meta name="version" content="1"><meta name="release" content="0"><meta name="modification" content="0"><meta name="DC.Creator" content="Eliot Kimber"><meta name="rights" content="© 2016 DITA Community Project"><meta name="DC.Date.Created" content="2016-10-08"><meta name="DC.Format" content="XHTML"><meta name="DC.Identifier" content="estimating_rendered_string_length_in_xslt"><script type="text/javascript">var d4p = {"relativePath":"..\/","dev":false,"debug":false,"draft":false,"nextTopicHref":"","previousTopicHref":"topics\/doing_line_and_word_breaking_in_xslt.html","ext":".html","root":false,"topic":{"chunked":""},"map":{"title":"DITA Community Internationalization Plugin","version":1,"chunked":false},"search":{"minlength":2},"l":{"searchPageHeading":"Search Results","close":"Close"}}</script><link rel="stylesheet" type="text/css" media="screen, projection" href="../themes/dita-d4p-classic/css/style.css"><link rel="stylesheet" type="text/css" media="screen, projection, print" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><script type="text/javascript">
+      
+        d4p.cssGridPath = d4p.dev ? 'html5-themes/modules/960-Responsive-Grid/css/' : 'themes/dita-d4p-classic/css/';
+        var ADAPT_CONFIG = {
+          // Where is your CSS?
+          path: d4p.relativePath + d4p.cssGridPath,
+          
+          // false = Only run once, when page first loads.
+          // true = Change on window resize and page tilt.
+          dynamic: true,
+          
+          // Optional callback... myCallback(i, width)
+          callback: doc_resize,
+          
+          // First range entry is the minimum.
+          // Last range entry is the maximum.
+          // Separate ranges by "to" keyword.
+          range: [
+             // small (size-0)
+            '0px    to 760px  = mobile.css',
+             // medium (size-1, size-2)
+            '760px  to 980px  = 720.css',
+            '980px  to 1270px = 960.css',
+             // large (size-3, size-5)
+            '1270px to 1600px = 1200.css',
+            '1600px to 1940px = 1560.css',
+             // extra large (size-6)
+            '1940px to 2540px = 1920.css',
+            '2540px           = 2520.css'
+          ]
+        };
+
+        function doc_resize(i, width)
+        {
+          d4p.setBodyClassfunction(i, width);
+        }
+
+
+        
+      </script><script type="text/javascript" src="../themes/dita-d4p-classic/js/script.js"></script></head><body class="en-us dita-d4p-classic centered navigation-default"><div id="d4h5-main-container" class="container_12" role="application"><header role="banner" aria-labelledby="publication-title" class="hide-for-small"><div class="grid_8"><h1 id="publication-title">DITA Community Internationalization Plugin</h1></div><section class="grid_4 search-box"><form id="search" role="search"><div class="form-group"><input id="search-text" type="text" autocomplete="off" class="form-control" placeholder="Search"></div></form></section><secion class="clearfix"></secion></header><div id="d4h5-section-container" class="grid_12"><nav id="local-navigation" class="grid_4 alpha omega" role="navigation" aria-label="Main navigation"><div id="nav-content"><ul><li><a href="../index.html">Table of Contents</a></li><li class="collapsible active"><a href="dita_community_internationalization_plugin.html">DITA Community Internationalization Plugin</a><ul><li class="collapsible collapsed"><a href="installation.html">Installation</a><ul><li><a href="deploying-i18n-plugin.html">Deploying the i18n Open Toolkit Plugin</a></li><li class="collapsible collapsed"><a href="transformer-configuration-setup.html">Setting Up The Saxon Transformer Factory Configuration</a><ul><li><a href="setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li><li><a href="setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li></ul></li></ul></li><li><a href="doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li><li class=" active"><a href="estimating_rendered_string_length_in_xslt.html" class=" selected">Estimating Rendered String Length in XSLT</a></li><li><a href="external_resources.html">External Resources</a></li></ul></li></ul></div></nav><div id="d4h5-main-content" class="grid_8 alpha omega"><article><nav id="content-toolbar" class="toolbar hide-for-small"></nav><section id="page"><div><a id="estimating_rendered_string_length_in_xslt" class="anchor"></a> <h1 class="title topictitle1">Estimating Rendered String Length in XSLT</h1> <div class="body conbody"><p class="shortdesc">You can use the i18n library to estimate the rendered length of strings with reasonable accuracy (if you know the font details).</p> <p class="p">The <samp class="ph codeph">dci18n:getRenderedTextLength()</samp> function takes a string and a font specification (font name, size, and variant) and returns an estimate of its rendered length for that font. It uses the standard Java2D library under the covers. If the font specified is available to Java then it should provide a reasonably accurate estimate of the length, especially for shorter strings. The estimate will not reflect subtleties like kerning or custom inter-word spacing that some layout engines may apply but it's usually accurate to within about one en-width for an 80-character string.</p> <p class="p">The main challenge is setting the font details correctly. As for all things involving fonts, that usually requires operating-system- and operating-environment-specific configuration. See the Oracle-provided Java2D documentation for details on how to specify fonts. For macOS and Windows it should access installed fonts using the font name shown in the operating system font catalog. For Linux systems the configuration may be different.</p> <div class="p">For example, to determine the longest term in a set of definition list entries you could do something like this:<pre class="pre codeblock">...
 &lt;!-- Context is a &lt;dl&gt; element --&gt;
 &lt;xsl:variable name="terms" as="xs:string*"
   select="normalize-space(*[contains(@class, ' topic/dlentry ']/
@@ -30,8 +50,4 @@
                  return dci18n:getdci18n:getRenderedTextLength($t, 'Arial', '12', 'normal')
         "
 /&gt;
-...</code></pre></div>
-    <p class="p">You can use the rendered length estimator with line breaking to do pretty good layout of
-      text, for example, to generate fixed-layout HTML using absolutely positioned CSS.</p>
- </div>
-<nav role="navigation" class="related-links"><div class="familylinks"><div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="../index.html">DITA Community Internationalization Plugin</a></div></div></nav></article></main></body></html>
+...</pre></div> <p class="p">You can use the rendered length estimator with line breaking to do pretty good layout of text, for example, to generate fixed-layout HTML using absolutely positioned CSS.</p> </div> <footer id="topicsNPLinks"><div id="footer_previous"><a href="../topics/doing_line_and_word_breaking_in_xslt.html" class="previous" rel="internal">Doing Line and Word Breaking in XSLT</a></div><div id="footer_next"></div></footer></div></section></article><div class="clear"></div></div><div class="clearfix"></div></div><div class="clearfix"></div><div id="footer-container" class="grid_12"></div></div></body></html>

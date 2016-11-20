@@ -1,30 +1,46 @@
 <!DOCTYPE html
   SYSTEM "about:legacy-compat">
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="DC.Type" content="topic"><meta name="DC.Relation" scheme="URI" content="../topics/installation.html"><meta name="prodname" content="org.dita-community.i18n"><meta name="version" content="1"><meta name="release" content="0"><meta name="modification" content="0"><meta name="DC.Creator" content="Eliot Kimber"><meta name="rights" content="© 2016 DITA Community Project"><meta name="DC.Date.Created" content="2016-10-08"><meta name="DC.Format" content="XHTML"><meta name="DC.Identifier" content="untitled8"><link rel="stylesheet" type="text/css" href="../commonltr.css"><link rel="stylesheet" type="text/css" href="../dita-ot-doc.css"><title>Deploying the i18n Open Toolkit Plugin</title></head><body id="untitled8"><nav role="toc"><ul><li><a href="../index.html">DITA Community Internationalization Plugin</a><ul><li><a href="../topics/installation.html">Installation</a><ul><li class="active"><a href="../topics/deploying-i18n-plugin.html">Deploying the i18n Open Toolkit Plugin</a></li><li><a href="../topics/transformer-configuration-setup.html">Setting Up The Saxon Transformer Factory Configuration</a><ul><li><a href="../topics/setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li><li><a href="../topics/setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li></ul></li></ul></li><li><a href="../topics/using_the_i18n_collator_from_xslt.html">Using the i18n Collator from XSLT</a></li><li><a href="../topics/doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li><li><a href="../topics/estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></li><li><a href="../topics/how_it_works.html">How It Works</a></li><li><a href="../topics/external_resources.html">External Resources</a></li></ul></li></ul></nav><main role="main"><article role="article" aria-labelledby="ariaid-title1">
-  <h1 class="title topictitle1" id="ariaid-title1">Deploying the i18n Open Toolkit Plugin</h1>
-  <div class="body">
-    <div class="p">For Open Toolkit 1.8.5:<ol class="ol" id="untitled8__ol_xxb_4px_nx">
-        <li class="li">Expand the plugin Zip file into the Open Toolkit's <span class="ph filepath">plugins/</span>
-          directory so that you have a new directory,
-          <span class="ph filepath">org.dita-community.i18n</span>.</li>
-        <li class="li">Run the Open Toolkit integrator.xml Ant
-          task:<pre class="pre codeblock"><code>c:\DITA-OT&gt; ant -f integrator.xml</code></pre></li>
-      </ol></div>
-    <div class="p">For Open Toolkit 2.x:<ol class="ol" id="untitled8__ol_owc_tpx_nx">
-        <li class="li">Run the <span class="keyword cmdname">dita</span> command with the <span class="keyword parmname">-install</span>
-          parameter, specifying the location of the plugin Zip file, which can be downloaded locally
-          or retrieved directly from
-            GitHub:<pre class="pre codeblock"><code>c:\DITA-OT&gt; bin\dita -install http://github.com/dita-community/org.dita-community.i18n/release/<em class="ph i">version-1.0.0</em>/org.dita-community.i18n.zip</code></pre><div class="p">Where
-              <em class="ph i">version-1.0.0</em> is the release number of the version you want to get (as far as I
-            can tell GitHub does not provide a "latest" URL for releases).<div class="note note note_note"><span class="note__title">Note:</span> If you are upgrading
-              to a new version then you have to first uninstall the current version before
-              installing the new
-              version:<pre class="pre codeblock"><code>c:\DITA-OT&gt; bin\dita -uninstall org.dita-community.i18n
-c:\DITA-OT&gt; bin\dita -install https://github.com/dita-community/org.dita-community.i18n/releases/download/version-1.0.1/org_dita-community_i18n_plugin.zip</code></pre></div></div></li>
-      </ol></div>
-    <div class="p">You can verify that the plugin is correctly installed by running the Ant target
-      "org.dita-community.i18n-test". You should get output like
-      this:<pre class="pre codeblock"><code>c:\DITA-OT&gt; ant org.dita-community.i18n-test
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Deploying the i18n Open Toolkit Plugin</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="schema.DC" href="http://purl.org/dc/terms/"><meta name="DC.Type" content="topic"><meta name="prodname" content="org.dita-community.i18n"><meta name="version" content="1"><meta name="release" content="0"><meta name="modification" content="0"><meta name="DC.Creator" content="Eliot Kimber"><meta name="rights" content="© 2016 DITA Community Project"><meta name="DC.Date.Created" content="2016-10-08"><meta name="DC.Format" content="XHTML"><meta name="DC.Identifier" content="untitled8"><script type="text/javascript">var d4p = {"relativePath":"..\/","dev":false,"debug":false,"draft":false,"nextTopicHref":"topics\/transformer-configuration-setup.html","previousTopicHref":"topics\/installation.html","ext":".html","root":false,"topic":{"chunked":""},"map":{"title":"DITA Community Internationalization Plugin","version":1,"chunked":false},"search":{"minlength":2},"l":{"searchPageHeading":"Search Results","close":"Close"}}</script><link rel="stylesheet" type="text/css" media="screen, projection" href="../themes/dita-d4p-classic/css/style.css"><link rel="stylesheet" type="text/css" media="screen, projection, print" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><script type="text/javascript">
+      
+        d4p.cssGridPath = d4p.dev ? 'html5-themes/modules/960-Responsive-Grid/css/' : 'themes/dita-d4p-classic/css/';
+        var ADAPT_CONFIG = {
+          // Where is your CSS?
+          path: d4p.relativePath + d4p.cssGridPath,
+          
+          // false = Only run once, when page first loads.
+          // true = Change on window resize and page tilt.
+          dynamic: true,
+          
+          // Optional callback... myCallback(i, width)
+          callback: doc_resize,
+          
+          // First range entry is the minimum.
+          // Last range entry is the maximum.
+          // Separate ranges by "to" keyword.
+          range: [
+             // small (size-0)
+            '0px    to 760px  = mobile.css',
+             // medium (size-1, size-2)
+            '760px  to 980px  = 720.css',
+            '980px  to 1270px = 960.css',
+             // large (size-3, size-5)
+            '1270px to 1600px = 1200.css',
+            '1600px to 1940px = 1560.css',
+             // extra large (size-6)
+            '1940px to 2540px = 1920.css',
+            '2540px           = 2520.css'
+          ]
+        };
+
+        function doc_resize(i, width)
+        {
+          d4p.setBodyClassfunction(i, width);
+        }
+
+
+        
+      </script><script type="text/javascript" src="../themes/dita-d4p-classic/js/script.js"></script></head><body class="en-us dita-d4p-classic centered navigation-default"><div id="d4h5-main-container" class="container_12" role="application"><header role="banner" aria-labelledby="publication-title" class="hide-for-small"><div class="grid_8"><h1 id="publication-title">DITA Community Internationalization Plugin</h1></div><section class="grid_4 search-box"><form id="search" role="search"><div class="form-group"><input id="search-text" type="text" autocomplete="off" class="form-control" placeholder="Search"></div></form></section><secion class="clearfix"></secion></header><div id="d4h5-section-container" class="grid_12"><nav id="local-navigation" class="grid_4 alpha omega" role="navigation" aria-label="Main navigation"><div id="nav-content"><ul><li><a href="../index.html">Table of Contents</a></li><li class="collapsible active"><a href="dita_community_internationalization_plugin.html">DITA Community Internationalization Plugin</a><ul><li class="collapsible active"><a href="installation.html">Installation</a><ul><li class=" active"><a href="deploying-i18n-plugin.html" class=" selected">Deploying the i18n Open Toolkit Plugin</a></li><li class="collapsible collapsed"><a href="transformer-configuration-setup.html">Setting Up The Saxon Transformer Factory Configuration</a><ul><li><a href="setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li><li><a href="setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li></ul></li></ul></li><li><a href="doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li><li><a href="estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></li><li><a href="external_resources.html">External Resources</a></li></ul></li></ul></div></nav><div id="d4h5-main-content" class="grid_8 alpha omega"><article><nav id="content-toolbar" class="toolbar hide-for-small"></nav><section id="page"><div><a id="untitled8" class="anchor"></a> <h1 class="title topictitle1">Deploying the i18n Open Toolkit Plugin</h1> <div class="body"> <div class="p">For Open Toolkit 1.8.5:<ol class="ol" id="untitled8__ol_xxb_4px_nx"> <li class="li">Expand the plugin Zip file into the Open Toolkit's <span class="ph filepath">plugins/</span> directory so that you have a new directory, <span class="ph filepath">org.dita-community.i18n</span>.</li> <li class="li">Run the Open Toolkit integrator.xml Ant task:<pre class="pre codeblock">c:\DITA-OT&gt; ant -f integrator.xml</pre></li> </ol></div> <div class="p">For Open Toolkit 2.x:<ol class="ol" id="untitled8__ol_owc_tpx_nx"> <li class="li">Run the <span class="keyword cmdname">dita</span> command with the <span class="keyword parmname">-install</span> parameter, specifying the location of the plugin Zip file, which can be downloaded locally or retrieved directly from GitHub:<pre class="pre codeblock">c:\DITA-OT&gt; bin\dita -install http://github.com/dita-community/org.dita-community.i18n/release/<em class="ph i">version-1.0.0</em>/org.dita-community.i18n.zip</pre><div class="p">Where <em class="ph i">version-1.0.0</em> is the release number of the version you want to get (as far as I can tell GitHub does not provide a "latest" URL for releases).<aside class="note note "><span class="title">Note:</span> If you are upgrading to a new version then you have to first uninstall the current version before installing the new version:<pre class="pre codeblock">c:\DITA-OT&gt; bin\dita -uninstall org.dita-community.i18n
+c:\DITA-OT&gt; bin\dita -install https://github.com/dita-community/org.dita-community.i18n/releases/download/version-1.0.1/org_dita-community_i18n_plugin.zip</pre></aside></div></li> </ol></div> <div class="p">You can verify that the plugin is correctly installed by running the Ant target "org.dita-community.i18n-xslt-test". You should get output like this:<pre class="pre codeblock">c:\DITA-OT&gt; ant org.dita-community.i18n-xslt-test
 
 org.dita-community.i18n-test:
      [echo] Simplified Chinese Test
@@ -33,15 +49,28 @@ org.dita-community.i18n-test:
      [java] 
      [java] [ 1] Term: "8点40分"
      [java]        Words and pinyin:
-     [java] 		 "点"	: dian3"
-     [java] 		 "分"	: fen4"
+     [java] 
+
+ "点"
+: dian3"
+     [java] 
+
+ "分"
+: fen4"
      [java] [ 2] Term: "2009年7月6日"
      [java]        Words and pinyin:
-     [java] 		 "年"	: nian2"
-     [java] 		 "月"	: yue4"
-     [java] 		 "日"	: ri4"
+     [java] 
+
+ "年"
+: nian2"
+     [java] 
+
+ "月"
+: yue4"
+     [java] 
+
+ "日"
+: ri4"
 ...
 BUILD SUCCESSFUL
-Total time: 1 second</code></pre></div>
-  </div>
-<nav role="navigation" class="related-links"><div class="familylinks"><div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="../topics/installation.html">Installation</a></div></div></nav></article></main></body></html>
+Total time: 1 second</pre></div> </div> <footer id="topicsNPLinks"><div id="footer_previous"><a href="../topics/installation.html" class="previous" rel="internal">Installation</a></div><div id="footer_next"><a href="../topics/transformer-configuration-setup.html" class="next" rel="internal">Setting Up The Saxon Transformer Factory Configuration</a></div></footer></div></section></article><div class="clear"></div></div><div class="clearfix"></div></div><div class="clearfix"></div><div id="footer-container" class="grid_12"></div></div></body></html>
