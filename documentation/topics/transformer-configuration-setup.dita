@@ -2,10 +2,13 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="untitled9">
   <title>Setting Up The Saxon Transformer Factory Configuration</title>
-  <shortdesc>In order to use the custom collator with Saxon you must set the Java system property
-      <parmname>javax.xml.transform.TransformerFactory</parmname> to point to the i18n library's
-    transformer factory.</shortdesc>
+  <shortdesc>If the Open-Toolkit-managed Java class path is not used or is not configured correctly
+    for some reason then you must set the Java
+      <parmname>javax.xml.transform.TransformerFactory</parmname> system property to point to the
+    i18n library's transformer factory.</shortdesc>
   <body>
+    <note>You should not need to do this when running the Open Toolkit normally via the command
+      line.</note>
     <p>The value of <parmname>javax.xml.transform.TransformerFactory</parmname> must be
         "<codeph>org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</codeph>". The
       DCI18nSaxonTransformerFactoryImpl91 class is in the
