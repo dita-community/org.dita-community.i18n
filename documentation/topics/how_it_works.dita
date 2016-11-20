@@ -7,7 +7,10 @@
       through a custom collation URI resolver.</p>
     <p>Custom collation URI resolvers are configured on Saxon by transformer factories.</p>
     <p>Thus the i18n library provides a custom transformer factory that returns Saxon configured
-      with the i18n library's custom collation URI resolver.</p>
+      with the i18n library's custom collation URI resolver. </p>
+    <p>The i18n jar includes a services configuration that declares that the jar includes a JAXP
+      transformer factory. As long as the i18n jar comes before Saxon's jar in the JAVA class path,
+      the custom transformer factory will be used and the collator will be available to Saxon.</p>
     <p>When Saxon encounters a <xmlatt>collation</xmlatt> attribute on
         <xmlelement>xsl:sort</xmlelement> it calls the configured collation URI resolvers to resolve
       the URI. The i18n library's URI resolver then returns the custom Java zhCnAwareCollator, which
