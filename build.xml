@@ -220,6 +220,10 @@
       <manifest>
         <attribute name="Main-Class" value="org.ditacommunity.i18n.collation.CollationAnalyzer"/>
       </manifest> 
+      <service 
+        type="javax.xml.transform.TransformerFactory"
+        provider="org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"
+        />      
       <fileset dir="${basedir}/target/classes/production/org.dita-community.i18n" >
         <exclude name="**/*96.*"/>
         <include name="**.*" />
