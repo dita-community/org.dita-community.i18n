@@ -10,7 +10,7 @@
         <navtitle>www.mdbg.net/chindict/chindict.php?page=cedict</navtitle>
       </topicmeta>
     </keydef>
-    <keydef href="http://www.hskhsk.com/index.html" keys="hskhks-project" format="html"
+    <keydef href="http://www.hskhsk.com/index.html" keys="hskhsk-project" format="html"
       scope="external" navtitle=" HSK东西">
       <topicmeta>
         <navtitle>HSK HKS Project (www.hskhks.com)</navtitle>
