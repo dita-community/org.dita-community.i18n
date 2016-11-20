@@ -10,9 +10,14 @@
   <!-- 
   <property name="skip.tests" value="true"/>
    -->
-
+  <property name="workspace-dir" location="${basedir}/.."/>
+  <property name="ghpages-dirname" value="gh-pages_org.dita-community.i18n"/>
+  <property name="ghpages-dir" location="${workspace-dir}/${ghpages-dirname}"/>
+  
   <property name="plugin.dir" value="${basedir}/plugin"/>
   <property name="package.dir" value="${basedir}/dist"/>
+  <property name="docs.dirname" value="documentation"/>
+  <property name="docs.dir" value="${basedir}/${docs.dirname}"/>
   
   <!-- Compiler options -->
   
@@ -264,5 +269,99 @@
       </fileset>
     </copy>  
   </target>
+  
+  <target name="check-doc-source-changed">
+    <uptodate property="doc-source-modified">
+      <srcfiles dir="${docs.dir}">
+        <include name="**/*" />
+        <exclude name="out/**"/>
+        <exclude name="temp/**"/>
+      </srcfiles>
+      <identitymapper/>
+    </uptodate>
+    <echo>doc-source-modified="${doc-source-modified}"</echo>
+  </target>
+  
+  <target name="generate-docs" depends="check-doc-source-changed" if="${doc-source-modified}" 
+    description="Generate renditions of the project documentation"
+    >
+    <exec searchpath="true"
+      executable="git"
+      failonerror="true"
+      dir="${ghpages-dir}"
+      >
+      <arg value="checkout"/>
+      <arg value="gh-pages"/>      
+    </exec>
+    
+    <!-- 
+      docker run -v /Users/ekimber/workspace-dfst:/opt/dita-ot/data ditacommunity/dita-ot-i18n  
+      ant -Dargs.input=/opt/dita-ot/data/org.diat-community-i18n/documentation/dita-community-i18n-manual.ditamap  
+      -Dtranstype=d4p-html5   
+      -Doutput.dir=/opt/dita-ot/data/gh-pages_org.dita-community-i18n
+      -->
+    <exec  
+      searchpath="true"
+      executable="docker"
+      failonerror="true"
+      >
+      <arg value="run"/>
+      <arg value="-v"/>
+      <arg value="${workspace-dir}:/opt/dita-ot/data"/>
+      <arg value="dfst/dita-ot"/>
+      <arg value="ant"/>
+      <arg value="-Dargs.input=/opt/dita-ot/data/org.dita-community.i18n/${docs.dirname}/dita-community-i18n-manual.ditamap"/>
+      <arg value="-Dtranstype=d4p-html5"/>
+      <arg value="-Doutput.dir=/opt/dita-ot/data/${ghpages-dirname}"/>
+    </exec>
+  </target>
+  
+  <target name="publish-docs" depends="generate-docs"
+    description="Generate the project docs and publish to GitHub"
+    >
+    <!-- Do git commit and push of the generated docs -->
+    <exec searchpath="true"
+      executable="git"
+      failonerror="true"
+      dir="${ghpages-dir}"
+      >
+      <arg value="checkout"/>
+      <arg value="gh-pages"/>      
+    </exec>
+    <exec searchpath="true"
+      executable="git"
+      failonerror="true"
+      dir="${ghpages-dir}"
+      >
+      <arg value="pull"/>      
+    </exec>
+    <exec searchpath="true"
+      executable="git"
+      failonerror="true"
+      dir="${ghpages-dir}"
+      >
+      <arg value="add"/>      
+      <arg value="."/>      
+    </exec>
+    <exec searchpath="true"
+      executable="git"
+      failonerror="true"
+      dir="${ghpages-dir}"
+      >
+      <arg value="commit"/>      
+      <arg value="-m"/>      
+      <arg value="Documentation updated via Ant process on ${TODAY} by ${user.name}"/>      
+    </exec>
+    <exec searchpath="true"
+      executable="git"
+      failonerror="true"
+      dir="${ghpages-dir}"
+      >
+      <arg value="push"/>      
+      <arg value="origin"/>      
+      <arg value="gh-pages"/>      
+    </exec>
+  </target>
+  
   
 </project>
