@@ -1,0 +1,79 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="DC.Type" content="topic"><meta name="DC.Relation" scheme="URI" content="../topics/transformer-configuration-setup.html"><meta name="prodname" content="org.dita-community.i18n"><meta name="version" content="1"><meta name="release" content="0"><meta name="modification" content="0"><meta name="DC.Creator" content="Eliot Kimber"><meta name="rights" content="© 2016 DITA Community Project"><meta name="DC.Date.Created" content="2016-10-08"><meta name="DC.Format" content="XHTML"><meta name="DC.Identifier" content="setting_the_transformer_factory_for_command_line_use"><link rel="stylesheet" type="text/css" href="../commonltr.css"><link rel="stylesheet" type="text/css" href="../dita-ot-doc.css"><title>Setting the Transformer Factory for Command Line Use</title></head><body id="setting_the_transformer_factory_for_command_line_use"><nav role="toc"><ul><li><a href="../topics/dita_community_internationalization_plugin.html">DITA Community Internationalization Plugin</a><ul><li><a href="../topics/installation.html">Installation</a><ul><li><a href="../topics/deploying-i18n-plugin.html">Deploying the i18n Open Toolkit Plugin</a></li><li><a href="../topics/transformer-configuration-setup.html">Setting Up The Saxon Transformer Factory Configuration</a><ul><li class="active"><a href="../topics/setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li><li><a href="../topics/setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li></ul></li></ul></li><li><a href="../topics/using_the_i18n_collator_from_xslt.html">Using the i18n Collator from XSLT</a></li><li><a href="../topics/doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li><li><a href="../topics/estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></li><li><a href="../topics/how_it_works.html">How It Works</a></li><li><a href="../topics/external_resources.html">External Resources</a></li></ul></li></ul></nav><main role="main"><article role="article" aria-labelledby="ariaid-title1">
+  <h1 class="title topictitle1" id="ariaid-title1">Setting the Transformer Factory for Command Line Use</h1>
+  <div class="body">
+    <div class="p">If you are running the Open Toolkit from a command line you can specify the
+        <span class="keyword parmname">javax.xml.transform.TransformerFactory</span> property on the
+        <span class="keyword cmdname">ant</span> or <span class="keyword cmdname">dita</span> command line directly using a
+        <span class="keyword parmname">-D</span>
+      parameter:<pre class="pre codeblock"><code>c:\DITA-OT&gt;dita -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91 
+-i /Users/ekimber/workspace/Thunderbird/User-Guide.ditamap ...</code></pre></div>
+    <p class="p">You can also use the <var class="keyword varname">ANT_OPTS</var> environment variable to specify the property
+      using the <span class="keyword parmname">-D</span> Java command-line parameter:</p>
+    <div class="p">Windows:<pre class="pre codeblock"><code>c:\DITA-OT&gt;set ANT_OPTS="-Xmx512m  -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"</code></pre></div>
+    <p class="p">macOS and Linux:</p>
+    <div class="p">
+      <pre class="pre codeblock"><code>ekimber$ export ANT_OPTS="-Xmx512m  -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"</code></pre>
+    </div>
+    <p class="p">If you are using the 1.8.5 Open Toolkit, you can modify the <span class="ph filepath">startcmd.sh</span>
+      or <span class="ph filepath">startcmd.bat</span> file to set the ANT_OPTS environment variable, e.g.:</p>
+    <div class="p">Windows:<pre class="pre codeblock"><code>...
+REM Set environment variables
+set ANT_OPTS=-Xmx512m %ANT_OPTS%
+<strong class="ph b">set ANT_OPTS=%ANT_OPTS% -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</strong>
+set ANT_HOME=%DITA_DIR%
+...</code></pre></div>
+    <p class="p">macOS and Linux:</p>
+    <pre class="pre codeblock"><code>...
+export ANT_OPTS="-Xmx512m $ANT_OPTS"
+<strong class="ph b">export ANT_OPTS="$ANT_OPTS -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"</strong>
+export ANT_HOME="$DITA_DIR"
+...</code></pre>
+    <p class="p">For DITA OT 2.x and later you can set the <var class="keyword varname">ANT_OPTS</var> environment variable
+      globally.</p>
+    <p class="p">You can test that the transformer factory is correctly configured by running the Ant target
+      "org.dita-community-i18n-xslt-test":</p>
+    <pre class="pre codeblock"><code>ekimber$ ant org.dita-community-i18n-xslt-test 
+Buildfile: /Users/ekimber/dita-ot/DITA-OT/build.xml
+
+org.dita-community-i18n-xslt-test:
+     [echo] org.dita-community.i18n XSLT collator test
+     [echo] ANT_OPTS="-Xmx512m  -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"
+     [xslt] Processing /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml to /Users/ekimber/dita-ot/DITA-OT/out/zh-cn-xslt-test.html
+     [xslt] Loading stylesheet /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl
+     [xslt] DCI18nSaxonTransformerFactoryImpl: Setting collation URI resolver to DCI18nCollationUriResolver91
+     [xslt]  + [INFO] Processing source document file:/Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml...
+     [xslt]  + [INFO] Using collator "http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN"
+     [xslt] DCI18nCollationUriResolver91 version 1.0.0
+     [xslt] + [DEBUG] DCI18nCollationUriResolver91.resolve(): Collation URI="http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN"
+     [xslt] + [DEBUG] DCI18nCollationUriResolver91.resolve():   Returning ZhCnAwareCollator
+     [xslt] + [DEBUG] splitWords(): text="从前有一位楚国人, 他非常爱惜他的宝剑。", debug=false
+     [xslt]  + [INFO] Document processed.
+
+BUILD SUCCESSFUL
+Total time: 1 second</code></pre>
+    <p class="p">The output of the test is in the <span class="ph filepath">out/</span> directory under the DITA OT
+      directory.</p>
+    <div class="p">If you see a result like
+      this:<pre class="pre codeblock"><code>ekimber$ ant org.dita-community.i18n-xslt-test 
+Buildfile: /Users/ekimber/dita-ot/DITA-OT/build.xml
+
+org.dita-community.i18n-xslt-test:
+     [echo] org.dita-community.i18n XSLT collator test
+     [echo] ANT_OPTS="${env.ANT_OPTS}"
+     [xslt] Processing /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml to /Users/ekimber/dita-ot/DITA-OT/out/zh-cn-xslt-test.html
+     [xslt] Loading stylesheet /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl
+     [xslt]  + [INFO] Processing source document file:/Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml...
+     [xslt]  + [INFO] Using collator "http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN"
+     [xslt] /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl:82: Fatal Error! Unknown collation http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN
+     [xslt] Failed to process /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml
+
+BUILD FAILED
+/Users/ekimber/dita-ot/DITA-OT/build.xml:175: Fatal error during transformation using /Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl: Unknown collation http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN; SystemID: file:/Users/ekimber/dita-ot/DITA-OT/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl; Line#: 82; Column#: -1
+
+Total time: 0 seconds</code></pre></div>
+    <p class="p">It means the <span class="keyword parmname">javax.xml.transform.TransformerFactory</span> is not set
+      correctly.</p>
+  </div>
+<nav role="navigation" class="related-links"><div class="familylinks"><div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="../topics/transformer-configuration-setup.html" title="In order to use the custom collator with Saxon you must set the Java system property javax.xml.transform.TransformerFactory to point to the i18n library's transformer factory.">Setting Up The Saxon Transformer Factory Configuration</a></div></div></nav></article></main></body></html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="DC.Type" content="topic"><meta name="DC.Relation" scheme="URI" content="../topics/installation.html"><meta name="prodname" content="org.dita-community.i18n"><meta name="version" content="1"><meta name="release" content="0"><meta name="modification" content="0"><meta name="DC.Creator" content="Eliot Kimber"><meta name="rights" content="© 2016 DITA Community Project"><meta name="DC.Date.Created" content="2016-10-08"><meta name="DC.Format" content="XHTML"><meta name="DC.Identifier" content="untitled8"><link rel="stylesheet" type="text/css" href="../commonltr.css"><link rel="stylesheet" type="text/css" href="../dita-ot-doc.css"><title>Deploying the i18n Open Toolkit Plugin</title></head><body id="untitled8"><nav role="toc"><ul><li><a href="../topics/dita_community_internationalization_plugin.html">DITA Community Internationalization Plugin</a><ul><li><a href="../topics/installation.html">Installation</a><ul><li class="active"><a href="../topics/deploying-i18n-plugin.html">Deploying the i18n Open Toolkit Plugin</a></li><li><a href="../topics/transformer-configuration-setup.html">Setting Up The Saxon Transformer Factory Configuration</a><ul><li><a href="../topics/setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li><li><a href="../topics/setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li></ul></li></ul></li><li><a href="../topics/using_the_i18n_collator_from_xslt.html">Using the i18n Collator from XSLT</a></li><li><a href="../topics/doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li><li><a href="../topics/estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></li><li><a href="../topics/how_it_works.html">How It Works</a></li><li><a href="../topics/external_resources.html">External Resources</a></li></ul></li></ul></nav><main role="main"><article role="article" aria-labelledby="ariaid-title1">
+  <h1 class="title topictitle1" id="ariaid-title1">Deploying the i18n Open Toolkit Plugin</h1>
+  <div class="body">
+    <div class="p">For Open Toolkit 1.8.5:<ol class="ol" id="untitled8__ol_xxb_4px_nx">
+        <li class="li">Expand the plugin Zip file into the Open Toolkit's <span class="ph filepath">plugins/</span>
+          directory so that you have a new directory,
+          <span class="ph filepath">org.dita-community.i18n</span>.</li>
+        <li class="li">Run the Open Toolkit integrator.xml Ant
+          task:<pre class="pre codeblock"><code>c:\DITA-OT&gt; ant -f integrator.xml</code></pre></li>
+      </ol></div>
+    <div class="p">For Open Toolkit 2.x:<ol class="ol" id="untitled8__ol_owc_tpx_nx">
+        <li class="li">Run the <span class="keyword cmdname">dita</span> command with the <span class="keyword parmname">-install</span>
+          parameter, specifying the location of the plugin Zip file, which can be downloaded locally
+          or retrieved directly from
+            GitHub:<pre class="pre codeblock"><code>c:\DITA-OT&gt; bin\dita -install http://github.com/dita-community/org.dita-community.i18n/release/<em class="ph i">version-1.0.0</em>/org.dita-community.i18n.zip</code></pre><div class="p">Where
+              <em class="ph i">version-1.0.0</em> is the release number of the version you want to get (as far as I
+            can tell GitHub does not provide a "latest" URL for releases).<div class="note note note_note"><span class="note__title">Note:</span> If you are upgrading
+              to a new version then you have to first uninstall the current version before
+              installing the new
+              version:<pre class="pre codeblock"><code>c:\DITA-OT&gt; bin\dita -uninstall org.dita-community.i18n
+c:\DITA-OT&gt; bin\dita -install https://github.com/dita-community/org.dita-community.i18n/releases/download/version-1.0.1/org_dita-community_i18n_plugin.zip</code></pre></div></div></li>
+      </ol></div>
+    <div class="p">You can verify that the plugin is correctly installed by running the Ant target
+      "org.dita-community.i18n-test". You should get output like
+      this:<pre class="pre codeblock"><code>c:\DITA-OT&gt; ant org.dita-community.i18n-test
+
+org.dita-community.i18n-test:
+     [echo] Simplified Chinese Test
+     [java] Collation report for language 
+     [java] Input terms:
+     [java] 
+     [java] [ 1] Term: "8点40分"
+     [java]        Words and pinyin:
+     [java] 		 "点"	: dian3"
+     [java] 		 "分"	: fen4"
+     [java] [ 2] Term: "2009年7月6日"
+     [java]        Words and pinyin:
+     [java] 		 "年"	: nian2"
+     [java] 		 "月"	: yue4"
+     [java] 		 "日"	: ri4"
+...
+BUILD SUCCESSFUL
+Total time: 1 second</code></pre></div>
+  </div>
+<nav role="navigation" class="related-links"><div class="familylinks"><div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="../topics/installation.html">Installation</a></div></div></nav></article></main></body></html>

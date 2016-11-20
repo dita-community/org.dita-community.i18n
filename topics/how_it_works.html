@@ -1,0 +1,26 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="DC.Type" content="topic"><meta name="DC.Relation" scheme="URI" content="../topics/dita_community_internationalization_plugin.html"><meta name="prodname" content="org.dita-community.i18n"><meta name="version" content="1"><meta name="release" content="0"><meta name="modification" content="0"><meta name="DC.Creator" content="Eliot Kimber"><meta name="rights" content="© 2016 DITA Community Project"><meta name="DC.Date.Created" content="2016-10-08"><meta name="DC.Format" content="XHTML"><meta name="DC.Identifier" content="how_it_works"><link rel="stylesheet" type="text/css" href="../commonltr.css"><link rel="stylesheet" type="text/css" href="../dita-ot-doc.css"><title>How It Works</title></head><body id="how_it_works"><nav role="toc"><ul><li><a href="../topics/dita_community_internationalization_plugin.html">DITA Community Internationalization Plugin</a><ul><li><a href="../topics/installation.html">Installation</a><ul><li><a href="../topics/deploying-i18n-plugin.html">Deploying the i18n Open Toolkit Plugin</a></li><li><a href="../topics/transformer-configuration-setup.html">Setting Up The Saxon Transformer Factory Configuration</a><ul><li><a href="../topics/setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li><li><a href="../topics/setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li></ul></li></ul></li><li><a href="../topics/using_the_i18n_collator_from_xslt.html">Using the i18n Collator from XSLT</a></li><li><a href="../topics/doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li><li><a href="../topics/estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></li><li class="active"><a href="../topics/how_it_works.html">How It Works</a></li><li><a href="../topics/external_resources.html">External Resources</a></li></ul></li></ul></nav><main role="main"><article role="article" aria-labelledby="ariaid-title1">
+  <h1 class="title topictitle1" id="ariaid-title1">How It Works</h1>
+  <div class="body">
+    <p class="p">Saxon 9 supports custom collators through the use of custom collator URIs that are resolved
+      through a custom collation URI resolver.</p>
+    <p class="p">Custom collation URI resolvers are configured on Saxon by transformer factories.</p>
+    <p class="p">Thus the i18n library provides a custom transformer factory that returns Saxon configured
+      with the i18n library's custom collation URI resolver.</p>
+    <p class="p">When Saxon encounters a <code class="keyword markupname xmlatt">@collation</code> attribute on
+        <code class="keyword markupname xmlelement">&lt;xsl;sort&gt;</code> it calls the configured collation URI resolvers to resolve
+      the URI. The i18n library's URI resolver then returns the custom Java zhCnAwareCollator, which
+      implements Saxon's collation-related APIs, which are in turn used by Saxon's implementation of
+      the <code class="keyword markupname xmlelement">&lt;xsl:sort&gt;</code> element.</p>
+    <p class="p">The ZhCnAwareCollator integrates the ICU4J libraries for doing locale-aware collation
+      generally and then provides a Simplified-Chinese-specific collator that uses the CEDICT
+      dictionary along with the ICU4J zh-CN word breaker to construct pinyin sort keys from
+      Simplified Chinese text.</p>
+    <p class="p">The i18n Java code also provides two Java classes that serve as Saxon 9.1 extension function
+      libraries: <code class="ph codeph">org.ditacommunity.i18n.textanalysis.TextAnalyzer</code> and
+        <code class="ph codeph">org.ditacommunity.i18n.textanalysis.TextMetrics</code>. These libraries, along
+      with the ZhCnAwareCollator, back the functions in the <span class="ph filepath">i18n-utils.xsl</span>
+      module.</p>
+  </div>
+<nav role="navigation" class="related-links"><div class="familylinks"><div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="../topics/dita_community_internationalization_plugin.html">DITA Community Internationalization Plugin</a></div></div></nav></article></main></body></html>

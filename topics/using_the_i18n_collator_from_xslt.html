@@ -1,0 +1,63 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="DC.Type" content="concept"><meta name="DC.Relation" scheme="URI" content="../topics/dita_community_internationalization_plugin.html"><meta name="prodname" content="org.dita-community.i18n"><meta name="version" content="1"><meta name="release" content="0"><meta name="modification" content="0"><meta name="DC.Creator" content="Eliot Kimber"><meta name="rights" content="© 2016 DITA Community Project"><meta name="DC.Date.Created" content="2016-10-08"><meta name="DC.Format" content="XHTML"><meta name="DC.Identifier" content="using_the_i18n_collator_from_xslt"><link rel="stylesheet" type="text/css" href="../commonltr.css"><link rel="stylesheet" type="text/css" href="../dita-ot-doc.css"><title>Using the i18n Collator from XSLT</title></head><body id="using_the_i18n_collator_from_xslt"><nav role="toc"><ul><li><a href="../topics/dita_community_internationalization_plugin.html">DITA Community Internationalization Plugin</a><ul><li><a href="../topics/installation.html">Installation</a><ul><li><a href="../topics/deploying-i18n-plugin.html">Deploying the i18n Open Toolkit Plugin</a></li><li><a href="../topics/transformer-configuration-setup.html">Setting Up The Saxon Transformer Factory Configuration</a><ul><li><a href="../topics/setting_the_transformer_factory_for_command_line_use.html">Setting the Transformer Factory for Command Line Use</a></li><li><a href="../topics/setting_the_transformer_factory_for_oxygenxml.html">Setting the Transformer Factory for oXygenXML</a></li></ul></li></ul></li><li class="active"><a href="../topics/using_the_i18n_collator_from_xslt.html">Using the i18n Collator from XSLT</a></li><li><a href="../topics/doing_line_and_word_breaking_in_xslt.html">Doing Line and Word Breaking in XSLT</a></li><li><a href="../topics/estimating_rendered_string_length_in_xslt.html">Estimating Rendered String Length in XSLT</a></li><li><a href="../topics/how_it_works.html">How It Works</a></li><li><a href="../topics/external_resources.html">External Resources</a></li></ul></li></ul></nav><main role="main"><article role="article" aria-labelledby="ariaid-title1">
+ <h1 class="title topictitle1" id="ariaid-title1">Using the i18n Collator from XSLT</h1>
+ <div class="body conbody">
+  <div class="p">To use the i18n collator from XSLT you specify the custom collator URL using the
+        <code class="keyword markupname xmlatt">@collation</code> attribute on <code class="keyword markupname xmlelement">&lt;xsl:sort&gt;</code> elements or other
+      contexts where <code class="keyword markupname xmlatt">@collation</code> is allowed. You then use the
+        <code class="keyword markupname xmlelement">&lt;xsl:sort&gt;</code> element
+      normally:<pre class="pre codeblock"><code>&lt;xsl:apply-templates select="word"&gt;
+  &lt;xsl:sort <strong class="ph b">collation="'http://org.dita-community.i18n.zhCNawareCollator?lang=<var class="keyword varname">langCode</var>'"</strong>/&gt;
+&lt;/xsl:apply-templates&gt;</code></pre></div>
+    <p class="p">Where <var class="keyword varname">langCode</var> is the language code for the language the collator should
+      be configured for when sorting. For Simplified Chinese the language code should be "zh-CN".
+      Depending on the Open Toolkit version you're using you should be able to use either the
+        <code class="ph codeph">getLowerCaseLang</code> named template or the
+        <code class="ph codeph">dita-ot:get-current-language()</code> function to get the language for the current
+      context.</p>
+    <p class="p">To construct sort keys that take DITA-defined sort-as definitions into account, you can use
+      the XSLT functions defined by the i18n plugin to get primary and secondary sort keys from
+      topics or other DITA elements and then use those sort keys in the
+        <code class="keyword markupname xmlelement">&lt;xsl:sort&gt;</code> element's <code class="keyword markupname xmlatt">@use</code> attribute. To use these
+      functions declare the namespace "<code class="ph codeph">http://org.dita-community/i18n</code>" in your XSLT
+      module and import the <span class="ph filepath">xsl/i18n-lib.xsl</span> module from the i18n plugin into
+      your XSLT module.</p>
+    <p class="p">The file <span class="ph filepath">text/xsl/test-collator.xsl</span> in the i18n plugin demonstrates how
+      to use the collator and the i18n utility functions. If there's a function you need that isn't
+      provided please submit an issue on GitHub against the org.dita-community.i18n project or
+      implement the function and submit a pull request—if you need the function it's likely that
+      others do too.</p>
+    <div class="p">You can use multiple <code class="keyword markupname xmlelement">&lt;xsl:sort&gt;</code> elements to do sorting on primary and
+      secondary (or even tertiary) keys. For example, if you are sorting a set of topicrefs you can
+      use code like
+      this:<pre class="pre codeblock"><code>&lt;xsl:variable name="langCode" as="xs:string"
+ select="dita-ot:get-current-language(.)" 
+/&gt;
+&lt;xsl:variable name="collationUri" as="xs:string"
+  select="concat('http://org.dita-community.i18n.zhCNawareCollator?lang=', $langCode)"
+/&gt;
+&lt;xsl:apply-templates select="*[contains(@class, ' map/topicref ']"&gt;
+  &lt;xsl:sort collation="{$collationUri}" 
+     use="dci18n:getPrimarySortKeyForTopicref(.)"
+  /&gt;
+  &lt;xsl:sort collation="{$collationUri}" 
+     use="dci18n:getBaseSortKeyForTopicref(.)"
+  /&gt;
+&lt;/xsl:apply-templates&gt;</code></pre></div>
+    <p class="p">The function <code class="ph codeph">dci18n:getPrimarySortKeyForTopicref()</code> uses the collator's
+      configured language to construct a primary sort key from the title of the topic referenced by
+      the topicref  (if it references a topic), taking into account any sort-as elements and
+      applying locale-specific rules for constructing sort keys (e.g., for Simplified Chinese,
+      converting the characters in the base sort key into pinyin).</p>
+    <p class="p">The function <code class="ph codeph">dci18n:getBaseSortKeyForTopicref()</code> just uses the title text of
+      the referenced topic. </p>
+    <p class="p">By using two <code class="keyword markupname xmlelement">&lt;xsl:sort&gt;</code> elements in this way if two topics produce the
+      same primary sort key but have different base keys then they will sort together by primary key
+      but then be sorted in order by base key.</p>
+    <p class="p">The i18n library recognizes both the DITA 1.3 <code class="keyword markupname xmlelement">&lt;sort-as&gt;</code> element and
+        <code class="keyword markupname xmlelement">&lt;data&gt;</code> elements with a <code class="keyword markupname xmlatt">@name</code> value of "sort-as" as
+      sort-as elements. If you have some other way of capturing sort-as values you can implement
+      your own functions using the i18n functions a base or as an example.</p>
+ </div>
+<nav role="navigation" class="related-links"><div class="familylinks"><div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="../topics/dita_community_internationalization_plugin.html">DITA Community Internationalization Plugin</a></div></div></nav></article></main></body></html>
