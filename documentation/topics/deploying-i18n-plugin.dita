@@ -14,11 +14,11 @@
         <li>Run the <cmdname>dita</cmdname> command with the <parmname>-install</parmname>
           parameter, specifying the location of the plugin Zip file, which can be downloaded locally
           or retrieved directly from
-            GitHub:<codeblock>c:\DITA-OT> bin\dita -install http://github.com/dita-community/org.dita-community.i18n/release/<i>version-1.0.0</i>/org.dita-community.i18n.zip</codeblock><p>Where
-              <i>version-1.0.0</i> is the release number of the version you want to get (as far as I
-            can tell GitHub does not provide a "latest" URL for releases).<note>If you are upgrading
-              to a new version then you have to first uninstall the current version before
-              installing the new
+            GitHub:<codeblock>c:\DITA-OT> bin\dita -install https://github.com/dita-community/org.dita-community.i18n/releases/download/version-<varname>1.0.0</varname>/org_dita-community_i18n_plugin_<varname>1.0.0</varname>.zip</codeblock><p>Where
+              <i>1.0.0</i> is the release number of the version you want to get (as far as I can
+            tell GitHub does not provide a "latest" URL for releases).<note>If you are upgrading to
+              a new version then you have to first uninstall the current version before installing
+              the new
               version:<codeblock>c:\DITA-OT> bin\dita -uninstall org.dita-community.i18n
 c:\DITA-OT> bin\dita -install https://github.com/dita-community/org.dita-community.i18n/releases/download/version-1.0.1/org_dita-community_i18n_plugin.zip</codeblock></note></p></li>
       </ol></p>
