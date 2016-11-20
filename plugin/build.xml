@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="org.dita-community.i18n">
+
+  <path id="dci18n.classpath">
+    <pathelement path="${basedir}/plugins/org.dita-community.i18n/lib/dita-community-i18n-saxon91.jar"/>
+    <path refid="dost.class.path"/>
+    <pathelement path="${basedir}/lib/icu4j.jar"/>
+    <pathelement path="${basedir}/lib/saxon.jar"/>
+    <pathelement path="${basedir}/lib/saxon-dom.jar"/>
+  </path>
   
   <target name="org.dita-community.i18n-jar-test" description="Test the DITA Community i18n library jar">
     <echo>org.dita-community.i18n jar test for zh-CN:</echo>
-    <java classpath="${basedir}/lib/icu4j.jar${basedir}/plugins/org.dita-community.i18n/lib/dita-community-i18n-saxon91.jar:${basedir}/lib/saxon.jar:" 
+    <java 
       classname="org.ditacommunity.i18n.collation.CollationAnalyzer"
+      classpathref="dci18n.classpath"
       >
       <arg value="${basedir}/plugins/org.dita-community.i18n/test/resources/word-lists/hsk-1-examples.txt"/>
     </java>
@@ -12,9 +21,9 @@
   
   <target name="org.dita-community.i18n-xslt-test" description="Test the DITA Community i18n Saxon custom collator">
     <echo>org.dita-community.i18n XSLT collator test</echo>
-    <echo>ANT_OPTS="${env.ANT_OPTS}"</echo>
+    <delete file="${basedir}/out/zh-cn-xslt-test.html"/>
     <xslt
- classpath="${basedir}/lib/icu4j.jar:${basedir}/plugins/org.dita-community.i18n/lib/dita-community-i18n-saxon91.jar:${basedir}/lib/saxon.jar"
+      classpathref="dci18n.classpath"
       in="${dita.plugin.org.dita-community.i18n.dir}/test/resources/source-data/test-zh-cn.xml"
       style="${dita.plugin.org.dita-community.i18n.dir}/test/xsl/test-collator.xsl"
       out="${basedir}/out/zh-cn-xslt-test.html"

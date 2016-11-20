@@ -3,11 +3,12 @@
 <topic id="installation">
   <title>Installation</title>
   <body>
-    <p>Installation requires installing the plugin as you would any other Open Toolkit plugin and
-      then configuring the Java JAXP transformer factory property so that the Open Toolkit will use
-      an instance of Saxon configured with the custom collator and Java extensions. There are
-      several ways to set the Java system property depending on how you are running the transform:
-      from a command line, from within oXygenXML, from a content management system, etc.</p>
+    <p>Installation requires installing the plugin as you would any other Open Toolkit plugin. As
+      long as the Open Toolkit's Java classpath is configured so that the i18n jar comes before the
+      Saxon jar, everything should work correctly.</p>
+    <p>However, depending on how the Open Toolkit is run, you may need to configure the Java JAXP
+      transformer factory Java system property so that the Open Toolkit will use an instance of
+      Saxon configured with the custom collator and Java extensions.</p>
     <p>The project also provides a pair of Docker container configurations that include the i18n
       plugin and transformer factory configuration, making it easy to run the Open Toolkit with the
       correct configuration. You can use the dita-ot-i18n container directly if you don't need any

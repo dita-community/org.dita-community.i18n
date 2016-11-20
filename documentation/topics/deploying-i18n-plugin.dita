@@ -23,8 +23,8 @@
 c:\DITA-OT> bin\dita -install https://github.com/dita-community/org.dita-community.i18n/releases/download/version-1.0.1/org_dita-community_i18n_plugin.zip</codeblock></note></p></li>
       </ol></p>
     <p>You can verify that the plugin is correctly installed by running the Ant target
-      "org.dita-community.i18n-test". You should get output like
-      this:<codeblock>c:\DITA-OT> ant org.dita-community.i18n-test
+      "org.dita-community.i18n-xslt-test". You should get output like
+      this:<codeblock>c:\DITA-OT> ant org.dita-community.i18n-xslt-test
 
 org.dita-community.i18n-test:
      [echo] Simplified Chinese Test
