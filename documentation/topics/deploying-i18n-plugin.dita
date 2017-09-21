@@ -23,11 +23,16 @@
 c:\DITA-OT> bin\dita -install https://github.com/dita-community/org.dita-community.i18n/releases/download/version-1.0.1/org_dita-community_i18n_plugin.zip</codeblock></note></p></li>
       </ol></p>
     <p>You can verify that the plugin is correctly installed by running the Ant target
-      "org.dita-community.i18n-xslt-test". You should get output like
-      this:<codeblock>c:\DITA-OT> ant org.dita-community.i18n-xslt-test
+      "dita2dci18n-test". It will run two tests: one for the plugin's JAR file and one for the XSLT
+      support.</p>
+    <p>You should get output like
+      this:<codeblock>c:\DITA-OT> ant dita2dci18n-test
+Buildfile: /Users/ekimber/dita-ot/dita-ot-2.4.4/build.xml
 
-org.dita-community.i18n-test:
-     [echo] Simplified Chinese Test
+dita2dci18n-test:
+
+org.dita-community.i18n-jar-test:
+     [echo] org.dita-community.i18n jar test for zh-CN:
      [java] Collation report for language 
      [java] Input terms:
      [java] 
@@ -41,6 +46,42 @@ org.dita-community.i18n-test:
      [java] 		 "月"	: yue4"
      [java] 		 "日"	: ri4"
 ...
+     [java] [197] Term: "我惊天『还』没有吃午饭。"
+     [java]        Words and pinyin:
+     [java] 		 "我"	: wo3"
+     [java] 		 "惊"	: jing1"
+     [java] 		 "天"	: tian1"
+     [java] 		 "还"	: huan2"
+     [java] 		 "没有"	: mei2you3"
+     [java] 		 "吃"	: chi1"
+     [java] 		 "午饭"	: wu3fan4"
+     [java] 
+     [java] ========================
+     [java] 
+     [java] 
+     [java] Sorted:
+     [java] 
+     [java] 
+     [java] [ 1] "8点40分"
+     [java] [ 2] "2009年7月6日"
+     [java] [ 3] "星期四"
+     [java] [ 4] "他今年24岁。"
+     [java] [ 5] "15块"
+
+org.dita-community.i18n-xslt-test:
+     [echo] org.dita-community.i18n XSLT collator test
+   [delete] Deleting: /Users/ekimber/dita-ot/dita-ot-2.4.4/out/zh-cn-xslt-test.html
+     [xslt] Processing /Users/ekimber/dita-ot/dita-ot-2.4.4/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml to /Users/ekimber/dita-ot/dita-ot-2.4.4/out/zh-cn-xslt-test.html
+     [xslt] Loading stylesheet /Users/ekimber/dita-ot/dita-ot-2.4.4/plugins/org.dita-community.i18n/test/xsl/test-collator.xsl
+     [xslt] DCI18nSaxonTransformerFactoryImpl: Setting collation URI resolver to DCI18nCollationUriResolver91
+     [xslt]  + [INFO] Processing source document file:/Users/ekimber/dita-ot/dita-ot-2.4.4/plugins/org.dita-community.i18n/test/resources/source-data/test-zh-cn.xml...
+     [xslt]  + [INFO] Using collator "http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN"
+     [xslt] DCI18nCollationUriResolver91 version 1.0.0
+     [xslt] + [DEBUG] DCI18nCollationUriResolver91.resolve(): Collation URI="http://org.dita-community.i18n.zhCNawareCollator?lang=zh-CN"
+     [xslt] + [DEBUG] DCI18nCollationUriResolver91.resolve():   Returning ZhCnAwareCollator
+     [xslt] + [DEBUG] splitWords(): text="从前有一位楚国人, 他非常爱惜他的宝剑。", debug=false
+     [xslt]  + [INFO] Document processed.
+
 BUILD SUCCESSFUL
 Total time: 1 second</codeblock></p>
   </body>

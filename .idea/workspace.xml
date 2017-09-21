@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7727e00-bbba-4739-86fc-6ed6a4502cf0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/topics/deploying-i18n-plugin.dita" afterPath="$PROJECT_DIR$/documentation/topics/deploying-i18n-plugin.dita" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/topics/installation.dita" afterPath="$PROJECT_DIR$/documentation/topics/installation.dita" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin/build.xml" afterPath="$PROJECT_DIR$/plugin/build.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/untitled/untitled.iml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="7359b1b3-2f69-4596-8527-f67fff7cf1a5" name="Rejected commit: Default" comment="Do-nothing implementation of zh-CN rule based collator works.&#10;&#10;Does not work with Saxon (yet)" />
     <ignored path="org.dita-community.i18n.iws" />
@@ -31,7 +30,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
               <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -41,7 +42,13 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
               <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#916#917#0" expanded="false" />
+                <element signature="e#962#963#0" expanded="false" />
+                <element signature="e#1197#1198#0" expanded="false" />
+                <element signature="e#1231#1232#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -51,7 +58,19 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
               <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-              <folding />
+              <folding>
+                <element signature="e#0#19833#0" expanded="false" />
+                <element signature="e#10133#10134#0" expanded="false" />
+                <element signature="e#10167#10168#0" expanded="false" />
+                <element signature="e#10201#10202#0" expanded="false" />
+                <element signature="e#10230#10231#0" expanded="false" />
+                <element signature="e#10262#10263#0" expanded="false" />
+                <element signature="e#10289#10290#0" expanded="false" />
+                <element signature="e#16230#16231#0" expanded="false" />
+                <element signature="e#16261#16262#0" expanded="false" />
+                <element signature="e#17234#17235#0" expanded="false" />
+                <element signature="e#17269#17270#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -69,8 +88,8 @@
       <file leaf-file-name="build.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="686">
-              <caret line="223" column="7" selection-start-line="223" selection-start-column="7" selection-end-line="223" selection-end-column="7" />
+            <state relative-caret-position="685">
+              <caret line="228" column="7" selection-start-line="228" selection-start-column="7" selection-end-line="228" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -168,7 +187,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="837" />
+    <option name="height" value="836" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -195,7 +214,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -482,6 +500,7 @@
       <pane id="Scope">
         <subPane subId="Problems" />
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -998,7 +1017,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="837" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="836" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1285,7 +1304,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1293,7 +1314,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-          <folding />
+          <folding>
+            <element signature="e#0#19833#0" expanded="false" />
+            <element signature="e#10133#10134#0" expanded="false" />
+            <element signature="e#10167#10168#0" expanded="false" />
+            <element signature="e#10201#10202#0" expanded="false" />
+            <element signature="e#10230#10231#0" expanded="false" />
+            <element signature="e#10262#10263#0" expanded="false" />
+            <element signature="e#10289#10290#0" expanded="false" />
+            <element signature="e#16230#16231#0" expanded="false" />
+            <element signature="e#16261#16262#0" expanded="false" />
+            <element signature="e#17234#17235#0" expanded="false" />
+            <element signature="e#17269#17270#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1301,7 +1334,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#916#917#0" expanded="false" />
+            <element signature="e#962#963#0" expanded="false" />
+            <element signature="e#1197#1198#0" expanded="false" />
+            <element signature="e#1231#1232#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1357,8 +1396,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
-          <caret line="223" column="7" selection-start-line="223" selection-start-column="7" selection-end-line="223" selection-end-column="7" />
+        <state relative-caret-position="685">
+          <caret line="228" column="7" selection-start-line="228" selection-start-column="7" selection-end-line="228" selection-end-column="7" />
           <folding />
         </state>
       </provider>
