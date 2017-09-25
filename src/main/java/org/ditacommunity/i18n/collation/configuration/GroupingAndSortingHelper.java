@@ -32,18 +32,19 @@
  --------------------------------------------------------------------------------*/
 package org.ditacommunity.i18n.collation.configuration;
 
-import com.ibm.icu.text.RuleBasedCollator;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Locale;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.ditacommunity.i18n.util.I18nUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Locale;
+import com.ibm.icu.text.RuleBasedCollator;
 
 /* Correction comment-1(a)
  * May 31, 2005 Antenna House, Inc.
@@ -164,14 +165,12 @@ public class GroupingAndSortingHelper {
         String langCode = locale.toLanguageTag();
 
         Element indexConfigElement = null;
-        String parentLangCode="";
         for (int i = 0; i < nlIndexConfig.getLength(); i++) {
             Element candIndexConfigElem = (Element)(nlIndexConfig.item(i));
             NodeList nl = candIndexConfigElem.getElementsByTagName(ELEMENT_NATIONAL_LANGUAGE);
             if (nl.getLength() == 0) {
                 throw new GroupingAndSortingHelperException(methodName + "Missing required " + ELEMENT_NATIONAL_LANGUAGE + " element within " + ELEMENT_INDEX_CONFIG + " element");
             }
-            parentLangCode="";
             for (int j=0;j < nl.getLength(); j++){
                 String candLangCode = I18nUtil.getElementContent((Element)nl.item(j));
                 if (candLangCode.equals("")) {
@@ -180,7 +179,6 @@ public class GroupingAndSortingHelper {
                 }
             	Boolean isParentLangCode=(j==0)?true:false;
                 if (isParentLangCode){
-                	parentLangCode = candLangCode;
                 }
                 if (candLangCode.equalsIgnoreCase(langCode)){
                     indexConfigElement = candIndexConfigElem;
@@ -195,7 +193,7 @@ public class GroupingAndSortingHelper {
             throw new GroupingAndSortingHelperException(methodName + "Failed to find index configuration for language '" + langCode + "'");
         }
         if (indexConfigElement == null & !langCode.equals(LANGUAGE_EN)) {
-            System.err.println(methodName + "Failed to find index configuration for language '" + langCode + "', trying " + locale.getDefault().toLanguageTag());
+            System.err.println(methodName + "Failed to find index configuration for language '" + langCode + "', trying " + Locale.getDefault().toLanguageTag());
             return this.getRuleSet(Locale.getDefault());
         }
         /**
@@ -211,8 +209,6 @@ public class GroupingAndSortingHelper {
     }
 
     public Iterator<String> getIndexGroupKeysIterator(Locale locale) throws GroupingAndSortingHelperException {
-        String langCode = locale.toLanguageTag();
-    	String parentLangCode = getParentLangCode(langCode);
         GroupingAndSortingRuleSet ic = getRuleSet(locale);
         return ic.getGroupKeysIterator();
     }
@@ -221,8 +217,6 @@ public class GroupingAndSortingHelper {
 	 * May 31, 2005 Antenna House, Inc.
 	 */
 	public RuleBasedCollator getComparator(Locale locale) throws GroupingAndSortingHelperException {
-        String langCode = locale.toLanguageTag();
-    	String parentLangCode=getParentLangCode(langCode);
 		GroupingAndSortingRuleSet ic = getRuleSet(locale);
 		RuleBasedCollator co = ic.getComparator();
 		return co;
@@ -265,16 +259,12 @@ public class GroupingAndSortingHelper {
     public String printRuleSet(Locale locale,
                                boolean includeCollationRules)
                             throws GroupingAndSortingHelperException {
-        String langCode = locale.toLanguageTag();
-    	String parentLangCode=getParentLangCode(langCode);
         GroupingAndSortingRuleSet ic = getRuleSet(locale);
         return ic.toString(includeCollationRules);
     }
     
     public String printRuleSet(Locale locale)
                             throws GroupingAndSortingHelperException {
-        String langCode = locale.toLanguageTag();
-    	String parentLangCode=getParentLangCode(langCode);
         return printRuleSet(locale, false);
     }
     

@@ -1,6 +1,9 @@
 package org.ditacommunity.i18n.textanalysis;
 
-import java.awt.*;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
@@ -45,7 +48,8 @@ public class TextMetrics {
             System.out.println("Input font name \"" + fontName + "\" resulted in font \"" + font.getFontName() + "\"");
         }
 
-        GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        @SuppressWarnings("unused")
+		GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
         // NOTE: The image is just so we can create a Graphics instance, we're not
         // actually doing anything with the image.
         BufferedImage img = new BufferedImage(400, 600, BufferedImage.TYPE_INT_ARGB);

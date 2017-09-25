@@ -1,13 +1,14 @@
-import org.ditacommunity.i18n.textanalysis.TextMetrics;
-import org.junit.Test;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Date;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
+
+import org.ditacommunity.i18n.textanalysis.TextMetrics;
+import org.junit.Test;
 
 /**
  * Created by ekimber on 10/24/16.
@@ -32,7 +33,8 @@ public class TestFontMetrics {
         Font font = new Font(fontName, Font.PLAIN, 24);
         assertNotNull("No font \"" + fontName + "\"", font);
         System.out.println("Got font \"" + font.getFontName() + "\"");
-        GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        @SuppressWarnings("unused")
+		GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
         BufferedImage img = new BufferedImage(400, 600, BufferedImage.TYPE_INT_ARGB);
         Graphics graphics = img.createGraphics();
         graphics.setFont(font);
@@ -49,13 +51,13 @@ public class TestFontMetrics {
         String fontName = "Avenir";
         int fontSize = 24;
         String fontStyle = "plain";
-        int length = TextMetrics.getRenderedLength(text1, fontName, fontSize, "plain");
+        int length = TextMetrics.getRenderedLength(text1, fontName, fontSize, fontStyle);
         assertTrue(length + " not greater than 20", length > 20);
         System.out.println("Length: " + length);
         double start = System.nanoTime();
         System.out.println("Trying 1000 times to test timing...");
         for (int i = 0; i < 100; i++) {
-            length = TextMetrics.getRenderedLength(text1, fontName, fontSize, "plain");
+            length = TextMetrics.getRenderedLength(text1, fontName, fontSize, fontStyle);
         }
         double end = System.nanoTime();
         System.out.println("Rendering took " + ((end - start)/1000000) + " milliseconds");

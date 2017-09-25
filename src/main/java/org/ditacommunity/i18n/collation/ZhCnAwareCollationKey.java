@@ -1,8 +1,8 @@
 package org.ditacommunity.i18n.collation;
 
-import com.ibm.icu.text.Collator;
-
 import java.text.CollationKey;
+
+import com.ibm.icu.text.Collator;
 
 /**
  * Use an ICU collation key to do the comparison.

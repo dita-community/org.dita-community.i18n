@@ -27,17 +27,26 @@
  --------------------------------------------------------------------------------*/
 package org.ditacommunity.i18n.util;
 
-import java.util.Locale;
-import java.util.HashMap;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
 import java.net.URL;
+import java.util.HashMap;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Element;
 import org.w3c.dom.Text;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Attr;
 
 
 /**

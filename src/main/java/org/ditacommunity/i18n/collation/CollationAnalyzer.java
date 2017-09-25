@@ -1,19 +1,20 @@
 package org.ditacommunity.i18n.collation;
 
-import com.sun.javafx.collections.transformation.SortedList;
-import net.sf.saxon.charcode.CharacterSet;
-import net.sf.saxon.om.Item;
-import org.ditacommunity.i18n.textanalysis.WordSplittingSequenceIterator;
-
-import java.io.*;
-import java.nio.charset.Charset;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
+
+import org.ditacommunity.i18n.textanalysis.WordSplittingSequenceIterator;
+
+import net.sf.saxon.om.Item;
 
 /**
  * Utility to do analysis and reporting on the collation details
@@ -163,7 +164,6 @@ public class CollationAnalyzer {
         outStream.write(0xFE);
 
         outStream.println("\"Input terms\t\"words\t\"pinyin");
-        int i = 0;
         for (String term : terms) {
             WordSplittingSequenceIterator iterator = new WordSplittingSequenceIterator(locale, term, debug);
             Item item = iterator.next();
@@ -180,7 +180,6 @@ public class CollationAnalyzer {
         ArrayList<String> list = new ArrayList<>(terms);
         Collections.sort(list, ZhCnAwareCollator.getInstance(locale));
         outStream.println();
-        i = 0;
 
         outStream.println("\"Sorted terms\t\"pinyin");
         for (String term : terms) {

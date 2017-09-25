@@ -1,18 +1,14 @@
 package org.ditacommunity.i18n.textanalysis;
 
-import com.ibm.icu.impl.RuleCharacterIterator;
+import java.util.Locale;
+
 import com.ibm.icu.text.BreakIterator;
 import com.ibm.icu.text.RuleBasedBreakIterator;
+
 import net.sf.saxon.om.Item;
 import net.sf.saxon.om.SequenceIterator;
 import net.sf.saxon.trans.XPathException;
-import net.sf.saxon.value.AtomicValue;
 import net.sf.saxon.value.StringValue;
-import net.sf.saxon.value.Value;
-
-import java.text.CharacterIterator;
-import java.util.HashMap;
-import java.util.Locale;
 
 /**
  * Wrapper for ICU4J RuleBasedBreakIterator for getting words

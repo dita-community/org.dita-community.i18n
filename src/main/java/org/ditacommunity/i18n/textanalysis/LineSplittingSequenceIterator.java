@@ -1,16 +1,15 @@
 package org.ditacommunity.i18n.textanalysis;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 import com.ibm.icu.text.BreakIterator;
 import com.ibm.icu.text.RuleBasedBreakIterator;
+
 import net.sf.saxon.om.Item;
 import net.sf.saxon.om.SequenceIterator;
 import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.value.BigIntegerValue;
-import net.sf.saxon.value.StringValue;
-
-import java.text.CharacterIterator;
-import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  *
@@ -26,9 +25,7 @@ public class LineSplittingSequenceIterator implements SequenceIterator {
 
     private final Locale locale;
     private final BreakIterator breakIterator;
-    private final String text;
     private boolean debug = false;
-    private String currentWord = null;
     private int position = 0; // For XSLT position(). First item will be position 1;
     private Item currentItem = null;
     ArrayList<Item> items = new ArrayList<Item>();
@@ -37,7 +34,6 @@ public class LineSplittingSequenceIterator implements SequenceIterator {
         this.locale = locale;
         this.breakIterator = RuleBasedBreakIterator.getLineInstance(locale);
         breakIterator.setText(text);
-        this.text = text.toString();
         this.debug = debug;
     }
 
@@ -73,6 +69,14 @@ public class LineSplittingSequenceIterator implements SequenceIterator {
         }
         this.currentItem = value;
         return value;
+    }
+    
+    /*
+     * Returns the current debug state.
+     * @return True if debugging has been turned on.
+     */
+    public boolean isDebug() {
+    		return this.debug;
     }
 
     @Override

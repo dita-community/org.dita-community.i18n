@@ -1,18 +1,18 @@
 package org.ditacommunity.i18n.saxon;
 
-import com.ibm.icu.text.RuleBasedBreakIterator;
-import com.ibm.icu.text.RuleBasedCollator;
-import net.sf.saxon.FeatureKeys;
-import net.sf.saxon.sort.CollationURIResolver;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import javax.xml.transform.TransformerFactory;
+
 import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import com.ibm.icu.text.RuleBasedCollator;
 
-
-import javax.xml.transform.TransformerFactory;
+import net.sf.saxon.FeatureKeys;
+import net.sf.saxon.sort.CollationURIResolver;
 
 public class TestSaxonFactorySetup {
 

@@ -1,15 +1,13 @@
 package org.ditacommunity.i18n.textanalysis;
 
-import com.ibm.icu.text.BreakIterator;
-import com.ibm.icu.text.RuleBasedBreakIterator;
-import net.sf.saxon.om.Item;
-import net.sf.saxon.om.SequenceIterator;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 
-import static com.ibm.icu.text.BreakIterator.DONE;
+import com.ibm.icu.text.BreakIterator;
+import com.ibm.icu.text.RuleBasedBreakIterator;
+
+import net.sf.saxon.om.Item;
+import net.sf.saxon.om.SequenceIterator;
 
 /**
  * Provides methods for doing locale-specific text analysis

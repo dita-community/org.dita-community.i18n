@@ -1,23 +1,21 @@
 package org.ditacommunity.i18n.collation;
 
-import com.ibm.icu.text.BreakIterator;
-import com.ibm.icu.text.RuleBasedBreakIterator;
-import com.ibm.icu.text.RuleBasedCollator;
-import com.ibm.icu.util.ULocale;
-import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
-import org.ditacommunity.i18n.collation.ZhCnDictionary;
-import org.junit.Test;
+import static com.ibm.icu.text.BreakIterator.DONE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import javax.print.DocFlavor;
 import java.text.CollationKey;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.ibm.icu.text.BreakIterator.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import com.ibm.icu.text.BreakIterator;
+import com.ibm.icu.text.RuleBasedBreakIterator;
+import com.ibm.icu.text.RuleBasedCollator;
+import com.ibm.icu.util.ULocale;
 
 /**
  * Test the zh-CN-aware collator in isolation.
@@ -45,9 +43,8 @@ public class TestZhCnAwareCollator  {
 
     @org.junit.Test
     public void testZhCnDictionary() throws Exception {
-        ZhCnDictionary dictionary = new ZhCnDictionary();
         String expectedPinYin = "e1lian2qiu2zhang3guo2";
-        String sortKey = dictionary.getPinYin("阿联酋长国", true);
+        String sortKey = ZhCnDictionary.getPinYin("阿联酋长国", true);
         assertEquals("Wrong pinyin", expectedPinYin, sortKey);
 
     }
@@ -55,9 +52,6 @@ public class TestZhCnAwareCollator  {
     @Test
     public void testEnWordBoundaries() {
         String wordsEn = "Word1 word2 word3 word4 word-dash-word5, word6 wordlast.";
-        // http://chinesereadingpractice.com/2015/03/01/guest-post-story-behind-the-idiom-ke-zhou-qiu-jian/
-        // Words are (I think): 从前 有 一 位 楚 国人 他 非常 爱惜 他 的 宝剑
-        String wordsZh = "从前有一位楚国人, 他非常爱惜他的宝剑。";
 
         System.out.println("English word iteration:");
         BreakIterator breakIterator = RuleBasedBreakIterator.getWordInstance(Locale.ENGLISH);

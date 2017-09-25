@@ -1,14 +1,14 @@
 package org.ditacommunity.i18n.saxon;
 
+import java.io.InputStream;
+import java.util.Properties;
+
+import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
+
 import net.sf.saxon.Configuration;
 import net.sf.saxon.sort.CollationURIResolver;
 import net.sf.saxon.sort.StandardCollationURIResolver;
 import net.sf.saxon.sort.StringCollator;
-import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 /**
  * Resolves references to the DITA Community zh-CN URI resolver, setting the
@@ -17,7 +17,9 @@ import java.util.Properties;
  */
 public class DCI18nCollationUriResolver91 extends DCI18nCollationUriResolverBase implements CollationURIResolver {
 
-    private final StandardCollationURIResolver defaultResolver;
+	private static final long serialVersionUID = 1L;
+
+	private final StandardCollationURIResolver defaultResolver;
 
     private static final Properties versionProps = new Properties();
 

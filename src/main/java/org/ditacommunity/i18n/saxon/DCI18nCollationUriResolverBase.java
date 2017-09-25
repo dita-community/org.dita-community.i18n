@@ -1,11 +1,15 @@
 package org.ditacommunity.i18n.saxon;
 
-import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import org.ditacommunity.i18n.collation.ZhCnAwareCollator;
 
 /**
  * Base for Saxon-version-specific collation URI resolver.

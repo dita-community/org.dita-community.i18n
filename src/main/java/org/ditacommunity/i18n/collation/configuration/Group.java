@@ -11,12 +11,12 @@
  */
 package org.ditacommunity.i18n.collation.configuration;
 
+import java.util.Vector;
+
 import org.ditacommunity.i18n.util.I18nUtil;
 import org.ditacommunity.i18n.util.I18nUtilError;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
-import java.util.Vector;
 
 /**
  * Represents a single index group within a language-specific index configuration.

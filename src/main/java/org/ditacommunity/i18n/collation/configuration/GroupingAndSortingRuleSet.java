@@ -16,15 +16,20 @@
  */
 package org.ditacommunity.i18n.collation.configuration;
 
-import com.ibm.icu.text.Collator;
-import com.ibm.icu.text.RuleBasedCollator;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.TreeMap;
+
 import org.ditacommunity.i18n.util.I18nUtil;
 import org.ditacommunity.i18n.util.I18nUtilError;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import java.io.File;
-import java.util.*;
+import com.ibm.icu.text.Collator;
+import com.ibm.icu.text.RuleBasedCollator;
 
 /**
 *
@@ -72,7 +77,6 @@ public class GroupingAndSortingRuleSet {
 	   /* Correction comment-2(1)
 		* May 23, 2006 Antenna House, Inc.
 		*/
-		int use_java_collator = 0;
 		int replace_rules = 0;
        langCode = locale.toLanguageTag();
        groupingAndSortingHelper = inGroupingAndSortingHelper;
@@ -82,13 +86,6 @@ public class GroupingAndSortingRuleSet {
            colSpecElem = I18nUtil.getElement(configElem, "collation_spec");
            if (I18nUtil.hasElementChildren(colSpecElem)) {
                Element collatorSpecElem = I18nUtil.getElement(colSpecElem, "java_collation_spec");
-			   /* Correction comment-2(2)
-			    * May 23, 2006 Antenna House, Inc.
-			    */
-				NodeList node_use_java_collator = colSpecElem.getElementsByTagName("use_java_collator");
-				if (node_use_java_collator.getLength() != 0) {
-					 use_java_collator = 1;
-				}
 				NodeList node_replace_rules = colSpecElem.getElementsByTagName("replace_rules");
 				if (node_replace_rules.getLength() != 0) {
 					replace_rules = 1;

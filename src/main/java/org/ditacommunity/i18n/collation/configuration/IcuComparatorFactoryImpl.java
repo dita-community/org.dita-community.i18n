@@ -16,7 +16,6 @@
  */
 package org.ditacommunity.i18n.collation.configuration;
 
-import java.util.Comparator;
 import java.util.Locale;
 
 import com.ibm.icu.text.RuleBasedCollator;

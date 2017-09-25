@@ -1,16 +1,16 @@
 package org.ditacommunity.i18n.collation;
 
-import com.ibm.icu.text.RuleBasedBreakIterator;
-import com.ibm.icu.text.RuleBasedCollator;
-import net.sf.saxon.sort.StringCollator;
-import org.ditacommunity.i18n.collation.configuration.GroupingAndSortingHelper;
-import org.ditacommunity.i18n.collation.configuration.GroupingAndSortingHelperException;
-
 import java.io.File;
 import java.text.CollationKey;
 import java.text.Collator;
 import java.util.HashMap;
 import java.util.Locale;
+
+import org.ditacommunity.i18n.collation.configuration.GroupingAndSortingHelper;
+
+import com.ibm.icu.text.RuleBasedCollator;
+
+import net.sf.saxon.sort.StringCollator;
 
 /**
  * Rules-based collator that uses the CC-CEDICT Simplified Chinese
@@ -19,7 +19,11 @@ import java.util.Locale;
 public class ZhCnAwareCollator extends Collator
         implements java.util.Comparator<Object>, StringCollator {
 
-    public static final String CONF_GROUPING_AND_SORTING_GROUPING_AND_SORTING_RULES_XML =
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final String CONF_GROUPING_AND_SORTING_GROUPING_AND_SORTING_RULES_XML =
             "conf/grouping-and-sorting/grouping_and_sorting_rules.xml";
     private final RuleBasedCollator delegate;
     private final Locale locale ;
@@ -187,5 +191,12 @@ public class ZhCnAwareCollator extends Collator
      */
     public Locale getLocale() {
         return this.locale;
+    }
+    
+    /*
+     * Gets the configured collation URI.
+     */
+    public String getCollationURI() {
+    		return this.collationURI;
     }
 }

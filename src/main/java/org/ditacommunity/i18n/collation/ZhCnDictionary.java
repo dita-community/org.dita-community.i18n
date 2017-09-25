@@ -1,15 +1,15 @@
 package org.ditacommunity.i18n.collation;
 
-import com.ibm.icu.text.BreakIterator;
-import com.ibm.icu.text.RuleBasedBreakIterator;
-
-import java.io.*;
-import java.net.URI;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.TreeMap;
+
+import com.ibm.icu.text.BreakIterator;
+import com.ibm.icu.text.RuleBasedBreakIterator;
 
 /**
  * Provides a mapping of Simplified Chinese (zh-CN) words to their pinyin
