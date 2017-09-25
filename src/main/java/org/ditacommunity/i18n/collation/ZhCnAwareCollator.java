@@ -81,7 +81,11 @@ public class ZhCnAwareCollator extends Collator
         if (this.colKeyCache.containsKey(source)) {
             return this.colKeyCache.get(source);
         }
-        ZhCnAwareCollationKey colKey = new ZhCnAwareCollationKey(delegate, source);
+        String collationKey = source;
+        if (this.isZhCn) {
+        		collationKey = ZhCnDictionary.getPinYin(source) + source;
+        }
+        ZhCnAwareCollationKey colKey = new ZhCnAwareCollationKey(delegate, collationKey);
         this.colKeyCache.put(source, colKey);
         return colKey;
     }
@@ -164,11 +168,15 @@ public class ZhCnAwareCollator extends Collator
         if (null == pinyin || "".equals(pinyin)) {
             pinyin = source;
         }
+        
         return pinyin;
     }
 
     @Override
     public int compare(Object o1, Object o2) {
+    		if (o1 instanceof String && o2 instanceof String) {
+    			return compare((String)o1, (String)o2);
+    		}
         return delegate.compare(o1, o2);
     }
 

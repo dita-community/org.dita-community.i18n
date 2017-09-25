@@ -1,6 +1,7 @@
 package org.ditacommunity.i18n.collation;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,11 +9,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.nio.file.FileSystems;
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
+import org.apache.commons.io.IOUtils;
 import org.ditacommunity.i18n.textanalysis.WordSplittingSequenceIterator;
+
+import com.ibm.icu.text.CharsetDetector;
+import com.ibm.icu.text.CharsetMatch;
 
 import net.sf.saxon.om.Item;
 
@@ -27,7 +33,7 @@ public class CollationAnalyzer {
      * to be collated and the first line is the language code for the language of the text, e.g.:
      * <pre>
      * zh-CN
-     * 摆位
+     * æ‘†ä½�
      * ...
      * </pre>
      * @param args
@@ -84,7 +90,14 @@ public class CollationAnalyzer {
                                               OutputType outType) throws Exception {
 
         PrintStream utf16Stream = new PrintStream(outStream, true, "UTF-16LE");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
+        
+        byte[] inBytes = IOUtils.toByteArray(inStream);
+        CharsetDetector detector = new CharsetDetector();
+        detector.setText(inBytes);
+        CharsetMatch match = detector.detect();
+        String encoding = match.getName();
+        BufferedReader reader = new BufferedReader(
+        		new InputStreamReader(new ByteArrayInputStream(inBytes), encoding));
         String line = getNextDataLine(reader);
         String langCode = line.trim();
         if ("zh-cn".equals(langCode.toLowerCase())) {
@@ -127,9 +140,13 @@ public class CollationAnalyzer {
             outStream.println("       Words and pinyin:");
             while (item != null) {
                 String word = item.getStringValue();
-                if (Character.isLetter(word.charAt(0))) {
+                int codePoint = Character.codePointAt(word.toCharArray(), 0);
+                if (Character.isLetter(codePoint)) {
                     String pinyin = ZhCnDictionary.getPinYin(word);
-                    outStream.format("\t\t \"%s\"\t: %s\"%n", word, pinyin);
+                    if (null == pinyin || pinyin.equals("")) {
+                    	   pinyin = word;
+                    }
+                    outStream.format("\t\t \"%s\"\t: %s\"%n", word, pinyin) ;
                 }
                 item = iterator.next();
             }
@@ -137,11 +154,15 @@ public class CollationAnalyzer {
         outStream.println("\n========================\n");
         outStream.println("\nSorted:\n");
         ArrayList<String> list = new ArrayList<>(terms);
-        Collections.sort(list, ZhCnAwareCollator.getInstance(locale));
+        Collator collator = ZhCnAwareCollator.getInstance(locale);
+        Collections.sort(list, collator);
         outStream.println();
         i = 0;
-        for (String term : terms) {
-            outStream.format("[%2d] \"%s\"%n", ++i, term);
+        for (String term : list) {
+            outStream.format("[%2d] \"%s\"\t\t\"%s\"\t%n", 
+            		            ++i, 
+            		            term, 
+            		            ((ZhCnAwareCollator)collator).getZhCnSortKey(term));
         }
 
 
@@ -163,27 +184,38 @@ public class CollationAnalyzer {
         outStream.write(0xFF);
         outStream.write(0xFE);
 
-        outStream.println("\"Input terms\t\"words\t\"pinyin");
+        outStream.println("\"Input terms\"\t\"words\"\t\"pinyin\"");
         for (String term : terms) {
             WordSplittingSequenceIterator iterator = new WordSplittingSequenceIterator(locale, term, debug);
             Item item = iterator.next();
+            StringBuilder words = new StringBuilder();
+            StringBuilder pinyin = new StringBuilder();
+            String sep = "";
             while (item != null) {
                 String word = item.getStringValue();
                 if (Character.isLetter(word.charAt(0))) {
-                    String pinyin = ZhCnDictionary.getPinYin(word);
-                    outStream.format("\"%s\t\"%s\t\"%s%n", term, word, pinyin);
+                    words.append(sep).append(word);
+                    pinyin.append(sep).append(ZhCnDictionary.getPinYin(word));
+                } else if (Character.isDigit(word.charAt(0))) {
+                		words.append(sep).append(word);
+                		pinyin.append(sep).append(ZhCnDictionary.getPinYin(word));
                 }
                 item = iterator.next();
+                sep = "|";
             }
+            outStream.format("\"%s\"\t\"%s\"\t\"%s\"%n", term, words.toString(), pinyin.toString());
         }
 
         ArrayList<String> list = new ArrayList<>(terms);
-        Collections.sort(list, ZhCnAwareCollator.getInstance(locale));
+        Collator collator = ZhCnAwareCollator.getInstance(locale);
+        Collections.sort(list, collator);
         outStream.println();
 
-        outStream.println("\"Sorted terms\t\"pinyin");
-        for (String term : terms) {
-            outStream.format("\"%s\t\"%s%n", term, ZhCnDictionary.getPinYin(term));
+        outStream.println("\"Sorted terms\"\t\"sort-key\"\t\"pinyin\"");
+        for (String term : list) {
+            outStream.format("\"%s\"\t\"%s\"%n", 
+            		term,
+            		((ZhCnAwareCollator)collator).getZhCnSortKey(term));
         }
 
 
