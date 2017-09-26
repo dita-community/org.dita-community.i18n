@@ -52,7 +52,7 @@ public class DCI18nCollationUriResolver91 extends DCI18nCollationUriResolverBase
         return (StringCollator)collator;
     }
 
-    private static String getVersion() {
+    public static String getVersion() {
         return versionProps.getProperty("version", "Version not set");
     }
 

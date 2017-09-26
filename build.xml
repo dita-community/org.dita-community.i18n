@@ -172,11 +172,16 @@
   </path>
   
   
-  <target name="compile.module.org.dita-community.i18n" depends="compile.module.org.dita-community.i18n.production,compile.module.org.dita-community.i18n.tests" description="Compile module org.dita-community.i18n"/>
+  <target name="compile.module.org.dita-community.i18n" 
+  	depends="compile.module.org.dita-community.i18n.production,compile.module.org.dita-community.i18n.tests" 
+  	description="Compile module org.dita-community.i18n"/>
   
   <target name="compile.module.org.dita-community.i18n.production" description="Compile module org.dita-community.i18n; production classes">
     <mkdir dir="${org.dita-community.i18n.output.dir}"/>
-    <javac destdir="${org.dita-community.i18n.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.org.dita-community.i18n}/javac">
+    <javac destdir="${org.dita-community.i18n.output.dir}" includeantruntime="no" 
+    		debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" 
+    		memorymaximumsize="${compiler.max.memory}" fork="true" 
+    		executable="${module.jdk.bin.org.dita-community.i18n}/javac">
       <compilerarg line="${compiler.args.org.dita-community.i18n}"/>
       <bootclasspath refid="org.dita-community.i18n.module.bootclasspath"/>
       <classpath refid="org.dita-community.i18n.module.production.classpath"/>
@@ -197,7 +202,9 @@
     </copy>
   </target>
   
-  <target name="compile.module.org.dita-community.i18n.tests" depends="compile.module.org.dita-community.i18n.production" description="compile module org.dita-community.i18n; test classes" unless="skip.tests"/>
+  <target name="compile.module.org.dita-community.i18n.tests" 
+  	depends="compile.module.org.dita-community.i18n.production" 
+  	description="compile module org.dita-community.i18n; test classes" unless="skip.tests"/>
   
   <target name="clean.module.org.dita-community.i18n" description="cleanup module">
     <delete dir="${org.dita-community.i18n.output.dir}"/>

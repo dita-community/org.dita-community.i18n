@@ -118,7 +118,7 @@ public class ZhCnAwareCollator extends Collator
             try {
                 result = zhCnCompare(source, target);
             } catch (Exception e) {
-                System.out.println(" + [ERROR] ZhCnAwareCollator.compare(): " + e.getClass().getSimpleName());
+                System.err.println(" + [ERROR] ZhCnAwareCollator.compare(): " + e.getClass().getSimpleName());
                 e.printStackTrace();
                 result = delegate.compare(source, target);
             }
@@ -158,8 +158,11 @@ public class ZhCnAwareCollator extends Collator
      */
     protected String getZhCnSortKey(String source) {
 
+    	    // System.err.println("getZhCnSortKey(): source='" + source + "'");
         if (this.colKeyCache.containsKey(source)) {
-            return colKeyCache.get(source).getSortKey();
+        	    String sortKey = colKeyCache.get(source).getSortKey(); 
+        		// System.err.println("getZhCnSortKey():   collation key is in cache, returning " + sortKey);
+            return sortKey;
         }
 
         String pinyin = ZhCnDictionary.getPinYin(source);
@@ -168,6 +171,7 @@ public class ZhCnAwareCollator extends Collator
         if (null == pinyin || "".equals(pinyin)) {
             pinyin = source;
         }
+		// System.err.println("getZhCnSortKey():   collation key not in cache, returning " + pinyin);
         
         return pinyin;
     }

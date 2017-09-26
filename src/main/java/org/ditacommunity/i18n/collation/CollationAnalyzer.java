@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Locale;
 
 import org.apache.commons.io.IOUtils;
+import org.ditacommunity.i18n.saxon.DCI18nCollationUriResolver91;
 import org.ditacommunity.i18n.textanalysis.WordSplittingSequenceIterator;
 
 import com.ibm.icu.text.CharsetDetector;
@@ -57,6 +58,7 @@ public class CollationAnalyzer {
         if (args.length > 1) {
             outType = OutputType.fromString(args[1]);
         }
+        
         if (outType == null) outType = OutputType.TEXT;
         try {
             reportCollationDetails(inFile, System.out, outType);
@@ -107,7 +109,7 @@ public class CollationAnalyzer {
                     break;
                 case TEXT:
                 default:
-                    reportZhCnCollation(langCode, reader, outStream);
+                    reportZhCnCollation(langCode, reader, utf16Stream);
 
             }
         } else {
@@ -183,6 +185,8 @@ public class CollationAnalyzer {
 
         outStream.write(0xFF);
         outStream.write(0xFE);
+        // System.err.println("Collation Analyzer version " + DCI18nCollationUriResolver91.getVersion());
+
 
         outStream.println("\"Input terms\"\t\"words\"\t\"pinyin\"");
         for (String term : terms) {
@@ -211,7 +215,7 @@ public class CollationAnalyzer {
         Collections.sort(list, collator);
         outStream.println();
 
-        outStream.println("\"Sorted terms\"\t\"sort-key\"\t\"pinyin\"");
+        outStream.println("\"Sorted terms\"\t\"sort-key\"");
         for (String term : list) {
             outStream.format("\"%s\"\t\"%s\"%n", 
             		term,

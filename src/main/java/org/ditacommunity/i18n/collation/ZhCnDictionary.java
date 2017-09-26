@@ -37,7 +37,7 @@ public class ZhCnDictionary {
         }
         try {
             InputStream inStream = resource.openStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, "UTF-8"));
             String line;
             while((line = reader.readLine()) != null) {
                 if (line.startsWith("#")) continue;;
@@ -90,7 +90,7 @@ public class ZhCnDictionary {
      */
     protected static String lookupPinYin(String source, boolean debug) {
         if (debug) {
-            System.out.println("lookupPinYin(): Source=\"" + source + "\"");
+            System.err.println("lookupPinYin(): Source=\"" + source + "\"");
         }
         StringBuilder buf = new StringBuilder();
         RuleBasedBreakIterator breakIterator = getBreakIterator(source);
@@ -98,20 +98,20 @@ public class ZhCnDictionary {
         int breakPos = breakIterator.next();
         while (breakPos != BreakIterator.DONE) {
             if (debug) {
-                System.out.println("lookupPinYin(): curPos=" + curPos + ", breakPos=" + breakPos);
+                System.err.println("lookupPinYin(): curPos=" + curPos + ", breakPos=" + breakPos);
             }
             String word = source.substring(curPos, breakPos);
             if (debug) {
-                System.out.println("lookupPinYin(): word=\"" + word + "\"");
+                System.err.println("lookupPinYin(): word=\"" + word + "\"");
             }
             if (Character.isLetter(word.charAt(0))) {
                 if (debug) {
-                    System.out.println("lookupPinYin():   first character of word is a letter, adding it to result.");
+                    System.err.println("lookupPinYin():   first character of word is a letter, adding it to result.");
                 }
                 String pinyin = lookupPinYinForWord(word);
                 pinyin = pinyin.replace(" ", "");
                 if (debug) {
-                    System.out.println("lookupPinYin():   pinyin=\"" + pinyin + "\"");
+                    System.err.println("lookupPinYin():   pinyin=\"" + pinyin + "\"");
                 }
                 buf.append(pinyin);
             }
@@ -119,7 +119,7 @@ public class ZhCnDictionary {
             breakPos = breakIterator.next();
         }
         if (debug) {
-            System.out.println("lookupPinYin(): Returning \"" + buf.toString() + "\"");
+            System.err.println("lookupPinYin(): Returning \"" + buf.toString() + "\"");
         }
         return buf.toString();
     }
