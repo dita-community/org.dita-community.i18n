@@ -1,60 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <test-data xml:lang="zh-CN">
-  <title>zh-CN words to be sorted</title>
+  <title>zh-CN strings to be sorted. Corresponds to the hsk-1-examples.txt.</title>
   <words>
-    <word sort-position="0" expected-sort-key="" expected-group="">请参阅</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">另见</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">图</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">表</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">下一主题</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">上一主题</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">父主题</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">需要修正</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">非正式版注释</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">选项</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">描述</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">可选</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">必需</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">跳过直观语法图</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">阅读语法图</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">更新开始</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">更新结束</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">索引</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">特别字符</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">数字</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">结尾注释</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">图片</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">语法</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">类型</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">值</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">注</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">提示</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">捷径</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">重要</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">注意</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">警告</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">危险</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">切记</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">限制</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">警告</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">内容</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">相关概念</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">相关任务</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">相关参考</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">相关信息</word>    
-    <word sort-position="0" expected-sort-key="" expected-group="">先决条件</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">先决条件</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">或</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">关于此任务</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">示例</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">下一步做什么</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">开始之前</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">过程</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">结果</word>    
-    <word sort-position="0" expected-sort-key="" expected-group="">版权</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">“</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">”</word>
-    <word sort-position="0" expected-sort-key="" expected-group="">：</word>
+    <word sort-position="186" expected-sort-key="zhe shi shenme yisi">这是什么『意思』？</word>
+    <word sort-position="180" expected-sort-key="zhege" exception="true">这个</word>
+    <word sort-position="187" expected-sort-key="zhe shi zai huoche zhan mai de">这是在火车站买的。</word>
+    <word sort-position="179" expected-sort-key="zhe'er de xigua tebie tian" exception="sorted ignoring spaces">这儿的西瓜特别甜。</word>
+    <word sort-position="188" expected-sort-key="zhexie beizi ni xihuan na yige">这些杯子，你喜欢哪一个？</word>
+    <word sort-position="189" expected-sort-key="zhexie haizi duo ke'ai ya">这些孩子多可爱呀！</word>
+    <word sort-position="2" expected-sort-key="15 kuai">15块</word>
+    <word sort-position="3" expected-sort-key="2009 nian 7 yue 6 ri">2009年7月6日</word>
+    <word sort-position="26" expected-sort-key="ji ben">几本</word>
+    <word sort-position="27" expected-sort-key="jintian bi zuotian leng">今天比昨天冷。</word>
+    <word sort-position="10" expected-sort-key="9 gongjin">9公斤</word>
+    <word sort-position="15" expected-sort-key="chule hua hua er ta hai xihuan tiaowu">除了画画儿，她还喜欢跳舞。</word>
+    <word sort-position="16" expected-sort-key="cong zhe'er dao na'er duo yuan">从这儿到那儿多远？</word>
+    <word sort-position="1" expected-sort-key="10000 mi">10000米</word>
+    <word sort-position="17" expected-sort-key="deng yixia">等一下。</word>
+    <word sort-position="11" expected-sort-key="bie shuohua">别说话。</word>
+    <word sort-position="12" expected-sort-key="budan erqie">不但…而且…</word>
+    <word sort-position="24" expected-sort-key="huanying zailai">欢迎再来！</word>
+    <word sort-position="25" expected-sort-key="huoche yao kaile">火车要开了。</word>
+    <word sort-position="28" expected-sort-key="jintian de dianshi shi mu hen haokan">今天的电视『视目』很好看。</word>
+    <word sort-position="29" expected-sort-key="jintian ta you chidaole">今天他又迟到了。</word>
+    <word sort-position="30" expected-sort-key="jintian wo you henduo shiqing yao zuo">今天我有很多『事情』要做。</word>
+    <word sort-position="31" expected-sort-key="kaoshi zhongyu jieshule">考试终于结束了。</word>
+    <word sort-position="18" expected-sort-key="di 10 ceng">第10层</word>
+    <word sort-position="19" expected-sort-key="di san">第三</word>
+    <word sort-position="32" expected-sort-key="kuai yidian er">快一点儿。</word>
+    <word sort-position="33" expected-sort-key="liang tiao yu">两条鱼</word>
+    <word sort-position="34" expected-sort-key="liang zhong">两种</word>
+    <word sort-position="35" expected-sort-key="mei ci">每次</word>
+    <word sort-position="36" expected-sort-key="mingtian hui geng hao">明天会更好。</word>
+    <word sort-position="9" expected-sort-key="800 duo ren">800多人</word>
+    <word sort-position="20" expected-sort-key="fangzi suiran jiule danshi hen ganjing">房子虽然旧了，但是很干净。</word>
+    <word sort-position="21" expected-sort-key="gei wo da dianhua huozhe fa dianzi youjian dou keyi">给我打电话或者发电子邮件都可以。</word>
+    <word sort-position="37" expected-sort-key="mingtian keneng xia yu">明天可能下雨。</word>
+    <word sort-position="38" expected-sort-key="mingtian xingqiliu">明天星期六。</word>
+    <word sort-position="39" expected-sort-key="na bian da dianhua de shi wo zhangfu">那边打电话的是我丈夫。</word>
+    <word sort-position="40" expected-sort-key="nage beizi shi wo de">那个杯子是我的。</word>
+    <word sort-position="41" expected-sort-key="nage ren shi shei">那个人是谁？</word>
+    <word sort-position="42" expected-sort-key="nali de tianqi feichang re">那里的天气非常热。</word>
+    <word sort-position="43" expected-sort-key="naxie">那些</word>
+    <word sort-position="44" expected-sort-key="nayang zuo dangran bu keyi">那样做当然不可以。</word>
+    <word sort-position="45" expected-sort-key="ni ai chi shenme shuiguo">你爱吃什么水果？</word>
+    <word sort-position="46" expected-sort-key="ni bie qu youyongle">你别去游泳了。</word>
+    <word sort-position="47" expected-sort-key="ni bie wangle dai huzhao">你别忘了带护照。</word>
+    <word sort-position="48" expected-sort-key="ni de sanmingzhi zong shi tebie hao chi">你的三明治『总是』特别好吃！</word>
+    <word sort-position="49" expected-sort-key="ni de zi xie de zhen piaoliang">你的字写得真漂亮！</word>
+    <word sort-position="50" expected-sort-key="ni gan qima ma">你敢骑马吗？</word>
+    <word sort-position="51" expected-sort-key="ni he bu he cha">你喝不喝茶？</word>
+    <word sort-position="52" expected-sort-key="ni he cha haishi kafei">你喝茶还是喝咖啡？</word>
+    <word sort-position="53" expected-sort-key="ni ji suile">你几岁了？</word>
+    <word sort-position="54" expected-sort-key="ni jueding le meiyou">你决定了没有？</word>
+    <word sort-position="55" expected-sort-key="nimen xuexiao you duoshao xuesheng" exception="sorted ignoring spaces">你们学校有多少学生？</word>
+    <word sort-position="56" expected-sort-key="ni qu wen wen ta">你去问问他。</word>
+    <word sort-position="57" expected-sort-key="ni shenme shihou neng lai">你什么时候能来？</word>
+    <word sort-position="58" expected-sort-key="ni shi zhongguo ren ba">你是中国人吧？</word>
+    <word sort-position="64" expected-sort-key="ni zenmele">你怎么了？</word>
+    <word sort-position="59" expected-sort-key="ni weishenme shengqi">你为什么『生气』</word>
+    <word sort-position="60" expected-sort-key="ni xiang chi baozi haishi jiaozi">你想吃包子『还是』饺子？</word>
+    <word sort-position="61" expected-sort-key="ni xiang qu na'er">你想去哪儿？</word>
+    <word sort-position="65" expected-sort-key="ni zuo de dui">你做的对。</word>
+    <word sort-position="66" expected-sort-key="nin yao liang zhang piao dui ma">您要两张票，对吗？</word>
+    <word sort-position="67" expected-sort-key="qing anjing jiemu mashang kaishi">请安静，节目马上开始。</word>
+    <word sort-position="79" expected-sort-key="ta buzai fandian">她不在饭店。</word>
+    <word sort-position="80" expected-sort-key="ta chang de hao jile">她唱得好极了！</word>
+    <word sort-position="62" expected-sort-key="ni yuanyi he wo jiehun ma">你愿意和我结婚吗？</word>
+    <word sort-position="63" expected-sort-key="ni zai na'er ne">你在哪儿呢？</word>
+    <word sort-position="68" expected-sort-key="qing ba kongtiao dakai">请把空调打开。</word>
+    <word sort-position="69" expected-sort-key="qing dajia zhuyi">请大家『注意』。</word>
+    <word sort-position="70" expected-sort-key="qing zuo">请坐。</word>
+    <word sort-position="71" expected-sort-key="rang wo xiang yi xiang">让我想一想。</word>
+    <word sort-position="74" expected-sort-key="shu shi gege de">书是哥哥的。</word>
+    <word sort-position="88" expected-sort-key="ta hui shuo hanyu erqie shuode hen hao">她会说汉语，而且说得很好。</word>
+    <word sort-position="75" expected-sort-key="siwuqian ge">四五千个</word>
+    <word sort-position="76" expected-sort-key="suiran X danshi Y">虽然X，但是Y。</word>
+    <word sort-position="72" expected-sort-key="ruguo dajia dou tongyi jiu zheyang juedingle">如果大家都同意，就这样决定了。</word>
+    <word sort-position="73" expected-sort-key="shanghai meiyou beijing name leng">上海没有北京那么冷。</word>
+    <word sort-position="77" expected-sort-key="suiran xia yu danshi ta qu ti zuqu">虽然下雨，但是他去踢足球。</word>
+    <word sort-position="78" expected-sort-key="ta 80 suile danshi shenti hen hao">他80岁了，但是身体很好。</word>
+    <word sort-position="84" expected-sort-key="ta gaoxing de xiaole">她高兴地笑了。</word>
+    <word sort-position="85" expected-sort-key="ta hai mei qichuang">她还没起床。</word>
+    <word sort-position="81" expected-sort-key="ta cong zhongguo huilaile">她从中国回来了。</word>
+    <word sort-position="82" expected-sort-key="ta de chengji yizhi hen hao">他的成绩一直很好。</word>
+    <word sort-position="83" expected-sort-key="ta dui wo hen hao">他对我很好。</word>
+    <word sort-position="86" expected-sort-key="ta hen gaoxing" exception="sorted ignoring spaces">她很高兴。</word>
+    <word sort-position="95" expected-sort-key="ta pao de duo kuai a">他跑得多快啊！</word>
+    <word sort-position="98" expected-sort-key="ta shi wo de tongxue">他是我的同学。</word>
+    <word sort-position="96" expected-sort-key="ta qu yiyuanle">她去医院了。</word>
+    <word sort-position="87" expected-sort-key="ta he wo yiyang gao">他和我一样高。</word>
+    <word sort-position="90" expected-sort-key="ta maile yi jin pingguo">他买了一斤苹果。</word>
+    <word sort-position="91" expected-sort-key="ta meitian qi che shangban" exception="sorted ignoring spaces">他每天骑车上班。</word>
+    <word sort-position="89" expected-sort-key="ta jinnian 24 sui">他今年24岁。</word>
+    <word sort-position="92" expected-sort-key="ta mei qu kan dianying">她没去看电影。</word>
+    <word sort-position="93" expected-sort-key="ta mei qu kan dianying">他没去看电影。</word>
+    <word sort-position="105" expected-sort-key="ta yibian shangwang yibian ting yinyue">他一边上网，一边听音乐。</word>
+    <word sort-position="94" expected-sort-key="ta mei qu yiyuan">他没去医院。</word>
+    <word sort-position="97" expected-sort-key="ta shi jingli ma">他是经理吗？</word>
+    <word sort-position="99" expected-sort-key="ta shi yisheng ma">他是医生吗？</word>
+    <word sort-position="100" expected-sort-key="ta shi zuo feiji lai de">他是坐飞机来的。</word>
+    <word sort-position="101" expected-sort-key="ta wanshang 11 dian cai xiaban">他晚上11点才下班。</word>
+    <word sort-position="102" expected-sort-key="ta weishenme mei lai">他为什么没来？</word>
+    <word sort-position="106" expected-sort-key="ta yijing dao xuexiaole">他已经到学校了。</word>
+    <word sort-position="107" expected-sort-key="ta zong shi hen mang">她总是很忙。</word>
+    <word sort-position="108" expected-sort-key="ta zuole yihui'er">他坐了一会儿。</word>
+    <word sort-position="109" expected-sort-key="tai haole">太好了！</word>
+    <word sort-position="110" expected-sort-key="tai haole">太好了！</word>
+    <word sort-position="103" expected-sort-key="ta xiaozhe shuo mingtian jian" exception="sorted ignoring spaces">她笑着说：“明天见。”</word>
+    <word sort-position="104" expected-sort-key="ta xia xingqi jiu huilaile">她下星期就回来了。</word>
+    <word sort-position="111" expected-sort-key="tamen yiqi qu jichangle">他们一起去机场了。</word>
+    <word sort-position="112" expected-sort-key="tamen zai chifan ne">他们在吃饭呢。</word>
+    <word sort-position="113" expected-sort-key="tamen zhengzai da lanqiu">他们正在打篮球。</word>
+    <word sort-position="114" expected-sort-key="tianqi hen hao">天气很好。</word>
+    <word sort-position="115" expected-sort-key="waimian xiazhe yu">外面下着雨。</word>
+    <word sort-position="116" expected-sort-key="wei ni hao">喂，你好。</word>
+    <word sort-position="117" expected-sort-key="weile jiejue huanjing wenti renmen xiangle henduo banfa">为了解决环境问题，人们想了很多办法。</word>
+    <word sort-position="118" expected-sort-key="wo ba yifu xile">我把衣服洗了。</word>
+    <word sort-position="119" expected-sort-key="wo bi ta gao">我比她高。</word>
+    <word sort-position="120" expected-sort-key="wo budan shuo zhongwen hai shuo yingwen">我『不但』说中文，还说英文。</word>
+    <word sort-position="121" expected-sort-key="wo bushi xuesheng">我不是学生。</word>
+    <word sort-position="122" expected-sort-key="wo de dianhua shi 58590000">我的电话是58590000。</word>
+    <word sort-position="123" expected-sort-key="wo de diannao">我的电脑</word>
+    <word sort-position="124" expected-sort-key="wo dui ni zuo de cai hen manyi">我对你做的菜很『满意』。</word>
+    <word sort-position="125" expected-sort-key="wo fuxi hanyu shuiping kaoshi">我『复习』汉语水平考试。</word>
+    <word sort-position="126" expected-sort-key="wo he ni">我和你</word>
+    <word sort-position="127" expected-sort-key="wo hen xiguan chi zhongguo cai">我很『习惯』吃中国菜。</word>
+    <word sort-position="128" expected-sort-key="wo hui zuofan">我会做饭。</word>
+    <word sort-position="129" expected-sort-key="wo jingtian hao meiyou chi wufan">我惊天『还』没有吃午饭。</word>
+    <word sort-position="134" expected-sort-key="wo renshi ta">我认识他。</word>
+    <word sort-position="135" expected-sort-key="wo shi laoshi ni ne">我是老师，你呢？</word>
+    <word sort-position="130" expected-sort-key="wo kanguo zhege dianying">我看过这个电影。</word>
+    <word sort-position="143" expected-sort-key="wo xueguo hanyu" exception="sorted ignoring spaces">我学过汉语。</word>
+    <word sort-position="131" expected-sort-key="wo maile yi ben shu">我买了一本书。</word>
+    <word sort-position="132" expected-sort-key="wo maile yixie chi de">我买了一些吃的。</word>
+    <word sort-position="133" expected-sort-key="wo mingtian yiding lai">我明天一定来。</word>
+    <word sort-position="136" expected-sort-key="wo shi zuotian lai de">我是昨天来的。</word>
+    <word sort-position="137" expected-sort-key="wo tiantian lianxi zhongwen">我天天『练习』中文。</word>
+    <word sort-position="138" expected-sort-key="wo tongyi ni de hua">我『同意』你的话。</word>
+    <word sort-position="139" expected-sort-key="wo xian chifan zai qu shuijiao">我『先』吃饭，再去睡觉。</word>
+    <word sort-position="140" expected-sort-key="wo xian shuo ji ju">我先说几句。</word>
+    <word sort-position="141" expected-sort-key="wo xihuan he wo mama liaotian">我喜欢和我妈妈『聊天』。</word>
+    <word sort-position="151" expected-sort-key="wo zui xihuan de jijie shi xiaji">我最喜欢的『季节』是夏季。</word>
+    <word sort-position="144" expected-sort-key="wo xue zhongwen hen you rexing">我学中文很有『热情』。</word>
+    <word sort-position="145" expected-sort-key="wo yao xue youyong">我要学游泳。</word>
+    <word sort-position="146" expected-sort-key="wo yeyou yikuai zheyang de shoubiao">我也有一块这样的手表。</word>
+    <word sort-position="147" expected-sort-key="wo yuanyi he ni yiqi qu">我『愿意』和你一起去。</word>
+    <word sort-position="148" expected-sort-key="wo zai jianada liuxue">我在加拿大『留学』。</word>
+    <word sort-position="149" expected-sort-key="wo zhi quguo yici beijing">我只去过一次北京。</word>
+    <word sort-position="150" expected-sort-key="wo zhu zai beijing">我住在北京。</word>
+    <word sort-position="158" expected-sort-key="women yinggai zai zhoumo kai ge hui">我们应该在周末开个会。</word>
+    <word sort-position="159" expected-sort-key="women yiqi qu hao ma">我们一起去，好吗？</word>
+    <word sort-position="152" expected-sort-key="wo zui xihuan he kafei">我最喜欢喝咖啡。</word>
+    <word sort-position="142" expected-sort-key="wo xihuan xue shuxue">我喜欢学『数学』。</word>
+    <word sort-position="153" expected-sort-key="women bixu xiangge hao banfa">我们必须想个好办法。</word>
+    <word sort-position="154" expected-sort-key="women de hua tebie xiang">我们的花『特别』香。</word>
+    <word sort-position="155" expected-sort-key="women de xiaozhang hen pang">我们的『校长』很胖。</word>
+    <word sort-position="156" expected-sort-key="women dou kanjian nage renle">我们都看见那个人了。</word>
+    <word sort-position="157" expected-sort-key="women shi dache haishi zuo ditie">我们是打车还是坐地铁？</word>
+    <word sort-position="160" expected-sort-key="women zhengzai kan dianshi">我们正在看电视。</word>
+    <word sort-position="161" expected-sort-key="xian chifan ranhou qu kan dianying">先吃饭，然后去看电影。</word>
+    <word sort-position="162" expected-sort-key="xiang zuo zou" exception="sorted ignoring spaces">向左走。</word>
+    <word sort-position="163" expected-sort-key="xian X ranhou Y">先X，然后Y。</word>
+    <word sort-position="164" expected-sort-key="xianzai kuai 10 dianle ba">现在快10点了吧？</word>
+    <word sort-position="165" expected-sort-key="xianzai ni keyi zoule">现在你可以走了。</word>
+    <word sort-position="173" expected-sort-key="yinwei xia yu suoyi ta mei qu ti zuqiu">因为下雨，所以他没去踢足球。</word>
+    <word sort-position="174" expected-sort-key="yishuang xie">一双鞋</word>
+    <word sort-position="166" expected-sort-key="xiao wang jiao wo qu ta jia wan er">小王叫我去他家玩儿。</word>
+    <word sort-position="167" expected-sort-key="xingli xiang bei siji na zoule">行李箱被司机拿走了。</word>
+    <word sort-position="168" expected-sort-key="xingqisi">星期四</word>
+    <word sort-position="169" expected-sort-key="xuexiao li wojia hen jin">学校离我家很近。</word>
+    <word sort-position="170" expected-sort-key="yibian X yibianY" exception="sorted ignoring spaces">一边X，一边Y。</word>
+    <word sort-position="171" expected-sort-key="yige" exception="sorted ignoring spaces">一个</word>
+    <word sort-position="175" expected-sort-key="yu bei xiao mao chile">鱼被小猫吃了。</word>
+    <word sort-position="176" expected-sort-key="yu yue xia yue da">雨越下越大。</word>
+    <word sort-position="172" expected-sort-key="yi nian you 12 ge yue">一年有12个月。</word>
+    <word sort-position="177" expected-sort-key="zhe ben shu zenmeyang">这本书怎么样？</word>
+    <word sort-position="178" expected-sort-key="zhe dao ti qishi hen rongyi">这道题其实很容易。</word>
+    <word sort-position="181" expected-sort-key="zhe jian yifu shi zui pianyi de" exception="sorted ignoring spaces">这件衣服是最便宜的。</word>
+    <word sort-position="182" expected-sort-key="zhen ganjing" exception="sorted ignoring spaces">真干净！</word>
+    <word sort-position="183" expected-sort-key="zhen hao chi" exception="sorted ignoring spaces">真好吃！</word>
+    <word sort-position="184" expected-sort-key="zhen piaoliang a" exception="sorted ignoring spaces">真漂亮啊！</word>
+    <word sort-position="4" expected-sort-key="3 ben">3本</word>
+    <word sort-position="5" expected-sort-key="3 jiao 5 fen">3角5分</word>
+    <word sort-position="6" expected-sort-key="5 dian 1 ke">5点1刻</word>
+    <word sort-position="7" expected-sort-key="6 yuan">6元</word>
+    <word sort-position="8" expected-sort-key="8 dian 1 fen">8点40分</word>
+    <word sort-position="185" expected-sort-key="zhe shi ni de zhuozi ma">这是你的桌子吗？</word>
+    <word sort-position="190" expected-sort-key="zhexie yao yigong 300 yuan">这些药一共300元。</word>
+    <word sort-position="191" expected-sort-key="zhiyou cai">只有…才…</word>
+    <word sort-position="192" expected-sort-key="zhongguo de da chengshi wo jihu dou quguo">中国的大城市，我几乎都去过。</word>
+    <word sort-position="22" expected-sort-key="guanyu zhe duan lishi wo zhidao de hen shao">关于这段历史，我知道得很少。</word>
+    <word sort-position="23" expected-sort-key="hao jile">好极了！</word>
+    <word sort-position="193" expected-sort-key="zhongwu chi miantiao er keyi ma">中午吃面条儿，可以吗？</word>
+    <word sort-position="13" expected-sort-key="buyao chi tai duo">不要吃太多。</word>
+    <word sort-position="14" expected-sort-key="chenjie shi zhongguo zuida de jieri">春节是中国最大的『节日』。</word>
+    <word sort-position="194" expected-sort-key="zhuozi shang fangzhe yi ben shu">桌子上放着一本书。</word>
+    <word sort-position="195" expected-sort-key="zuijin ta jingchang qu pashan">最近他经常去爬山。</word>
   </words>
   <paragraphs>
     <!-- http://chinesereadingpractice.com/2015/03/01/guest-post-story-behind-the-idiom-ke-zhou-qiu-jian/ -->
