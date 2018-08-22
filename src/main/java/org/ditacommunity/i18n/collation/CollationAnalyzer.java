@@ -91,7 +91,8 @@ public class CollationAnalyzer {
                                               PrintStream outStream,
                                               OutputType outType) throws Exception {
 
-        PrintStream utf16Stream = new PrintStream(outStream, true, "UTF-16LE");
+        PrintStream utf8Stream = new PrintStream(outStream, true, "UTF8");
+        // FIXME: May need UTF-16 stream for Windows output. The UTF-8 stream works on macOS
         
         byte[] inBytes = IOUtils.toByteArray(inStream);
         CharsetDetector detector = new CharsetDetector();
@@ -105,11 +106,11 @@ public class CollationAnalyzer {
         if ("zh-cn".equals(langCode.toLowerCase())) {
             switch (outType) {
                 case CSV:
-                    reportZhCnCollationAsCSV(langCode, reader, utf16Stream);
+                    reportZhCnCollationAsCSV(langCode, reader, utf8Stream);
                     break;
                 case TEXT:
                 default:
-                    reportZhCnCollation(langCode, reader, utf16Stream);
+                    reportZhCnCollation(langCode, reader, utf8Stream);
 
             }
         } else {
@@ -130,7 +131,7 @@ public class CollationAnalyzer {
         Locale locale = Locale.forLanguageTag(langCode);
 
         boolean debug = false;
-        outStream.print("Collation report for language ");
+        outStream.print("Collation report for language " + langCode);
 
 
         outStream.println("\nInput terms:\n");
