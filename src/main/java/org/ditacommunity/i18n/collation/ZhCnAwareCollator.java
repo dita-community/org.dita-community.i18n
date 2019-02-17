@@ -9,7 +9,6 @@ import com.ibm.icu.text.RuleBasedCollator;
 
 import net.sf.saxon.expr.sort.AtomicMatchKey;
 import net.sf.saxon.lib.StringCollator;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Rules-based collator that uses the CC-CEDICT Simplified Chinese
@@ -144,17 +143,17 @@ public class ZhCnAwareCollator extends Collator
 
     @Override
     public int compareStrings(CharSequence charSequence, CharSequence charSequence1) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean comparesEqual(CharSequence charSequence, CharSequence charSequence1) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public AtomicMatchKey getCollationKey(CharSequence charSequence) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
 
