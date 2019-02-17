@@ -21,14 +21,12 @@ import net.sf.saxon.value.BigIntegerValue;
  * because you set the text on the breakiterator can't share the same instance
  * across different threads. Not sure how that works in a Saxon context.
  */
-public class LineSplittingSequenceIterator implements SequenceIterator {
+public class LineSplittingSequenceIterator implements SequenceIterator<Item<?>> {
 
     private final Locale locale;
     private final BreakIterator breakIterator;
     private boolean debug = false;
-    private int position = 0; // For XSLT position(). First item will be position 1;
-    private Item currentItem = null;
-    ArrayList<Item> items = new ArrayList<Item>();
+    ArrayList<Item<?>> items = new ArrayList<Item<?>>();
 
     public LineSplittingSequenceIterator(Locale locale, String text, boolean debug) {
         this.locale = locale;
@@ -48,26 +46,17 @@ public class LineSplittingSequenceIterator implements SequenceIterator {
     }
 
     @Override
-    public Item next() throws XPathException {
+    public Item<?> next() throws XPathException {
         return getNextItem();
     }
 
-    @Override
-    public Item current() {
-        if (null == this.currentItem ) {
-            this.getNextItem();
-        }
-        return this.currentItem;
-    }
-
-    private Item getNextItem() {
+    private Item<?> getNextItem() {
         int pos = breakIterator.next();
-        Item value = null;
+        Item<?> value = null;
         if (pos != BreakIterator.DONE) {
             // XSLT positions are 1 indexed:
             value = new BigIntegerValue(pos + 1);
         }
-        this.currentItem = value;
         return value;
     }
     
@@ -80,17 +69,12 @@ public class LineSplittingSequenceIterator implements SequenceIterator {
     }
 
     @Override
-    public int position() {
-        return position;
-    }
-
-    @Override
     public void close() {
         // Nothing to do.
     }
 
-    @Override
-    public SequenceIterator getAnother() throws XPathException {
+    //@Override
+    public SequenceIterator<?> getAnother() throws XPathException {
         return LineSplittingSequenceIterator.
                 getInstanceForLocale(locale,
                                      breakIterator.getText().toString());

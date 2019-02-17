@@ -1,7 +1,7 @@
 package org.ditacommunity.i18n.saxon;
 
-import net.sf.saxon.FeatureKeys;
 import net.sf.saxon.TransformerFactoryImpl;
+import net.sf.saxon.lib.FeatureKeys;
 
 /**
  * Replacement for the base Saxon transformer factory so we can set

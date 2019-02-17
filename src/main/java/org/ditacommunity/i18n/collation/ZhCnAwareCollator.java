@@ -1,16 +1,15 @@
 package org.ditacommunity.i18n.collation;
 
-import java.io.File;
 import java.text.CollationKey;
 import java.text.Collator;
 import java.util.HashMap;
 import java.util.Locale;
 
-import org.ditacommunity.i18n.collation.configuration.GroupingAndSortingHelper;
-
 import com.ibm.icu.text.RuleBasedCollator;
 
-import net.sf.saxon.sort.StringCollator;
+import net.sf.saxon.expr.sort.AtomicMatchKey;
+import net.sf.saxon.lib.StringCollator;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Rules-based collator that uses the CC-CEDICT Simplified Chinese
@@ -19,61 +18,25 @@ import net.sf.saxon.sort.StringCollator;
 public class ZhCnAwareCollator extends Collator
         implements java.util.Comparator<Object>, StringCollator {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	public static final String CONF_GROUPING_AND_SORTING_GROUPING_AND_SORTING_RULES_XML =
-            "conf/grouping-and-sorting/grouping_and_sorting_rules.xml";
-    private final RuleBasedCollator delegate;
+    private final com.ibm.icu.text.Collator delegate;
     private final Locale locale ;
     private final boolean isZhCn;
     private HashMap<String, ZhCnAwareCollationKey> colKeyCache = new HashMap<String, ZhCnAwareCollationKey>();
+    private ZhCnDictionary zhCnDictionary;
     private String collationURI;
 
     public ZhCnAwareCollator(String collationURI)  {
         this.collationURI = collationURI;
         this.locale = Locale.getDefault();
         this.isZhCn = Locale.SIMPLIFIED_CHINESE == locale;
-        this.delegate = getConfiguredICUCollator(locale);
+        this.delegate = RuleBasedCollator.getInstance(locale);
     }
 
 
     public ZhCnAwareCollator(Locale locale)  {
-        this.delegate = getConfiguredICUCollator(locale);
-
+        this.delegate = RuleBasedCollator.getInstance(locale);
         this.locale = locale;
         this.isZhCn = Locale.SIMPLIFIED_CHINESE == locale;
-    }
-
-    private RuleBasedCollator getConfiguredICUCollator(Locale locale) {
-        // FIXME: This reflects the original API design implemented by me (Eliot)
-        // many years ago. This is obviously not the best design but don't have time
-        // to refactor it now.
-
-        // FIXME: This is a hack to avoid having to work out a better configuration mechanism at
-        // this time. The better implementation should expect a URI and should use the configured
-        // resolution catalog to resolve it.
-        final File myJarFile = new File(ZhCnAwareCollator.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-        final File configFile =
-                new File(myJarFile.getParentFile().getParentFile(),
-                         CONF_GROUPING_AND_SORTING_GROUPING_AND_SORTING_RULES_XML);
-        RuleBasedCollator collator;
-        GroupingAndSortingHelper helper = null;
-        try {
-            helper = new GroupingAndSortingHelper(configFile.getAbsolutePath());
-            collator = helper.getComparator(locale);
-        } catch (Exception e) {
-            e.printStackTrace();
-            collator = (RuleBasedCollator)RuleBasedCollator.getInstance(locale);
-        }
-        return collator;
-    }
-
-    @Override
-    public int compareStrings(String source, String target) {
-
-        return this.compare(source, target);
     }
 
     @Override
@@ -81,11 +44,7 @@ public class ZhCnAwareCollator extends Collator
         if (this.colKeyCache.containsKey(source)) {
             return this.colKeyCache.get(source);
         }
-        String collationKey = source;
-        if (this.isZhCn) {
-        		collationKey = ZhCnDictionary.getPinYin(source) + source;
-        }
-        ZhCnAwareCollationKey colKey = new ZhCnAwareCollationKey(delegate, collationKey);
+        ZhCnAwareCollationKey colKey = new ZhCnAwareCollationKey(delegate, source);
         this.colKeyCache.put(source, colKey);
         return colKey;
     }
@@ -105,7 +64,7 @@ public class ZhCnAwareCollator extends Collator
      * @see java.util.ResourceBundle
      */
     public static synchronized Collator getInstance(Locale desiredLocale) {
-        // System.out.print("getInstance(): desiredLocale=" + desiredLocale);
+        System.out.print("getInstance(): desiredLocale=" + desiredLocale);
         Collator collator = new ZhCnAwareCollator(desiredLocale);
         return collator;
 
@@ -118,14 +77,12 @@ public class ZhCnAwareCollator extends Collator
             try {
                 result = zhCnCompare(source, target);
             } catch (Exception e) {
-                System.err.println(" + [ERROR] ZhCnAwareCollator.compare(): " + e.getClass().getSimpleName());
+                System.out.println(" + [ERROR] ZhCnAwareCollator.compare(): " + e.getClass().getSimpleName());
                 e.printStackTrace();
                 result = delegate.compare(source, target);
             }
         } else {
-//            System.out.println("+ [DEBUG] ZhCnAwareCollator.compare(): Using delegate comparator on \"" + source + "\", \"" + target + "\"");
             result = delegate.compare(source, target);
-//            System.out.println("+ [DEBUG] ZhCnAwareCollator.compare(): Returning \"" + result + "\"");
         }
         return result;
     }
@@ -150,37 +107,29 @@ public class ZhCnAwareCollator extends Collator
 
     /**
      * Given a string that may contain Simplified Chinese ideographs, return
-     * the appropriate primary sort key, which is the pinyin transliteration as the
-     * primary key. If no pinyin is found returns the original text as the primary
-     * key.
+     * the appropiate sort key, which is the pinyin transliteration as the
+     * primary key and the original text as the secondary key.
      * @param source Source string.
      * @return Sort key for use by the RuleBasedCollator.compare() method.
      */
     protected String getZhCnSortKey(String source) {
 
-    	    // System.err.println("getZhCnSortKey(): source='" + source + "'");
         if (this.colKeyCache.containsKey(source)) {
-        	    String sortKey = colKeyCache.get(source).getSortKey(); 
-        		// System.err.println("getZhCnSortKey():   collation key is in cache, returning " + sortKey);
-            return sortKey;
+            return colKeyCache.get(source).getSortKey();
+        }
+
+        if (zhCnDictionary == null) {
+            // Because the dictionary is in the jar this should never fail in normal operation.
+            this.zhCnDictionary = new ZhCnDictionary();
         }
 
         String pinyin = ZhCnDictionary.getPinYin(source);
-        // NOTE: This should never happen because at a minimum
-        // the first character should produce a pinyin result.
-        if (null == pinyin || "".equals(pinyin)) {
-            pinyin = source;
-        }
-		// System.err.println("getZhCnSortKey():   collation key not in cache, returning " + pinyin);
-        
-        return pinyin;
+        // FIXME: Construct proper primary/secondary ICU sort key.
+        return pinyin + source;
     }
 
     @Override
     public int compare(Object o1, Object o2) {
-    		if (o1 instanceof String && o2 instanceof String) {
-    			return compare((String)o1, (String)o2);
-    		}
         return delegate.compare(o1, o2);
     }
 
@@ -188,27 +137,36 @@ public class ZhCnAwareCollator extends Collator
         this.collationURI = collationURI;
     }
 
-    /**
-     * Get the ICU RuleBasedCollator that backs this collator. Useful mostly for testing
-     * and debugging.
-     * @return The backing collator.
-     */
-    public RuleBasedCollator getBackingCollator() {
-        return this.delegate;
+    @Override
+    public String getCollationURI() {
+        return this.collationURI;
     }
 
+    @Override
+    public int compareStrings(CharSequence charSequence, CharSequence charSequence1) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public boolean comparesEqual(CharSequence charSequence, CharSequence charSequence1) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public AtomicMatchKey getCollationKey(CharSequence charSequence) {
+        throw new NotImplementedException();
+    }
+
+
     /**
-     * Get the locale for which the collator was originally constructed.
+     * Gets the locale associated with the collators
      * @return
      */
     public Locale getLocale() {
-        return this.locale;
+      return this.locale;
     }
-    
-    /*
-     * Gets the configured collation URI.
-     */
-    public String getCollationURI() {
-    		return this.collationURI;
-    }
+
+
+
+
 }

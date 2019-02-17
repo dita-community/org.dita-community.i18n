@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.Locale;
 
 import org.apache.commons.io.IOUtils;
-import org.ditacommunity.i18n.saxon.DCI18nCollationUriResolver91;
 import org.ditacommunity.i18n.textanalysis.WordSplittingSequenceIterator;
 
 import com.ibm.icu.text.CharsetDetector;
@@ -139,7 +138,7 @@ public class CollationAnalyzer {
         for (String term : terms) {
             outStream.format("[%2d] Term: \"%s\"%n", ++i, term);
             WordSplittingSequenceIterator iterator = new WordSplittingSequenceIterator(locale, term, debug);
-            Item item = iterator.next();
+            Item<?> item = iterator.next();
             outStream.println("       Words and pinyin:");
             while (item != null) {
                 String word = item.getStringValue();
@@ -153,6 +152,7 @@ public class CollationAnalyzer {
                 }
                 item = iterator.next();
             }
+            iterator.close();
          }
         outStream.println("\n========================\n");
         outStream.println("\nSorted:\n");
@@ -192,7 +192,7 @@ public class CollationAnalyzer {
         outStream.println("\"Input terms\"\t\"words\"\t\"pinyin\"");
         for (String term : terms) {
             WordSplittingSequenceIterator iterator = new WordSplittingSequenceIterator(locale, term, debug);
-            Item item = iterator.next();
+            Item<?> item = iterator.next();
             StringBuilder words = new StringBuilder();
             StringBuilder pinyin = new StringBuilder();
             String sep = "";
@@ -208,6 +208,7 @@ public class CollationAnalyzer {
                 item = iterator.next();
                 sep = "|";
             }
+            iterator.close();
             outStream.format("\"%s\"\t\"%s\"\t\"%s\"%n", term, words.toString(), pinyin.toString());
         }
 

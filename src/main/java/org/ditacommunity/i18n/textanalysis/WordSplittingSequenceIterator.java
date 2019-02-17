@@ -19,14 +19,12 @@ import net.sf.saxon.value.StringValue;
  * because you set the text on the breakiterator can't share the same instance
  * across different threads. Not sure how that works in a Saxon context.
  */
-public class WordSplittingSequenceIterator implements SequenceIterator {
+public class WordSplittingSequenceIterator implements SequenceIterator<Item<?>> {
 
     private final Locale locale;
     private final BreakIterator breakIterator;
     private final String text;
     private boolean debug = false;
-    private String currentWord = null;
-    private int position = 0; // For XSLT position(). First item will be position 1;
 
     public WordSplittingSequenceIterator(Locale locale, String text, boolean debug) {
         this.locale = locale;
@@ -47,9 +45,9 @@ public class WordSplittingSequenceIterator implements SequenceIterator {
     }
 
     @Override
-    public Item next() throws XPathException {
+    public Item<?> next() throws XPathException {
         String word = getNextWord();
-        Item value = null;
+        Item<?> value = null;
         if (null != word) {
             value = new StringValue(word);
         }
@@ -72,8 +70,6 @@ public class WordSplittingSequenceIterator implements SequenceIterator {
         if (debug) {
             System.out.println("getNextWord(): start: " + start + "; end: " + end + "; word=\"" + word + "\"");
         }
-        this.currentWord = word;
-        this.position++;
         if (debug) {
             System.out.println("getNextWord(): Returning " + word);
         }
@@ -81,26 +77,13 @@ public class WordSplittingSequenceIterator implements SequenceIterator {
     }
 
     @Override
-    public Item current() {
-        if (null == this.currentWord) {
-            this.getNextWord();
-        }
-        Item value = new StringValue(this.currentWord);
-        return value;
-    }
-
-    @Override
-    public int position() {
-        return position;
-    }
-
-    @Override
     public void close() {
         // Nothing to do.
     }
 
-    @Override
-    public SequenceIterator getAnother() throws XPathException {
+    // @Override
+    // This is not in the 9.6+ API
+    public SequenceIterator<?> getAnother() throws XPathException {
         return WordSplittingSequenceIterator.getInstanceForLocale(locale, breakIterator.getText().toString());
     }
 

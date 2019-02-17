@@ -22,7 +22,7 @@ public class TextAnalyzer {
      * @return Array of strings or null if there are no words or text is empty
      * @throws Exception
      */
-    public static SequenceIterator splitWords(String text, String langCode) throws Exception {
+    public static SequenceIterator<?> splitWords(String text, String langCode) throws Exception {
        return splitWords(text, langCode, false);
     }
 
@@ -35,7 +35,7 @@ public class TextAnalyzer {
      * @return Array of strings or null if there are no words or text is empty
      * @throws Exception
      */
-    public static SequenceIterator splitWords(String text, String langCode, boolean debug) throws Exception {
+    public static SequenceIterator<?> splitWords(String text, String langCode, boolean debug) throws Exception {
         if (null == text || "".equals(text.trim())) {
             return null;
         }
@@ -56,7 +56,7 @@ public class TextAnalyzer {
      * @return Sequence of break point positions as integers.
      * @throws Exception
      */
-    public static ArrayList<Item> splitLine(String text, String langCode) throws Exception {
+    public static ArrayList<Item<?>> splitLine(String text, String langCode) throws Exception {
         return splitLine(text, langCode, false);
     }
 
@@ -68,7 +68,7 @@ public class TextAnalyzer {
      * @return Sequence of break point positions as integers.
      * @throws Exception
      */
-    public static ArrayList<Item> splitLine(String text, String langCode, boolean debug) throws Exception {
+    public static ArrayList<Item<?>> splitLine(String text, String langCode, boolean debug) throws Exception {
         if (null == text || "".equals(text.trim())) {
             return null;
         }
@@ -81,8 +81,8 @@ public class TextAnalyzer {
         LineSplittingSequenceIterator iterator =
                 LineSplittingSequenceIterator.getInstanceForLocale(locale, text, debug);
 
-        ArrayList<Item> items = new ArrayList<Item>();
-        Item item = iterator.next();
+        ArrayList<Item<?>> items = new ArrayList<Item<?>>();
+        Item<?> item = iterator.next();
         while (null != item) {
             items.add(item);
             item = iterator.next();
