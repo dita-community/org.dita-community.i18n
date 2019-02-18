@@ -23,5 +23,13 @@
         <navtitle>DITA Open Toolkit Docker Project (GitHub)</navtitle>
       </topicmeta>
     </keydef>
+    <keydef keys="saxon-java-extensions-impl"
+      href="http://www.saxonica.com/documentation/index.html#!extensibility/integratedfunctions/ext-full-J"
+      format="html"
+      scope="external"
+      >      <topicmeta>
+        <navtitle>Java extension functions: full interface</navtitle>
+      </topicmeta>
+    </keydef>
   </topicgroup>
 </map>

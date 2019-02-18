@@ -12,7 +12,7 @@
     <p>The value of <parmname>javax.xml.transform.TransformerFactory</parmname> must be
         "<codeph>org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</codeph>". The
       DCI18nSaxonTransformerFactoryImpl91 class is in the
-        <filepath>dita-community-i18n-saxon91.jar</filepath> jar file in the i18n plugin's
+        <filepath>dita-community-i18n-saxon.jar</filepath> jar file in the i18n plugin's
         <filepath>lib/</filepath> directory. This jar is automatically included in the Open
       Toolkit's Java class path by the i18n Open Toolkit plugin.</p>
     <p>How you set this property depends on how you run the Open Toolkit.</p>
