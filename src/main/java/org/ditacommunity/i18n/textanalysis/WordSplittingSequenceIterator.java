@@ -19,7 +19,7 @@ import net.sf.saxon.value.StringValue;
  * because you set the text on the breakiterator can't share the same instance
  * across different threads. Not sure how that works in a Saxon context.
  */
-public class WordSplittingSequenceIterator implements SequenceIterator<Item<?>> {
+public class WordSplittingSequenceIterator implements SequenceIterator {
 
     private final Locale locale;
     private final BreakIterator breakIterator;
@@ -45,9 +45,9 @@ public class WordSplittingSequenceIterator implements SequenceIterator<Item<?>> 
     }
 
     @Override
-    public Item<?> next() throws XPathException {
+    public Item next() throws XPathException {
         String word = getNextWord();
-        Item<?> value = null;
+        Item value = null;
         if (null != word) {
             value = new StringValue(word);
         }
@@ -83,7 +83,7 @@ public class WordSplittingSequenceIterator implements SequenceIterator<Item<?>> 
 
     // @Override
     // This is not in the 9.6+ API
-    public SequenceIterator<?> getAnother() throws XPathException {
+    public SequenceIterator getAnother() throws XPathException {
         return WordSplittingSequenceIterator.getInstanceForLocale(locale, breakIterator.getText().toString());
     }
 

@@ -6,7 +6,6 @@ import org.ditacommunity.i18n.textanalysis.TextMetrics;
 import net.sf.saxon.expr.XPathContext;
 import net.sf.saxon.lib.ExtensionFunctionCall;
 import net.sf.saxon.lib.ExtensionFunctionDefinition;
-import net.sf.saxon.om.Item;
 import net.sf.saxon.om.Sequence;
 import net.sf.saxon.om.StructuredQName;
 import net.sf.saxon.trans.XPathException;
@@ -62,9 +61,8 @@ public class TextMetricsGetRenderedLength extends ExtensionFunctionDefinition {
   
   private static class TextAnalysisGetRenderedTextLengthCall extends ExtensionFunctionCall {
 
-    @SuppressWarnings("rawtypes")
     @Override
-    public Sequence<? extends Item> call(XPathContext context, Sequence[] args) throws XPathException {
+    public Sequence call(XPathContext context, Sequence[] args) throws XPathException {
       String text = args[0].iterate().next().getStringValue();
       String fontName = args[1].iterate().next().getStringValue();
       long fontSize = 10;

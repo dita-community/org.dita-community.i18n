@@ -21,12 +21,12 @@ import net.sf.saxon.value.BigIntegerValue;
  * because you set the text on the breakiterator can't share the same instance
  * across different threads. Not sure how that works in a Saxon context.
  */
-public class LineSplittingSequenceIterator implements SequenceIterator<Item<?>> {
+public class LineSplittingSequenceIterator implements SequenceIterator {
 
     private final Locale locale;
     private final BreakIterator breakIterator;
     private boolean debug = false;
-    ArrayList<Item<?>> items = new ArrayList<Item<?>>();
+    ArrayList<Item> items = new ArrayList<Item>();
 
     public LineSplittingSequenceIterator(Locale locale, String text, boolean debug) {
         this.locale = locale;
@@ -46,13 +46,13 @@ public class LineSplittingSequenceIterator implements SequenceIterator<Item<?>> 
     }
 
     @Override
-    public Item<?> next() throws XPathException {
+    public Item next() throws XPathException {
         return getNextItem();
     }
 
-    private Item<?> getNextItem() {
+    private Item getNextItem() {
         int pos = breakIterator.next();
-        Item<?> value = null;
+        Item value = null;
         if (pos != BreakIterator.DONE) {
             // XSLT positions are 1 indexed:
             value = new BigIntegerValue(pos + 1);
@@ -74,7 +74,7 @@ public class LineSplittingSequenceIterator implements SequenceIterator<Item<?>> 
     }
 
     //@Override
-    public SequenceIterator<?> getAnother() throws XPathException {
+    public SequenceIterator getAnother() throws XPathException {
         return LineSplittingSequenceIterator.
                 getInstanceForLocale(locale,
                                      breakIterator.getText().toString());

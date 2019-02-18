@@ -20,7 +20,7 @@ public class TextAnalyzer {
      * @return Array of strings or null if there are no words or text is empty
      * @throws Exception
      */
-    public static SequenceIterator<?> splitWords(String text, String langCode) throws Exception {
+    public static SequenceIterator splitWords(String text, String langCode) throws Exception {
        return splitWords(text, langCode, false);
     }
 
@@ -33,7 +33,7 @@ public class TextAnalyzer {
      * @return Array of strings or null if there are no words or text is empty
      * @throws Exception
      */
-    public static SequenceIterator<?> splitWords(String text, String langCode, boolean debug) throws Exception {
+    public static SequenceIterator splitWords(String text, String langCode, boolean debug) throws Exception {
         if (null == text || "".equals(text.trim())) {
             return null;
         }
@@ -56,7 +56,7 @@ public class TextAnalyzer {
      * @return Sequence of break point positions as integers.
      * @throws Exception
      */
-    public static SequenceIterator<?> splitLine(String text, String langCode) throws Exception {
+    public static SequenceIterator splitLine(String text, String langCode) throws Exception {
         return splitLine(text, langCode, false);
     }
 
@@ -68,7 +68,7 @@ public class TextAnalyzer {
      * @return Iterator of break point positions as integers.
      * @throws Exception
      */
-    public static SequenceIterator<?> splitLine(String text, String langCode, boolean debug) throws Exception {
+    public static SequenceIterator splitLine(String text, String langCode, boolean debug) throws Exception {
         if (null == text || "".equals(text.trim())) {
             return null;
         }

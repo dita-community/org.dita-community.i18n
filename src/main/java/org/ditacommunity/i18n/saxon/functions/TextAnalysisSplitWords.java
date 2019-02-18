@@ -63,7 +63,7 @@ public class TextAnalysisSplitWords extends ExtensionFunctionDefinition {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public Sequence<? extends Item> call(XPathContext context, Sequence[] args) throws XPathException {
+    public Sequence call(XPathContext context, Sequence[] args) throws XPathException {
       String text = args[0].iterate().next().getStringValue();
       String langCode = args[1].iterate().next().getStringValue();
       boolean debug = false;
@@ -71,8 +71,8 @@ public class TextAnalysisSplitWords extends ExtensionFunctionDefinition {
         debug = ((BooleanValue)args[2].iterate().next()).getBooleanValue();
       }
       try {
-        SequenceIterator<?> iterator = TextAnalyzer.splitWords(text, langCode, debug);
-        return new LazySequence<>(iterator);
+        SequenceIterator iterator = TextAnalyzer.splitWords(text, langCode, debug);
+        return new LazySequence(iterator);
       } catch (Exception e) {
         throw new XPathException(e);
       }

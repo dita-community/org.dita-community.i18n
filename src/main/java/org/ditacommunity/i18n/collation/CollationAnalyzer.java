@@ -138,7 +138,7 @@ public class CollationAnalyzer {
         for (String term : terms) {
             outStream.format("[%2d] Term: \"%s\"%n", ++i, term);
             WordSplittingSequenceIterator iterator = new WordSplittingSequenceIterator(locale, term, debug);
-            Item<?> item = iterator.next();
+            Item item = iterator.next();
             outStream.println("       Words and pinyin:");
             while (item != null) {
                 String word = item.getStringValue();
@@ -192,7 +192,7 @@ public class CollationAnalyzer {
         outStream.println("\"Input terms\"\t\"words\"\t\"pinyin\"");
         for (String term : terms) {
             WordSplittingSequenceIterator iterator = new WordSplittingSequenceIterator(locale, term, debug);
-            Item<?> item = iterator.next();
+            Item item = iterator.next();
             StringBuilder words = new StringBuilder();
             StringBuilder pinyin = new StringBuilder();
             String sep = "";
