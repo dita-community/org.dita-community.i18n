@@ -252,7 +252,7 @@
         <include name="**/resources/**.*" />
       </fileset>
     </jar>
-  </target>
+  </target>	
   
   <target name="all" depends="build.modules" description="build all"/>
   
@@ -377,5 +377,35 @@
     </exec>
   </target>
   
-  
+  <target name="test-saxon-extension-functions" depends="jar"
+  	description="Test the saxon extension functions by running Saxon directly"
+  	>
+  	<property name="test.result.file" location="${basedir}/temp/test-result.xml"/>
+    <java  
+      classname="org.ditacommunity.i18n.saxon.ExtensionRegisteringTransform"
+      >
+   	  <classpath>
+        <fileset dir="${basedir}/lib">
+        	<include name="saxon9he.jar"/>
+        	<include name="commons-io*.jar"/>
+        	<include name="icu4j*.jar"/>
+        </fileset>
+        <fileset dir="${basedir}/target/lib">
+        	<include name="*.jar"/>
+        </fileset>
+      </classpath>
+      <arg line='-xsl:"${basedir}/src/test/xsl/test-extension-functions.xsl"'/>
+      <arg line='-s:"${basedir}/src/test/xsl/test-extension-functions.xsl"'/>
+      <arg line='-o:"${test.result.file}"'/>
+    </java>
+	<fileset id="build.failures" file="${test.result.file}">
+	    <contains text='passed="false"'/>
+	</fileset>
+	<fail status="1" message="One or more failures detected, see ${test.result.file}">
+	    <condition>
+	        <resourcecount when="greater" count="0" refid="build.failures" />
+	    </condition>
+	</fail>  	
+  	<echo>Tests passed. See ${test.result.file}</echo>
+  </target>
 </project>
