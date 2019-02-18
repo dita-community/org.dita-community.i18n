@@ -1,10 +1,6 @@
 package org.ditacommunity.i18n.saxon;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import net.sf.saxon.lib.CollationURIResolver;
 
 import javax.xml.transform.TransformerFactory;
 

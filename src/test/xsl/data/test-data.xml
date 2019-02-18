@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+  <split-words>
+    <!-- NOTE: The word splitter returns both words and things between words (white space, punctuation, etc.)
+               So the word count is not just the tokens but the tokens and their separators.
+      -->
+    <words xml:lang="en-US" word-count="31">Now is the time for all good men to come to the aid of their party</words>  
+    <words xml:lang="zh-CN" word-count="13">从前有一位楚国人, 他非常爱惜他的宝剑。</words>
+  </split-words>
+  <split-lines>
+    <text xml:lang="en-US" break-count="16">Now is the time for all good men to come to the aid of their party</text>        
+    <text xml:lang="zh-CN" break-count="17">从前有一位楚国人, 他非常爱惜他的宝剑。</text>
+  </split-lines>
+  <get-rendered-text-length>
+    <text font="Verdana">13 Characters</text>
+    <text font="Times New Roman">13 Characters</text>
+    <text font="Times New Roman" font-size="24">13 Characters</text>
+    <text font="Times New Roman" font-size="24" font-style="bold">13 Characters</text>
+    <text font="simsun" font-size="12">从前有一位楚国人, 他非常爱惜他的宝剑。</text>
+  </get-rendered-text-length>
+</test-data>

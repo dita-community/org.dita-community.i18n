@@ -38,7 +38,7 @@ public class TextMetrics {
      */
     public static int getRenderedLength(String text,
                                         String fontName,
-                                        int fontSize,
+                                        long fontSize,
                                         String fontStyle,
                                         boolean debug) {
 
@@ -61,13 +61,13 @@ public class TextMetrics {
 
     }
 
-    private static Font getFont(String fontName, int fontSize, String fontStyle) {
+    private static Font getFont(String fontName, long fontSize, String fontStyle) {
         int fontStyleValue = getFontStyle(fontStyle);
         String key = fontName + "^" + fontStyle + "^" + fontSize;
         if (fontsByName.containsKey(key)) {
             return fontsByName.get(key);
         }
-        Font font = new Font(fontName, fontStyleValue, fontSize);
+        Font font = new Font(fontName, fontStyleValue, (int)fontSize);
         fontsByName.put(key, font);
         return font;
     }
@@ -93,7 +93,7 @@ public class TextMetrics {
      *
      * @param text
      * @param fontName
-     * @return Rendered length in pixels
+     * @return Rendered length in pixels at 12 point font size
      */
     public static int getRenderedLength(String text,
                                         String fontName) {
@@ -109,7 +109,7 @@ public class TextMetrics {
      */
     public static int getRenderedLength(String text,
                                  String fontName,
-                                 int fontSize) {
+                                 long fontSize) {
         return getRenderedLength(text, fontName, fontSize, "plain", false);
     }
 
@@ -123,7 +123,7 @@ public class TextMetrics {
      */
     public static int getRenderedLength(String text,
                                         String fontName,
-                                        int fontSize,
+                                        long fontSize,
                                         String fontStyle) {
         return getRenderedLength(text, fontName, fontSize, fontStyle, false);
     }

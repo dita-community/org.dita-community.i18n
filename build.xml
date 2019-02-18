@@ -173,10 +173,11 @@
   
   
   <target name="compile.module.org.dita-community.i18n" 
-  	depends="compile.module.org.dita-community.i18n.production,compile.module.org.dita-community.i18n.tests" 
+  	depends="compile.module.org.dita-community.i18n.production, compile.module.org.dita-community.i18n.tests" 
   	description="Compile module org.dita-community.i18n"/>
   
-  <target name="compile.module.org.dita-community.i18n.production" description="Compile module org.dita-community.i18n; production classes">
+  <target name="compile.module.org.dita-community.i18n.production" 
+  	description="Compile module org.dita-community.i18n; production classes">
     <mkdir dir="${org.dita-community.i18n.output.dir}"/>
     <javac destdir="${org.dita-community.i18n.output.dir}" includeantruntime="no" 
     		debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" 
@@ -236,6 +237,13 @@
         type="javax.xml.transform.TransformerFactory"
         provider="org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl"
         />      
+      <service 
+        type="net.sf.saxon.lib.ExtensionFunctionDefinition"        
+      >
+        <provider classname="org.ditacommunity.i18n.saxon.functions.TextAnalysisSplitWords"/>
+        <provider classname="org.ditacommunity.i18n.saxon.functions.TextAnalysisSplitLines"/>
+        <provider classname="org.ditacommunity.i18n.saxon.functions.TextMetricsGetRenderedLength"/>
+      </service>      
       <fileset dir="${basedir}/target/classes/production/org.dita-community.i18n" >
         <include name="**.*" />
         <include name="**/**.*" />

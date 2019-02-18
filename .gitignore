@@ -4,3 +4,4 @@ lib/
 .project
 .settings/org.eclipse.jdt.core.prefs
 org.eclipse.core.resources.prefs
+test-result.xml

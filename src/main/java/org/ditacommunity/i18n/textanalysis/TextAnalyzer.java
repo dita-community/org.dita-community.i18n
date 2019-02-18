@@ -1,12 +1,10 @@
 package org.ditacommunity.i18n.textanalysis;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import com.ibm.icu.text.BreakIterator;
 import com.ibm.icu.text.RuleBasedBreakIterator;
 
-import net.sf.saxon.om.Item;
 import net.sf.saxon.om.SequenceIterator;
 
 /**
@@ -41,7 +39,9 @@ public class TextAnalyzer {
         }
 
         Locale locale = Locale.forLanguageTag(langCode);
-        System.out.println("+ [DEBUG] splitWords(): text=\"" + text + "\", debug=" + debug);
+        if (debug) {
+          System.out.println("+ [DEBUG] splitWords(): text=\"" + text + "\", debug=" + debug);
+        }
 
         WordSplittingSequenceIterator iterator =
                 WordSplittingSequenceIterator.getInstanceForLocale(locale, text, debug);
@@ -56,7 +56,7 @@ public class TextAnalyzer {
      * @return Sequence of break point positions as integers.
      * @throws Exception
      */
-    public static ArrayList<Item<?>> splitLine(String text, String langCode) throws Exception {
+    public static SequenceIterator<?> splitLine(String text, String langCode) throws Exception {
         return splitLine(text, langCode, false);
     }
 
@@ -65,10 +65,10 @@ public class TextAnalyzer {
      * @param text Text to be analyzed.
      * @param langCode Language code, e.g. "en-US" or "zh-CN"
      * @param debug Set to true to turn on debugging messages.
-     * @return Sequence of break point positions as integers.
+     * @return Iterator of break point positions as integers.
      * @throws Exception
      */
-    public static ArrayList<Item<?>> splitLine(String text, String langCode, boolean debug) throws Exception {
+    public static SequenceIterator<?> splitLine(String text, String langCode, boolean debug) throws Exception {
         if (null == text || "".equals(text.trim())) {
             return null;
         }
@@ -81,14 +81,7 @@ public class TextAnalyzer {
         LineSplittingSequenceIterator iterator =
                 LineSplittingSequenceIterator.getInstanceForLocale(locale, text, debug);
 
-        ArrayList<Item<?>> items = new ArrayList<Item<?>>();
-        Item<?> item = iterator.next();
-        while (null != item) {
-            items.add(item);
-            item = iterator.next();
-        }
-
-        return items;
+        return iterator;
 
     }
 
@@ -118,4 +111,6 @@ public class TextAnalyzer {
         return iterator.next();
 
     }
+
+
 }
