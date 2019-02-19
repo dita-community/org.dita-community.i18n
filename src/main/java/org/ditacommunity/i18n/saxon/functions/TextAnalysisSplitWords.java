@@ -6,7 +6,6 @@ import org.ditacommunity.i18n.textanalysis.TextAnalyzer;
 import net.sf.saxon.expr.XPathContext;
 import net.sf.saxon.lib.ExtensionFunctionCall;
 import net.sf.saxon.lib.ExtensionFunctionDefinition;
-import net.sf.saxon.om.Item;
 import net.sf.saxon.om.LazySequence;
 import net.sf.saxon.om.Sequence;
 import net.sf.saxon.om.SequenceIterator;
@@ -61,7 +60,6 @@ public class TextAnalysisSplitWords extends ExtensionFunctionDefinition {
 
   private static class TextAnalysisSplitWordsCall extends ExtensionFunctionCall {
 
-    @SuppressWarnings("rawtypes")
     @Override
     public Sequence call(XPathContext context, Sequence[] args) throws XPathException {
       String text = args[0].iterate().next().getStringValue();

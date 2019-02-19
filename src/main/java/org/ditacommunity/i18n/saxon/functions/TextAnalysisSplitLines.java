@@ -7,7 +7,6 @@ import net.sf.saxon.expr.StaticProperty;
 import net.sf.saxon.expr.XPathContext;
 import net.sf.saxon.lib.ExtensionFunctionCall;
 import net.sf.saxon.lib.ExtensionFunctionDefinition;
-import net.sf.saxon.om.Item;
 import net.sf.saxon.om.LazySequence;
 import net.sf.saxon.om.Sequence;
 import net.sf.saxon.om.SequenceIterator;
@@ -22,7 +21,7 @@ import net.sf.saxon.value.SequenceType;
  *
  */
 public class TextAnalysisSplitLines extends ExtensionFunctionDefinition {
-
+    
   @Override
   public SequenceType[] getArgumentTypes() {
     return
@@ -52,7 +51,7 @@ public class TextAnalysisSplitLines extends ExtensionFunctionDefinition {
   }
 
   @Override
-  public SequenceType getResultType(SequenceType[] arg0) {
+  public SequenceType getResultType(SequenceType[] suppliedArgumentTypes) {
     return new SequenceType(BuiltInAtomicType.INTEGER, StaticProperty.ALLOWS_ONE_OR_MORE);
   }
 

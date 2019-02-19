@@ -2,8 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:dci18n="http://org.dita-community/i18n"
-  xmlns:textAnalyzer="java:org.ditacommunity.i18n.textanalysis.TextAnalyzer"
-  xmlns:textMetrics="java:org.ditacommunity.i18n.textanalysis.TextMetrics"
+  xmlns:dci18nfunc="http://org.dita-community/i18n/saxon-extensions"
   exclude-result-prefixes="#all"
   version="2.0">
   <!-- ==================================================================
@@ -405,24 +404,25 @@
     <xsl:param name="lang" as="xs:string"/><!-- Language code -->
     <xsl:param name="debug" as="xs:boolean"/>
     
-    <xsl:variable name="result" as="xs:string*" select="textAnalyzer:splitWords($text, $lang, $debug)"/>
+    <xsl:variable name="result" as="xs:string*" select="dci18nfunc:splitWords($text, $lang, $debug)"/>
     <xsl:sequence select="$result"/>
   </xsl:function>
   
-  <!-- Split a text into words using a locale-specific ICU word iterator.
+  <!-- Return the allowed line break points for the text using 
+       a locale-aware line breaker.
     
     @param text The text to be split
     @param lang Language code specifying the locale to use for identifying words.
     @param debug Turn debuging on or off.
-    @return Sequence of words. Will contain at least one word unless the input 
-    text is empty or only consists of non-letter text.
+    @return Sequence of integers, one for each break point. The last value is after
+    the last character in the string.
     -->
   <xsl:function name="dci18n:splitLine" as="xs:integer*">
     <xsl:param name="text" as="xs:string"/>
     <xsl:param name="lang" as="xs:string"/><!-- Language code -->
     <xsl:param name="debug" as="xs:boolean"/>
     
-    <xsl:variable name="result" as="xs:integer*" select="textAnalyzer:splitLine($text, $lang, $debug)"/>
+    <xsl:variable name="result" as="xs:integer*" select="dci18nfunc:splitLines($text, $lang, $debug)"/>
     <xsl:sequence select="$result"/>
   </xsl:function>
   
@@ -436,7 +436,7 @@
     <xsl:param name="debug" as="xs:boolean"/>
     
     <xsl:variable name="breakPos" as="xs:integer"
-      select="textAnalyzer:nextLineBreakPosition($text, $lang, $debug)"
+      select="dci18nfunc:splitLines($text, $lang, $debug)[1]"
     />
     
     <xsl:variable name="result" as="xs:integer"
@@ -492,7 +492,7 @@
     <xsl:param name="fontStyle" as="xs:string"/>
     <xsl:param name="debug" as="xs:boolean"/>
     <xsl:variable name="result" as="xs:integer"
-      select="textMetrics:getRenderedLength($text, $fontName, $fontSize, $fontStyle, $debug)"
+      select="dci18nfunc:getRenderedLength($text, $fontName, $fontSize, $fontStyle, $debug)"
     />
     <xsl:sequence select="$result"/>
   </xsl:function>
