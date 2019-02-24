@@ -38,6 +38,5 @@
       keys="estimating-rendered-string-length-xslt"/>
     <topicref href="topics/how_it_works.dita" keys="how-it-works"/>
     <topicref href="topics/external_resources.dita"/>
-    <topicref href="topics/implement-saxon-extension-functions.dita"/>
   </topicref>
 </map>
