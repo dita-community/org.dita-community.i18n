@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
 <task id="setting_the_transformer_factory_for_oxygenxml">
-  <title>Setting the Transformer Factory for oXygenXML</title>
+  <title>Setting the Transformer Factory for oXygenXML (OT 1.8.5 and 2.x Only)</title>
   <taskbody>
     <context>
       
@@ -9,7 +9,7 @@
         order to use the i18n collator you must reconfigure your transformation scenarios to use
         Saxon 9.1, to include the i18n Jar in the class path, and to specify the
           <parmname>javax.xml.transform.TransformerFactory</parmname> parameter. You will need to do
-        this for any transformation scenario that needs to enable the i18n plugin.</p>
+        this for any transformation scenario that needs to enable the i18n plug-in.</p>
     </context>
     <steps id="steps_dkh_gqw_wx">
       <step>
@@ -43,7 +43,7 @@
             <li>Add a new entry for the saxon9-dom jar:
                 "<codeph>${dita.dir.url}/lib/saxon/saxon9-dom.jar</codeph>"</li>
             <li>Add a new entry:
-                "<codeph>${dita.dir.url}/plugins/org.dita-community.i18n/lib/*.jar</codeph>"</li>
+                "<codeph>${dita.dir.url}/plug-ins/org.dita-community.i18n/lib/*.jar</codeph>"</li>
           </ol>
           <p>Note that you can't just use "${dita.dir.url}/lib/saxon/saxon*.jar" because it will
             include jars that then cause other configuration-related failures.</p>
@@ -54,7 +54,7 @@
         <info>
           <ol id="ol_p4x_nfl_xx">
             <li>Add a new entry:
-                "<codeph>${dita.dir.url}/plugins/org.dita-community.i18n/lib/*.jar</codeph>"</li>
+                "<codeph>${dita.dir.url}/plug-ins/org.dita-community.i18n/lib/*.jar</codeph>"</li>
           </ol>
         </info>
       </step>

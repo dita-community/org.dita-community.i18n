@@ -32,6 +32,8 @@
 />
 ...</codeblock></p>
     <p>You can use the rendered length estimator with line breaking to do pretty good layout of
-      text, for example, to generate fixed-layout HTML using absolutely positioned CSS.</p>
+      text, for example, to generate fixed-layout HTML using absolutely positioned CSS (although
+      doing more than a few paragraphs should be done using FOP or Antenna House by formatting to an
+      area tree document and then post-processing that to generate the HTML).</p>
  </conbody>
 </concept>

@@ -5,17 +5,22 @@
   <shortdesc>If the Open-Toolkit-managed Java class path is not used or is not configured correctly
     for some reason then you must set the Java
       <parmname>javax.xml.transform.TransformerFactory</parmname> system property to point to the
-    i18n library's transformer factory.</shortdesc>
+    i18n library's transformer factory. If you are using the Java library outside of the Open
+    Toolkit, you will need to manage the Saxon configuration as described here.</shortdesc>
   <body>
     <note>You should not need to do this when running the Open Toolkit normally via the command
       line.</note>
-    <p>The value of <parmname>javax.xml.transform.TransformerFactory</parmname> must be
-        "<codeph>org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</codeph>". The
-      DCI18nSaxonTransformerFactoryImpl91 class is in the
+    <p>The value of the <parmname>javax.xml.transform.TransformerFactory</parmname> Java system
+      property must be
+        "<codeph>org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91</codeph>" (plug-in
+      version 1.0) or
+        <codeph>org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl</codeph> (plug-in
+      version 2.0). The DCI18nSaxonTransformerFactoryImpl91 class is in the
         <filepath>dita-community-i18n-saxon.jar</filepath> jar file in the i18n plugin's
         <filepath>lib/</filepath> directory. This jar is automatically included in the Open
       Toolkit's Java class path by the i18n Open Toolkit plugin.</p>
-    <p>How you set this property depends on how you run the Open Toolkit.</p>
+    <p>How you set this property depends on how you run the Open Toolkit (toolkit versions 1.8.5 and
+      2.x only—OT 3.3 and later is automatically configured).</p>
     <p>If you are running the Open Toolkit from the command line or in a command environment, such
       as through a continuous integration server or through a CCMS, you can set an environment
       variable or you can set the <parmname>javax.xml.transform.TransformerFactory</parmname>

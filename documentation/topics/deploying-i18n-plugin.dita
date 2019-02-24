@@ -3,28 +3,38 @@
 <topic id="untitled8">
   <title>Deploying the i18n Open Toolkit Plugin</title>
   <body>
-    <p>For Open Toolkit 1.8.5:<ol id="ol_xxb_4px_nx">
-        <li>Expand the plugin Zip file into the Open Toolkit's <filepath>plugins/</filepath>
-          directory so that you have a new directory,
-          <filepath>org.dita-community.i18n</filepath>.</li>
-        <li>Run the Open Toolkit integrator.xml Ant
-          task:<codeblock>c:\DITA-OT> ant -f integrator.xml</codeblock></li>
-      </ol></p>
-    <p>For Open Toolkit 2.x:<ol id="ol_owc_tpx_nx">
-        <li>Run the <cmdname>dita</cmdname> command with the <parmname>-install</parmname>
-          parameter, specifying the location of the plugin Zip file, which can be downloaded locally
-          or retrieved directly from
-            GitHub:<codeblock>c:\DITA-OT> bin\dita -install https://github.com/dita-community/org.dita-community.i18n/releases/download/version-<varname>1.0.0</varname>/org_dita-community_i18n_plugin_<varname>1.0.0</varname>.zip</codeblock><p>Where
-              <i>1.0.0</i> is the release number of the version you want to get (as far as I can
-            tell GitHub does not provide a "latest" URL for releases).<note>If you are upgrading to
-              a new version then you have to first uninstall the current version before installing
-              the new
-              version:<codeblock>c:\DITA-OT> bin\dita -uninstall org.dita-community.i18n
-c:\DITA-OT> bin\dita -install https://github.com/dita-community/org.dita-community.i18n/releases/download/version-1.0.1/org_dita-community_i18n_plugin.zip</codeblock></note></p></li>
-      </ol></p>
-    <p>You can verify that the plugin is correctly installed by running the Ant target
-      "dita2dci18n-test". It will run two tests: one for the plugin's JAR file and one for the XSLT
-      support.</p>
+    <div platform="OT3.3">
+      <p>For Open Toolkit 3.3:</p>
+      <p>Install the plug-in from the Open Toolkit plugin
+        repository:<codeblock>c:\dita-ot > bin\dita --install org.dita-community.i18n --force</codeblock></p>
+    </div>
+    <div platform="OT1.8.5">
+      <p>For Open Toolkit 1.8.5:<ol id="ol_xxb_4px_nx">
+          <li>Expand the plug-in Zip file into the Open Toolkit's <filepath>plugins/</filepath>
+            directory so that you have a new directory,
+            <filepath>org.dita-community.i18n</filepath>.</li>
+          <li>Run the Open Toolkit integrator.xml Ant
+            task:<codeblock>c:\DITA-OT> ant -f integrator.xml</codeblock></li>
+        </ol></p>
+    </div>
+    <div platform="OT2.5.4">
+      <p>For Open Toolkit 2.x:<ol id="ol_owc_tpx_nx">
+          <li>Run the <cmdname>dita</cmdname> command with the <parmname>-install</parmname>
+            parameter, specifying the location of the plug-in Zip file, which can be downloaded
+            locally or retrieved directly from
+              GitHub:<codeblock>c:\DITA-OT> bin\dita -install https://github.com/dita-community/org.dita-community.i18n/releases/download/version-<varname>1.0.0</varname>/org_dita-community_i18n_plug-in_<varname>1.0.0</varname>.zip</codeblock><p>Where
+                <i>1.0.0</i> is the release number of the version you want to get (as far as I can
+              tell GitHub does not provide a "latest" URL for releases).<note>If you are upgrading
+                to a new version then you have to first uninstall the current version before
+                installing the new
+                version:<codeblock>c:\DITA-OT> bin\dita -uninstall org.dita-community.i18n
+c:\DITA-OT> bin\dita -install https://github.com/dita-community/org.dita-community.i18n/releases/download/version-1.0.1/org_dita-community_i18n_plug-in.zip</codeblock></note></p></li>
+        </ol></p>
+    </div>
+    <p>You can verify that the plug-in is correctly installed by running the transformation type
+      "dc18n-test" or the Ant target "dita2dc18n-test". It will run two tests: one for the plug-in's
+      JAR file and one for the XSLT support. For plugin version 2.0 it will run a third test that
+      verifies the XSLT extension functions.</p>
     <p>You should get output like
       this:<codeblock>c:\DITA-OT> ant dita2dci18n-test
 Buildfile: /Users/ekimber/dita-ot/dita-ot-2.4.4/build.xml

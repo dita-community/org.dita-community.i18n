@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="setting_the_transformer_factory_for_command_line_use">
-  <title>Setting the Transformer Factory for Command Line Use</title>
+  <title>Setting the Transformer Factory for Command Line Use (OT 1.8.5 and 2.x)</title>
   <body>
     <p>If you are running the Open Toolkit from a command line you can specify the
         <parmname>javax.xml.transform.TransformerFactory</parmname> property on the
@@ -30,8 +30,8 @@ export ANT_OPTS="-Xmx512m $ANT_OPTS"
 <b>export ANT_OPTS="$ANT_OPTS -Djavax.xml.transform.TransformerFactory=org.ditacommunity.i18n.saxon.DCI18nSaxonTransformerFactoryImpl91"</b>
 export ANT_HOME="$DITA_DIR"
 ...</codeblock>
-    <p>For DITA OT 2.x and later you can set the <varname>ANT_OPTS</varname> environment variable
-      globally.</p>
+    <p>For DITA OT 2.x through 2.5.4 you can set the <varname>ANT_OPTS</varname> environment
+      variable globally.</p>
     <p>You can test that the transformer factory is correctly configured by running the Ant target
       "org.dita-community-i18n-xslt-test":</p>
     <codeblock>ekimber$ ant org.dita-community-i18n-xslt-test 

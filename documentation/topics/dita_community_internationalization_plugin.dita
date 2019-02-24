@@ -3,22 +3,30 @@
 <topic id="dita_community_internationalization_plugin">
   <title>DITA Community Internationalization Plugin</title>
   <body>
-    <p>The DITA Community internationalization plugin, <filepath>org.dita-community.i18n</filepath>,
-      provides a set of features for doing locale-specific sorting, grouping, line breaking, word
-      breaking, and rendered text length estimation.</p>
+    <p>The DITA Community internationalization plug-in,
+      <filepath>org.dita-community.i18n</filepath>, provides a set of features for doing
+      locale-specific sorting, grouping, line breaking, word breaking, and rendered text length
+      estimation.</p>
     <p>It has been designed to support the general tasks of index generation and glossary sorting in
-      DITA documents but can be used in any XSLT or Java program. </p>
+      DITA documents but can be used in any XSLT or Java program.  It also supports doinglayout of
+      text, for example, to do to copy fitting in HTML contexts where you know the size of the
+      target space and you need to accurately determine word boundaries and line break
+      opportunities.</p>
     <p>Word breaking is required to do correct sorting of Simplified Chinese (zh-CN) but is also
       useful for other tasks, such as inserting zero-width spaces to enable appropriate line
       breaking or determining the width of the first word of a string in order to calculate column
       widths or definition list term indents.</p>
     <p>Line breaking is useful for doing line wrapping in content, for example, to estimate the
-      horizontal and vertical rendered extent of  blocks of text in order to then do pagination or
-      allocation of text to fixed-sized regions in XSL-FO or HTML output.</p>
+      horizontal and vertical rendered extent of blocks of text in order to then do pagination or
+      allocation of text to fixed-sized regions in XSL-FO or HTML output.<fn>This functionality is
+        appropriate for relatively small amounts of content—a few paragraphs at most. For larger
+        volumes of content it will be more effective to use FOP or Antenna House to render to an
+        "area tree" document and then use the area tree, which fully represents the formatted
+        result, to generate the final result, such as paginated HTML.</fn></p>
     <p>A key feature of this library is full support for grouping and sorting Simplified Chinese,
-      which is particularly challenging and cannot be correctly sorted using the default Java or ICU
+      which is particularly challenging and cannot be correctly done using the default Java or ICU
       collators. </p>
-    <p>Simplified Chinese requires a dictionary and this plugin provides an open-source
+    <p>Simplified Chinese requires a dictionary and this plug-in provides an open-source
       dictionary-based solution for Simplified Chinese, based on the open-source CC-CEDICT
       dictionary. See <xref keyref="cc-cedict-project"/>.</p>
     <p>It provides the following services:</p>
@@ -36,11 +44,11 @@
           writing-system-specific rules.</p>
       </li>
     </ul>
-    <p>The plugin supports Open Toolkit version 1.8.5 and version 2.x later than about 2.1.1. It
-      works with Saxon 9.1 (as shipped with the Open Toolkit through version 2.4). </p>
-    <p>Support for Saxon 9.6+ is under development as of release 1.0.0. Because Saxon versions after
-      9.1 change the way that extension functions are supported in the free version of Saxon (Saxon
-      HE), the extension function integration for Saxon 9.1 will not work with later versions of
-      Saxon, which require a different mechanism for integrating extension functions.</p>
+    <p>Release 2.0.0 of the plug-in requires Saxon 9.8 and OT 3.3. OT 3.3 includes new features for
+      dynamic registration of Saxon extension functions and collation URI resolvers that the i18n
+      plug-in requires, removing the need for any additional Java configuration.</p>
+    <p>Release 1.0.0 of the plug-in supports Open Toolkit version 1.8.5 and version 2.x later than
+      about 2.1.1 through 2.5.4. It requires Saxon 9.1 (as shipped with the Open Toolkit through
+      version 2.5.4).</p>
   </body>
 </topic>

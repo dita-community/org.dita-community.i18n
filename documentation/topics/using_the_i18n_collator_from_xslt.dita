@@ -17,13 +17,13 @@
         <codeph>dita-ot:get-current-language()</codeph> function to get the language for the current
       context.</p>
     <p>To construct sort keys that take DITA-defined sort-as definitions into account, you can use
-      the XSLT functions defined by the i18n plugin to get primary and secondary sort keys from
+      the XSLT functions defined by the i18n plug-in to get primary and secondary sort keys from
       topics or other DITA elements and then use those sort keys in the
         <xmlelement>xsl:sort</xmlelement> element's <xmlatt>use</xmlatt> attribute. To use these
       functions declare the namespace "<codeph>http://org.dita-community/i18n</codeph>" in your XSLT
-      module and import the <filepath>xsl/i18n-lib.xsl</filepath> module from the i18n plugin into
+      module and import the <filepath>xsl/i18n-lib.xsl</filepath> module from the i18n plug-in into
       your XSLT module.</p>
-    <p>The file <filepath>test/xsl/test-collator.xsl</filepath> in the i18n plugin demonstrates how
+    <p>The file <filepath>test/xsl/test-collator.xsl</filepath> in the i18n plug-in demonstrates how
       to use the collator and the i18n utility functions. If there's a function you need that isn't
       provided please submit an issue on GitHub against the org.dita-community.i18n project or
       implement the function and submit a pull request—if you need the function it's likely that

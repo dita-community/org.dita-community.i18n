@@ -3,17 +3,27 @@
 <topic id="installation">
   <title>Installation</title>
   <body>
-    <p>Installation requires installing the plugin as you would any other Open Toolkit plugin. As
-      long as the Open Toolkit's Java classpath is configured so that the i18n jar comes before the
-      Saxon jar, everything should work correctly.</p>
-    <p>However, depending on how the Open Toolkit is run, you may need to configure the Java JAXP
-      transformer factory Java system property so that the Open Toolkit will use an instance of
-      Saxon configured with the custom collator and Java extensions.</p>
-    <p>The project also provides a pair of Docker container configurations that include the i18n
-      plugin and transformer factory configuration, making it easy to run the Open Toolkit with the
-      correct configuration. You can use the dita-ot-i18n container directly if you don't need any
-      additional plugins or you can use the dita-ot-i18n-base Dockerfile as the basis for your own
-      Docker file that includes additional plugins or other configuration. See <xref
-        keyref="dita-ot-docker"/> for details.</p>
+    <section id="section_kzm_cf1_xgb" platform="OT3.3">
+      <title>Open Toolkit 3.3, Plugin 2.0.0</title>
+      <p>Installation requires installing the plug-in as you would any other Open Toolkit plug-in.
+        You can install the plug-in from the Open Toolkit plug-in
+        repository:<codeblock>c:\dita-ot > bin\dita --install org.dita-community.i18n --force</codeblock></p>
+      <p>No additional Java classpath or Java system property configuration is required.</p>
+    </section>
+    <section id="section_ctt_3f1_xgb" platform="OT2.5.4 OT1.8.5">
+      <title>Open Toolkit 1.8.5 through 2.5.4</title>
+      <p>Installation requires installing the plug-in as you would any other Open Toolkit plug-in.
+        As long as the Open Toolkit's Java classpath is configured so that the i18n jar comes before
+        the Saxon jar, everything should work correctly.</p>
+      <p>However, depending on how the Open Toolkit is run, you may need to configure the Java JAXP
+        transformer factory Java system property so that the Open Toolkit will use an instance of
+        Saxon configured with the custom collator and Java extensions.</p>
+      <p>The project also provides a pair of Docker container configurations that include the i18n
+        plug-in and transformer factory configuration, making it easy to run the Open Toolkit with
+        the correct configuration. You can use the dita-ot-i18n container directly if you don't need
+        any additional plug-ins or you can use the dita-ot-i18n-base Dockerfile as the basis for
+        your own Docker file that includes additional plug-ins or other configuration. See <xref
+          keyref="dita-ot-docker"/> for details.</p>
+    </section>
   </body>
 </topic>
