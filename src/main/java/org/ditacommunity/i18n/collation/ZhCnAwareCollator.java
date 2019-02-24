@@ -143,7 +143,7 @@ public class ZhCnAwareCollator extends Collator
 
     @Override
     public int compareStrings(CharSequence charSequence, CharSequence charSequence1) {
-        throw new UnsupportedOperationException();
+        return zhCnCompare(charSequence.toString(), charSequence.toString());
     }
 
     @Override

@@ -1,45 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="org.dita-community.i18n">
 
-  <path id="dci18n.classpath">
-    <pathelement path="${basedir}/plugins/org.dita-community.i18n/lib/dita-community-i18n-saxon91.jar"/>
-    <pathelement path="${basedir}/plugins/org.dita-community.i18n/lib/commons-io-2.5.jar"/>
-    <path refid="dost.class.path"/>
-    <pathelement path="${basedir}/lib/icu4j-57.1.jar"/>
-    <pathelement path="${basedir}/lib/icu4j.jar"/>
-    <pathelement path="${basedir}/lib/saxon/saxon9.jar"/>
-    <pathelement path="${basedir}/lib/saxon/saxon9-dom.jar"/>
-    <pathelement path="${basedir}/lib/saxon.jar"/>
-    <pathelement path="${basedir}/lib/saxon-dom.jar"/>
-    <pathelement path="${basedir}/lib/saxon-9.1.0.8.jar"/>
-    <pathelement path="${basedir}/lib/saxon-9.1.0.8-dom.jar"/>
-  </path>
   
-  <target name="dita2dci18n-test" description="Fake transtype for testing the i18n plugin">
-    <antcall target="org.dita-community.i18n-jar-test"/>
-    <antcall target="org.dita-community.i18n-xslt-test"/>
+  <target name="dita2dci18n-test" description="Fake transtype for testing the i18n plugin"
+    depends="
+    build-init, 
+    org.dita-community.i18n-saxon-extension-test,
+  	org.dita-community.i18n-jar-test,
+  	org.dita-community.i18n-xslt-test
+    "
+    >
   </target>
   
   <target name="org.dita-community.i18n-jar-test" description="Test the DITA Community i18n library jar">
     <echo>org.dita-community.i18n jar test for zh-CN:</echo>
     <java 
       classname="org.ditacommunity.i18n.collation.CollationAnalyzer"
-      classpathref="dci18n.classpath"
+      
       >
       <arg value="${basedir}/plugins/org.dita-community.i18n/test/resources/word-lists/hsk-1-examples.txt"/>
     </java>
   </target>
+	
+  <target name="org.dita-community.i18n-saxon-extension-test">
+    <echo>org.dita-community.i18n XSLT extension function test...</echo>
+    <pipeline message="Test the DITA Community i18n Saxon extension functions" taskname="i18n-extension-function-test">
+      <xslt 
+        in="${dita.plugin.org.dita-community.i18n.dir}/test/xsl/data/test-data.xml"
+        style="${dita.plugin.org.dita-community.i18n.dir}/test/xsl/test-extension-functions.xsl"
+        out="${basedir}/out/extension-function-test-results.xml"
+        >
+        
+      </xslt>
+    </pipeline>
+  	<echo>org.dita-community.i18n XSLT extension function test complete.</echo>
+  </target>
   
-  <target name="org.dita-community.i18n-xslt-test" description="Test the DITA Community i18n Saxon custom collator">
+  <target name="org.dita-community.i18n-xslt-test" description="Test the DITA Community i18n Saxon custom collator">    
+
+  	<delete file="${basedir}/out/zh-cn-xslt-test.html"/>
     <echo>org.dita-community.i18n XSLT collator test</echo>
-    <delete file="${basedir}/out/zh-cn-xslt-test.html"/>
-    <xslt
-      classpathref="dci18n.classpath"
-      in="${dita.plugin.org.dita-community.i18n.dir}/test/resources/source-data/test-zh-cn.xml"
-      style="${dita.plugin.org.dita-community.i18n.dir}/test/xsl/test-collator.xsl"
-      out="${basedir}/out/zh-cn-xslt-test.html"
-      >
-     
-    </xslt>
+    <pipeline message="Test the DITA Community i18n Saxon custom collator" taskname="i18n-custom-collator-test">
+      <xslt 
+        in="${dita.plugin.org.dita-community.i18n.dir}/test/resources/source-data/test-zh-cn.xml"
+        style="${dita.plugin.org.dita-community.i18n.dir}/test/xsl/test-collator.xsl"
+        out="${basedir}/out/zh-cn-xslt-test.html"
+        >
+        
+      </xslt>
+    </pipeline>
   </target>
 </project>

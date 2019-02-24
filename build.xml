@@ -137,6 +137,7 @@
   <path id="org.dita-community.i18n.module.production.classpath">
     <path refid="${module.jdk.classpath.org.dita-community.i18n}"/>
     <path refid="library.lib.classpath"/>
+  	<pathelement location="${dita-ot-dir}/lib/dost.jar"/>
   </path>
   
   <path id="org.dita-community.i18n.runtime.production.module.classpath">
@@ -244,6 +245,11 @@
         <provider classname="org.ditacommunity.i18n.saxon.functions.TextAnalysisSplitLines"/>
         <provider classname="org.ditacommunity.i18n.saxon.functions.TextMetricsGetRenderedLength"/>
       </service>      
+      <service 
+          type="org.dita.dost.module.saxon.DelegatingCollationUriResolver"        
+        >
+          <provider classname="org.ditacommunity.i18n.saxon.DCI18nCollationUriResolver"/>
+	  </service>
       <fileset dir="${basedir}/target/classes/production/org.dita-community.i18n" >
         <include name="**.*" />
         <include name="**/**.*" />
@@ -282,6 +288,12 @@
         <include name="**/*"/>
       </fileset>
     </copy>  
+    <exec dir="${dita-ot-dir}/bin" executable="/bin/bash">
+      <arg value="dita"/>
+      <arg value="--install"/>
+      <arg value="--force"/>
+      <!--<arg value="-v"/>-->
+    </exec>
   </target>
   
   <target name="check-doc-source-changed">
