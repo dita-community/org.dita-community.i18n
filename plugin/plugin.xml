@@ -1,22 +1,16 @@
-<plugin id="org.dita-community.i18n">
+<plugin id="org.dita-community.i18n" version="2.0.1">
   <!-- This plugin provides general internationalization
-       facilities for locale-specific grouping, sorting, and
-       word breaking.
+       facilities for locale-specific grouping, sorting, word breaking,
+       and line breaking as well as formatted text length estimation.
       -->
 
   <feature extension="package.support.name" value="Eliot Kimber"/>
   <feature extension="package.support.email" value="ekimber@contrext.com"/>
-
-  <!-- Extend OT class path. -->
-  
-  <!-- NOTE: XSLT is used by reference from other plugins. This plugin does
-             not itself extend any other plugins.
-    -->
   
   <feature extension="dita.conductor.lib.import" file="lib/dita-community-i18n-saxon.jar"/>
   <feature extension="dita.conductor.target.relative" value="build.xml" type="file"/>
   
-  <feature extension="dita.conductor.transtype.check" value="dci18n-test" type="txt"/>
+  <feature extension="dita.conductor.transtype.check" value="dci18n-test" type="text"/>
   
       
 </plugin>
