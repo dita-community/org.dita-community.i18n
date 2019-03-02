@@ -273,6 +273,12 @@
         <include name="lib/*.jar"/>
       </fileset>
     </copy>
+    <replace encoding="utf-8"
+      file="${package.dir}/plugins/org.dita-community.i18n/plugin.xml" 
+      token="^version^" 
+      value="${version}"
+    />    
+    
   </target>
   
   <target name="dist" depends="package">
