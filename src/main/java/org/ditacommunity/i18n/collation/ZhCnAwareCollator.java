@@ -8,6 +8,7 @@ import java.util.Locale;
 import com.ibm.icu.text.RuleBasedCollator;
 
 import net.sf.saxon.expr.sort.AtomicMatchKey;
+import net.sf.saxon.expr.sort.CodepointCollator;
 import net.sf.saxon.lib.StringCollator;
 
 /**
@@ -23,12 +24,11 @@ public class ZhCnAwareCollator extends Collator
     private HashMap<String, ZhCnAwareCollationKey> colKeyCache = new HashMap<String, ZhCnAwareCollationKey>();
     private ZhCnDictionary zhCnDictionary;
     private String collationURI;
+    private CodepointCollator defaultCollator;
 
     public ZhCnAwareCollator(String collationURI)  {
-        this.collationURI = collationURI;
-        this.locale = Locale.getDefault();
-        this.isZhCn = Locale.SIMPLIFIED_CHINESE == locale;
-        this.delegate = RuleBasedCollator.getInstance(locale);
+      this(Locale.getDefault());
+      this.collationURI = collationURI;
     }
 
 
@@ -36,6 +36,7 @@ public class ZhCnAwareCollator extends Collator
         this.delegate = RuleBasedCollator.getInstance(locale);
         this.locale = locale;
         this.isZhCn = Locale.SIMPLIFIED_CHINESE == locale;
+        this.defaultCollator = new CodepointCollator();
     }
 
     @Override
@@ -155,7 +156,12 @@ public class ZhCnAwareCollator extends Collator
 
     @Override
     public AtomicMatchKey getCollationKey(CharSequence charSequence) {
-        throw new UnsupportedOperationException();
+      // FIXME: This is obviously not locale aware. This is a quick hack
+      // just to get collation working at all with Saxon 9.8.
+      if (defaultCollator == null) {
+        defaultCollator = new CodepointCollator();
+      }
+      return defaultCollator.getCollationKey(charSequence);
     }
 
 
