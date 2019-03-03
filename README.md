@@ -74,6 +74,10 @@ word boundaries.
 
 ## Status
 
+02 Mar 2019 Version 2.0.1
+
+Corrected plugin.xml file, automated putting version in plugin.xml file.
+
 24 Feb 2019 Version 2.0.0
 
 * Updated to work with Saxon 9.8 and OT 3.3. Saxon configuration is now 100% automatic for OT 3.3. 
