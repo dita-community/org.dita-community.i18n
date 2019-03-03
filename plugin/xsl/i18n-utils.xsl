@@ -399,12 +399,21 @@
     @return Sequence of words. Will contain at least one word unless the input 
     text is empty or only consists of non-letter text.
     -->
-  <xsl:function name="dci18n:splitWords" as="xs:string*">
+  <xsl:function name="dci18n:splitWords" as="xs:string*" >
     <xsl:param name="text" as="xs:string"/>
     <xsl:param name="lang" as="xs:string"/><!-- Language code -->
     <xsl:param name="debug" as="xs:boolean"/>
     
-    <xsl:variable name="result" as="xs:string*" select="dci18nfunc:splitWords($text, $lang, $debug)"/>
+    <xsl:variable name="result" as="xs:string*">
+      <xsl:choose>
+        <xsl:when test="function-available('dci18nfunc:splitWords')" use-when="function-available('dci18nfunc:splitWords')">
+          <xsl:sequence select="dci18nfunc:splitWords($text, $lang, $debug)"/>
+        </xsl:when>
+        <xsl:when test="true()">
+          <xsl:sequence select="tokenize($text, '\s+')"/>
+        </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:sequence select="$result"/>
   </xsl:function>
   
@@ -422,7 +431,17 @@
     <xsl:param name="lang" as="xs:string"/><!-- Language code -->
     <xsl:param name="debug" as="xs:boolean"/>
     
-    <xsl:variable name="result" as="xs:integer*" select="dci18nfunc:splitLines($text, $lang, $debug)"/>
+    <xsl:variable name="result" as="xs:integer*" >
+      <xsl:choose>
+        <xsl:when test="function-available('dci18nfunc:splitLines')" use-when="function-available('dci18nfunc:splitLines')">
+          <xsl:sequence select="dci18nfunc:splitLines($text, $lang, $debug)"/>
+        </xsl:when>
+        <xsl:when test="true()">
+          <xsl:message>+ [WARN] dci18n:splitLine(): Java extension function dci18nfunc:splitLines() is not available, returning first break point.</xsl:message>
+          <xsl:sequence select="string-length(tokenize($text, '\s+')[1])"/>
+        </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:sequence select="$result"/>
   </xsl:function>
   
@@ -435,9 +454,17 @@
     <xsl:param name="lang" as="xs:string"/>
     <xsl:param name="debug" as="xs:boolean"/>
     
-    <xsl:variable name="breakPos" as="xs:integer"
-      select="dci18nfunc:splitLines($text, $lang, $debug)[1]"
-    />
+    <xsl:variable name="breakPos" as="xs:integer">
+      <xsl:choose>
+        <xsl:when test="function-available('dci18nfunc:splitLines')" use-when="function-available('dci18nfunc:splitLines')">
+          <xsl:sequence select="dci18nfunc:splitLines($text, $lang, $debug)[1]"/>
+        </xsl:when>
+        <xsl:when test="true()">
+          <xsl:message>+ [WARN] dci18n:nextLineBreakPosition(): Java extension function dci18nfunc:splitLines() is not available, returning first break point.</xsl:message>
+          <xsl:sequence select="string-length(tokenize($text, '\s+')[1])"/>          
+        </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
     
     <xsl:variable name="result" as="xs:integer"
       select="if ($breakPos = -1) then string-length($text) else $breakPos"
@@ -491,9 +518,19 @@
     <xsl:param name="fontSize" as="xs:integer"/>
     <xsl:param name="fontStyle" as="xs:string"/>
     <xsl:param name="debug" as="xs:boolean"/>
-    <xsl:variable name="result" as="xs:integer"
-      select="dci18nfunc:getRenderedLength($text, $fontName, $fontSize, $fontStyle, $debug)"
-    />
+    <xsl:variable name="result" as="xs:integer"      
+    >
+     <xsl:choose>
+       <xsl:when test="function-available('dci18nfunc:getRenderedLength')" use-when="function-available('dci18nfunc:getRenderedLength')">
+         <xsl:sequence select="dci18nfunc:getRenderedLength($text, $fontName, $fontSize, $fontStyle, $debug)"/>
+       </xsl:when>
+       <xsl:when test="true()">
+         <xsl:message>+ [WARN] dci18n:getRenderedTextLength(): Java extension function dci18nfunc:getRenderedLength() is not available, returning very rough estimate.</xsl:message>
+         <!-- Treat fontSize as EM width in pixels -->
+         <xsl:sequence select="string-length($text) * $fontSize"/>
+       </xsl:when>
+     </xsl:choose>
+    </xsl:variable>
     <xsl:sequence select="$result"/>
   </xsl:function>
   
