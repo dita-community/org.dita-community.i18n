@@ -72,7 +72,44 @@ features to enable doing locale-specific line and word breaking, including in
 CJK languages that do not use spaces or that require a dictionary to determine
 word boundaries.
 
+## Installation and Removal
+
+You can use the OT 3.x `--install` command to install this plugin from the DITA OT plugin registry ([https://www.dita-ot.org/plugins]):
+
+```
+bin/dita --install org.dita-community.i18n
+```
+
+Likewise, you can uninstall the plugin using the `--uninstall` command:
+
+```
+bin/dita --uninstall org.dita-community.i18n
+```
+
+However, there's an issue with the OT as of 3.3.1 where the uninstall fails with an error like this:
+
+```
+Error: The following error occurred while executing this line:
+/Users/ekimber/dita-ot/dita-ot-3.3-dc/integrator.xml:45: javax.xml.transform.TransformerFactoryConfigurationError: Provider for class javax.xml.transform.TransformerFactory cannot be created
+```
+
+This is a side effect of the fact that the plugin provides a custom Saxon transformer that Saxon tries to find after the jar file with it has already been removed by the uninstall process. This is a pretty serious edge case for the uninstaller and is unlikely to be fixed.
+
+The workaround is simply to run the `--install` command with no arguments a second time:
+
+```
+bin/dita --install
+Removed org.dita-community.i18n 
+```
+
+Which will remove the plugin completely.
+
+
 ## Status
+
+29 May 2019
+
+Added installation and removal instructions
 
 02 Mar 2019 Version 2.0.1
 
