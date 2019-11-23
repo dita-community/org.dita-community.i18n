@@ -104,8 +104,44 @@ Removed org.dita-community.i18n
 
 Which will remove the plugin completely.
 
+## Building
+
+This project uses Maven and also the Maven Artifact Resolver Ant Tasks to make it possible to use
+Maven-managed dependencies from Ant.
+
+### Resolving Maven dependencies
+
+To enable the Maven Artifact Resolver Ant Tasks you need to download and build the jar yourself and put it in the project's lib/ dir:
+
+1. Download the Maven Ant Targets project source: https://maven.apache.org/resolver-ant-tasks/download.cgi
+1. Unzip the source package and from the project's directory run "ant install" to build the libraries
+1. Copy the `maven-resolver-ant-tasks-*-uber.jar` to this project's lib/ directory.
+1. From ant, run the target "mvn-resolve" to resolve the Maven dependencies.
+
+Note that this creates a local maven repository within the project, separate from any other maven cache you might have.
+
+## Creating the plugin package
+
+You can use `mvn install` to create the plugin's Jar and run the automated tests.
+
+However, to create the working OT plugin, use the Ant target "package"
+
+Use the Ant target "deploy" to deploy the plugin to a local Open Toolkit. 
+
+The Ant property `dita-ot-dir` defines the location of the OT to deploy to. You can set it in a `.build.properties` or `build.properties` file in your home directory or in the project's directory, i.e.:
+
+`~/.build.properties:`
+```
+dita-ot-dir=/Users/ekimber/dita-ot/dita-ot-3.4-dc
+```
 
 ## Status
+
+23 Nov 2019
+
+Upgraded to a Maven project
+
+Tested with Saxon 9.9 and OT 3.4
 
 29 May 2019
 

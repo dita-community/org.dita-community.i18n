@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="org.dita-community.i18n" default="all">
+<project name="org.dita-community.i18n" default="all"
+	xmlns:resolver="antlib:org.apache.maven.resolver.ant"
+	>
   
   <property file=".build.properties" />
   <property file="build.properties"/>
@@ -18,6 +20,8 @@
   <property name="package.dir" value="${basedir}/dist"/>
   <property name="docs.dirname" value="documentation"/>
   <property name="docs.dir" value="${basedir}/${docs.dirname}"/>
+	
+  <property name="jar.base.name" value="dita-community-i18n-saxon"/>
   
   <!-- Compiler options -->
   
@@ -108,9 +112,20 @@
   <!-- Project Libraries -->
   
   <path id="library.lib.classpath">
-    <fileset dir="${basedir}/lib">
-      <patternset refid="library.patterns"/>
+    <fileset dir="${basedir}/local-repo">
+    	<include name="**/*.lib"/>
+    	<exclude name="**/saxon/Saxon-HE*"/>
     </fileset>
+  	<!-- For some reason I'm getting multiple versions of
+  	     Saxon even though the project POM only refers
+  	     to one version, so making sure we are using the
+  	     exact right version. This version needs to match
+  	     the version used by the DITA OT.
+  	  -->
+	<fileset dir="${basedir}/local-repo">
+    	<include name="**/Saxon-HE-9.9.1-5/*.jar"/>
+	</fileset>
+
   </path>
   
   <!-- Modules -->
@@ -136,8 +151,21 @@
   
   <path id="org.dita-community.i18n.module.production.classpath">
     <path refid="${module.jdk.classpath.org.dita-community.i18n}"/>
-    <path refid="library.lib.classpath"/>
-  	<pathelement location="${dita-ot-dir}/lib/dost.jar"/>
+<!--     <path refid="library.lib.classpath"/> -->
+    <fileset dir="${basedir}/local-repo">
+    	<include name="**/*.lib"/>
+    	<exclude name="**/saxon/Saxon-HE*"/>
+    </fileset>
+  	<!-- For some reason I'm getting multiple versions of
+  	     Saxon even though the project POM only refers
+  	     to one version, so making sure we are using the
+  	     exact right version. This version needs to match
+  	     the version used by the DITA OT.
+  	  -->
+	<fileset dir="${basedir}/local-repo">
+    	<include name="**/Saxon-HE-9.9.1-5/*.jar"/>
+	</fileset>
+
   </path>
   
   <path id="org.dita-community.i18n.runtime.production.module.classpath">
@@ -172,6 +200,39 @@
     </dirset>
   </path>
   
+	<!-- Maven Ant tasks stuff -->
+	<taskdef uri="antlib:org.apache.maven.resolver.ant" resource="org/apache/maven/resolver/ant/antlib.xml">
+		<classpath>
+		  <fileset dir="lib" includes="maven-resolver-ant-tasks-*.jar"/>
+		</classpath>
+	</taskdef>
+	
+	  <resolver:localrepo dir="${basedir}/local-repo"/>
+
+	  <resolver:remoterepo id="ossrh" url="http://oss.sonatype.org/content/groups/staging" 
+	  	type="default"
+	    releases="true" 
+	  	snapshots="true" 
+	  	updates="daily" 
+	  	checksums="fail"
+	  />
+
+	  <resolver:remoterepos id="resolver.repositories">
+	    <resolver:remoterepo refid="central"/>
+	    <resolver:remoterepo refid="ossrh"/>
+	  </resolver:remoterepos>
+
+	  <resolver:pom file="pom.xml" id="pom"/>	
+	<!-- End of Maven Ant Tasks -->
+	 
+  <target name="mvn-resolve" depends="init" description="Resolve maven dependencies">
+  	 <resolver:resolve>
+  	      <dependencies>
+  	        <pom refid="pom"/>
+  	      </dependencies>
+  	      <path refid="cp.compile.main" classpath="compile"/>
+  	</resolver:resolve>
+  </target>
   
   <target name="compile.module.org.dita-community.i18n" 
   	depends="compile.module.org.dita-community.i18n.production, compile.module.org.dita-community.i18n.tests" 
@@ -223,7 +284,10 @@
   </target>
   
   <target name="build.modules" depends="init, clean, compile.module.org.dita-community.i18n" description="build all modules"/>
-
+ 
+  <!-- NOTE: The "jar" target is maintained for historical documentation
+             but the jar should be built using "mvn install"
+    -->
   <target name="jar" depends="build.modules">
     <delete failonerror="false" dir="${basedir}/target/lib">
       <include name="*.jar"/>
@@ -261,18 +325,62 @@
   </target>	
   
   <target name="all" depends="build.modules" description="build all"/>
+	
+  <!-- set the operating system test properties -->
+  <condition property="isMac" value="true">
+    <os family="mac" />
+  </condition>
   
-  <target name="package" depends="jar"
+  <condition property="isWindows" value="true">
+    <os family="windows" />
+  </condition>
+  
+  <condition property="isUnix" value="true">
+    <os family="unix" />
+  </condition>  
+  
+  <target name="set-maven-command-windows" if="isWindows">
+    <property name="maven-command" value="mvn.cmd"/>
+  </target> 
+  
+  <target name="set-maven-command-unix" if="isUnix">
+    <property name="maven-command" value="mvn"/>
+  </target> 
+
+  <target name="set-maven-command-mac" if="isMac">
+    <property name="maven-command" value="mvn"/>
+  </target> 
+
+  <target name="set-maven-command" 
+	depends="set-maven-command-windows, set-maven-command-unix, set-maven-command-mac"
+  />
+	
+  <target name="mvn-install" depends="set-maven-command">
+  	<exec dir="${basedir}" executable="${maven-command}" failifexecutionfails="true">
+      <arg line="clean install"/>
+    </exec>
+  </target>
+  
+  <target name="package" depends="mvn-install"
     description="Package the OT plugin for distribution"
     >
     <copy todir="${package.dir}/plugins/org.dita-community.i18n">
       <fileset dir="${plugin.dir}">
         <include name="**/*"/>
       </fileset>
-      <fileset dir="${basedir}/target">
-        <include name="lib/*.jar"/>
-      </fileset>
     </copy>
+  	<!-- It should be possible to do this copy using a mapper 
+  	     but I couldn't figure it out so I did this brute force
+  	     approach.
+  	     
+  	     NOTE: The target name has to match the value in the 
+  	     the plugin.xml file. Would be best to set that
+  	     dynamically using these properties.
+  	  -->
+  	<copy 
+  		file="${basedir}/target/${jar.base.name}-${version}.jar"
+  	   tofile="${package.dir}/plugins/org.dita-community.i18n/lib/${jar.base.name}.jar"
+  	/>
     <replace encoding="utf-8"
       file="${package.dir}/plugins/org.dita-community.i18n/plugin.xml" 
       token="^version^" 
@@ -395,7 +503,7 @@
     </exec>
   </target>
   
-  <target name="test-saxon-extension-functions" depends="jar"
+  <target name="test-saxon-extension-functions" depends="init"
   	description="Test the saxon extension functions by running Saxon directly"
   	>
   	<property name="test.result.file" location="${basedir}/temp/test-result.xml"/>
