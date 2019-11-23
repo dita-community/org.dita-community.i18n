@@ -1,0 +1,3 @@
+org.ditacommunity.i18n.saxon.functions.TextAnalysisSplitWords
+org.ditacommunity.i18n.saxon.functions.TextAnalysisSplitLines
+org.ditacommunity.i18n.saxon.functions.TextMetricsGetRenderedLength
