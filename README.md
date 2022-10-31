@@ -1,9 +1,9 @@
 # org.dita-community.i18n
 
-Internationalization Services for the DITA Open Toolkit
+Internationalization Services for DITA Open Toolkit
 
 This package provides a set of general-purpose internationalization 
-services for use with the DITA Open Toolkit XSLT and, if necessary,
+services for use with DITA Open Toolkit XSLT and, if necessary,
 Java processing.
 
 It provides the following services:
@@ -15,9 +15,9 @@ dictionary-based Simplified Chinese grouping and sorting.
 in languages like Thai and Chinese that require a dictionary or writing-system-specific
 rules.
 
-The code is packaged as a DITA Open Toolkit plugin but the features may be used 
-with any XSLT transform or in any Java program. The Open Toolkit plugin uses the
-OT's plugin features to manage the Java class path and other integration details.
+The code is packaged as a DITA Open Toolkit plug-in but the features may be used 
+with any XSLT transform or in any Java program. The Open Toolkit plug-in uses the
+OT's plug-in features to manage the Java class path and other integration details.
 
 ## Simplified Chinese support
 
@@ -35,7 +35,7 @@ http://www.mdbg.net/chindict/chindict.php?page=cedict
 
 See that page for licensing details, but per that Web site, the data may used for
 commercial and non-commercial purposes as long as attribution is provided, making
-the license compatible with the Open Toolkit's Apache 2 license.
+the license compatible with Open Toolkit's Apache 2 license.
 
 ## Custom Collator Feature
 
@@ -93,7 +93,7 @@ Error: The following error occurred while executing this line:
 /Users/ekimber/dita-ot/dita-ot-3.3-dc/integrator.xml:45: javax.xml.transform.TransformerFactoryConfigurationError: Provider for class javax.xml.transform.TransformerFactory cannot be created
 ```
 
-This is a side effect of the fact that the plugin provides a custom Saxon transformer that Saxon tries to find after the jar file with it has already been removed by the uninstall process. This is a pretty serious edge case for the uninstaller and is unlikely to be fixed.
+This is a side effect of the fact that the plugin provides a custom Saxon transformer that Saxon tries to find after the jar file with it has already been removed by the uninstall process. This is an edge case for the uninstaller and is unlikely to be fixed.
 
 The workaround is simply to run the `--install` command with no arguments a second time:
 
